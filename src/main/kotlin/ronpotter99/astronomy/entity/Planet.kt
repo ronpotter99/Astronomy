@@ -8,6 +8,15 @@ import java.math.BigInteger
 @Table(name = "planet")
 class Planet {
 
+    enum class ClassificationType {
+        TERRESTRIAL,
+        SUPER_EARTH,
+        NEPTUNE_LIKE,
+        GAS_GIANT,
+        DWARF,
+        UNKNOWN
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +29,11 @@ class Planet {
 
     @Column(name = "common_name")
     var commonName: String = ""
+
+
+    @Column(name = "classification_type")
+    @Enumerated(EnumType.STRING)
+    var classificationType: ClassificationType? = null
 
     @Column(name = "mass")
     var mass: BigInteger? = null

@@ -20,9 +20,10 @@ CREATE TABLE "star_designation"
 DROP TABLE IF EXISTS "planet";
 CREATE TABLE "planet"
 (
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-    star_id     BIGINT NOT NULL REFERENCES "star"(id),
-    common_name VARCHAR(255),
-    mass        VARCHAR(255),
-    radius      VARCHAR(255)
+    id                      BIGINT AUTO_INCREMENT PRIMARY KEY,
+    star_id                 BIGINT NOT NULL REFERENCES "star"(id),
+    common_name             VARCHAR(255),
+    classification_type     VARCHAR(32),
+    mass                    VARCHAR(255),
+    radius                  VARCHAR(255)
 )

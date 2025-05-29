@@ -8,17 +8,17 @@ INSERT INTO "star_designation"
 (1, 0, 'Sun', 'English name');
 
 INSERT INTO "planet"
-(id, star_id, common_name, mass, radius) VALUES
-(0, 0, 'Mercury', null, null),
-(1, 0, 'Venus', null, null),
-(2, 0, 'Earth', '5.974e24', '6.378e6'),
-(3, 0, 'Mars', null, null),
-(4, 0, 'Ceres', null, null),
-(5, 0, 'Jupiter', null, null),
-(6, 0, 'Saturn', null, null),
-(7, 0, 'Uranus', null, null),
-(8, 0, 'Neptune', null, null),
-(9, 0, 'Pluto', null, null),
-(10, 0, 'Haumea', null, null),
-(11, 0, 'Makemake', null, null),
-(12, 0, 'Eris', null, null);
+(id, star_id, common_name, classification_type, mass, radius) VALUES
+(0, 0, 'Mercury', 'TERRESTRIAL', null, null),
+(1, 0, 'Venus', 'TERRESTRIAL', null, null),
+(2, 0, 'Earth', 'TERRESTRIAL', '5.974e24', '6.378e6'),
+(3, 0, 'Mars', 'TERRESTRIAL', null, null),
+(4, 0, 'Ceres', 'DWARF', null, null),
+(5, 0, 'Jupiter', 'GAS_GIANT', null, null),
+(6, 0, 'Saturn', 'GAS_GIANT', null, null),
+(7, 0, 'Uranus', 'NEPTUNE_LIKE', null, null),
+(8, 0, 'Neptune', 'NEPTUNE_LIKE', null, null),
+(9, 0, 'Pluto', 'DWARF', null, null),
+(10, 0, 'Haumea', 'DWARF', null, null),
+(11, 0, 'Makemake', 'DWARF', null, null),
+(12, 0, 'Eris', 'DWARF', null, null);

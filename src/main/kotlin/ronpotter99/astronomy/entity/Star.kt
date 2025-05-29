@@ -28,6 +28,4 @@ class Star {
 
     @Column(name = "effective_temperature")
     var effectiveTemperature: Long? = null
-
-
 }

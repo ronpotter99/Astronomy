@@ -16,3 +16,13 @@ CREATE TABLE "star_designation"
     designation     VARCHAR(255) NOT NULL,
     source          VARCHAR(255) NOT NULL
 );
+
+DROP TABLE IF EXISTS "planet";
+CREATE TABLE "planet"
+(
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    star_id     BIGINT NOT NULL REFERENCES "star"(id),
+    common_name VARCHAR(255),
+    mass        VARCHAR(255),
+    radius      VARCHAR(255)
+)

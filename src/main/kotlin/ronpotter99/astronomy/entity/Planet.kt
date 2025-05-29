@@ -1,0 +1,29 @@
+package ronpotter99.astronomy.entity
+
+import jakarta.persistence.*
+import com.fasterxml.jackson.annotation.JsonBackReference
+import java.math.BigInteger
+
+@Entity
+@Table(name = "planet")
+class Planet {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "star_id")
+    var star: Star? = null
+
+    @Column(name = "common_name")
+    var commonName: String = ""
+
+    @Column(name = "mass")
+    var mass: BigInteger? = null
+
+    @Column(name = "radius")
+    var radius: BigInteger? = null
+}

@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS "star";
+CREATE TABLE "star"
+(
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    full_name  VARCHAR(255) NOT NULL,
+    mass       BIGINT NOT NULL
+);

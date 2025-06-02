@@ -2,7 +2,7 @@ package ronpotter99.astronomy.entity
 
 import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonBackReference
-import java.math.BigInteger
+import ronpotter99.astronomy.DTO.UBigInteger
 
 @Entity
 @Table(name = "planet")
@@ -30,14 +30,13 @@ class Planet {
     @Column(name = "common_name")
     var commonName: String = ""
 
-
     @Column(name = "classification_type")
     @Enumerated(EnumType.STRING)
     var classificationType: ClassificationType? = null
 
     @Column(name = "mass")
-    var mass: BigInteger? = null
+    var mass: UBigInteger? = null
 
     @Column(name = "radius")
-    var radius: BigInteger? = null
+    var radius: UBigInteger? = null
 }

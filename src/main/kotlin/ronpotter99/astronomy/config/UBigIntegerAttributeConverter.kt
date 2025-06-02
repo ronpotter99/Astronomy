@@ -16,12 +16,7 @@ open class UBigIntegerAttributeConverter(
         }
 
         try {
-            println()
-            println("-----> DB")
-            println("convertToDatabaseColumn($uBigInteger)")
-            val uBigIntegerString = objectMapper.writeValueAsString(uBigInteger)
-            println("uBigIntegerString: $uBigIntegerString")
-            return uBigIntegerString
+            return objectMapper.writeValueAsString(uBigInteger)
         } catch (ex: Exception) {
             println("error in convertToDatabaseColumn($uBigInteger)")
             println(ex)
@@ -35,12 +30,7 @@ open class UBigIntegerAttributeConverter(
         }
 
         try {
-            println()
-            println("App <-----")
-            println("convertToEntityAttribute($dbData)")
-            val dbObject = objectMapper.readValue(dbData, UBigInteger::class.java)
-            println("dbObject: $dbObject")
-            return dbObject
+            return objectMapper.readValue(dbData, UBigInteger::class.java)
         } catch (ex: Exception) {
             println("error in convertToEntityAttribute($dbData)")
             println(ex)

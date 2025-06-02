@@ -5,7 +5,7 @@ CREATE TABLE "star"
     mass                    VARCHAR(255) NOT NULL,
     radius                  VARCHAR(255) NOT NULL,
     luminosity              VARCHAR(255) NOT NULL,
-    effective_temperature   BIGINT NOT NULL
+    effective_temperature   VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS "star_designation";
@@ -25,5 +25,12 @@ CREATE TABLE "planet"
     common_name             VARCHAR(255),
     classification_type     VARCHAR(32),
     mass                    VARCHAR(255),
-    radius                  VARCHAR(255)
+    radius                  VARCHAR(255),
+    density                 VARCHAR(255),
+    orbit_semimajor_axis    VARCHAR(255),
+    orbit_eccentricity      VARCHAR(255),
+    orbit_period            VARCHAR(255),
+    orbit_inclination       VARCHAR(255),
+    rotational_period       VARCHAR(255),
+    surface_temperature     VARCHAR(255)
 )

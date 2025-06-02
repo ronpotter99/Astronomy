@@ -3,6 +3,7 @@ package ronpotter99.astronomy.entity
 import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonBackReference
 import ronpotter99.astronomy.DTO.UBigInteger
+import ronpotter99.astronomy.DTO.UBigDecimal
 
 @Entity
 @Table(name = "planet")
@@ -39,4 +40,25 @@ class Planet {
 
     @Column(name = "radius")
     var radius: UBigInteger? = null
+
+    @Column(name = "density")
+    var density: UBigDecimal? = null
+
+    @Column(name = "orbit_semimajor_axis")
+    var orbitSemimajorAxis: UBigInteger? = null
+
+    @Column(name = "orbit_eccentricity")
+    var orbitEccentricity: UBigDecimal? = null
+
+    @Column(name = "orbit_period")
+    var orbitPeriod: UBigInteger? = null
+
+    @Column(name = "orbit_inclination")
+    var orbitInclination: UBigDecimal? = null
+
+    @Column(name = "rotational_period")
+    var rotationalPeriod: UBigInteger? = null
+
+    @Column(name = "surface_temperature")
+    var surfaceTemperature: UBigInteger? = null
 }

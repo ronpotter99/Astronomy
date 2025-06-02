@@ -27,7 +27,7 @@ class Star {
     var luminosity: UBigInteger? = null
 
     @Column(name = "effective_temperature")
-    var effectiveTemperature: Long? = null
+    var effectiveTemperature: UBigInteger? = null
 
     @JsonManagedReference
     @OneToMany(mappedBy = "star")

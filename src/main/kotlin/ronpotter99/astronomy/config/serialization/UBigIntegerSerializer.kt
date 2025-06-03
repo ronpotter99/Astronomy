@@ -1,21 +1,17 @@
 package ronpotter99.astronomy.config.serialization
 
+import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.core.JsonGenerator
-
 import ronpotter99.astronomy.DTO.UBigInteger
 
-class UBigIntegerSerializer: JsonSerializer<UBigInteger>() {
+class UBigIntegerSerializer : JsonSerializer<UBigInteger>() {
 
     override fun serialize(
-        value: UBigInteger,
-        gen: JsonGenerator,
-        serializers: SerializerProvider
+            value: UBigInteger,
+            gen: JsonGenerator,
+            serializers: SerializerProvider
     ) {
-        return gen.writeString(
-            value.number.toString() +
-            if (value.uncertainty != null) "u" + value.uncertainty.toString() else ""
-        )
+        return gen.writeString(value.number.toString() + (value.uncertainty?.let { "u$it" } ?: ""))
     }
 }

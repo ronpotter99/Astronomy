@@ -1,8 +1,8 @@
 package ronpotter99.astronomy.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import com.fasterxml.jackson.databind.ObjectMapper
 import ronpotter99.astronomy.DTO.UBigDecimal
 
 @Converter(autoApply = true)

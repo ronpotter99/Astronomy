@@ -1,13 +1,12 @@
 package ronpotter99.astronomy.config
 
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Bean
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
-
-import ronpotter99.astronomy.config.serialization.*
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import ronpotter99.astronomy.DTO.UBigDecimal
 import ronpotter99.astronomy.DTO.UBigInteger
+import ronpotter99.astronomy.config.serialization.*
 
 @Configuration
 class SerializationConfig {

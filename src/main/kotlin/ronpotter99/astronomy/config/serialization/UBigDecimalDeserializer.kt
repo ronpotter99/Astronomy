@@ -11,10 +11,10 @@ class UBigDecimalDeserializer : JsonDeserializer<UBigDecimal>() {
     override fun deserialize(parser: JsonParser, context: DeserializationContext): UBigDecimal {
         val numParts = parser.text.split("u", limit = 2)
 
-        val number: BigDecimal = numParts[0].toBigDecimal()
+        val number: BigDecimal = BigDecimal(numParts[0])
         var uncertainty: BigDecimal? = null
         if (numParts.size > 1) {
-            uncertainty = numParts[1].toBigDecimal()
+            uncertainty = BigDecimal(numParts[1])
         }
 
         return UBigDecimal(number, uncertainty)

@@ -45,6 +45,14 @@ allOpen {
 	annotation("jakarta.persistence.Embeddable")
 }
 
+configure<com.adarshr.gradle.testlogger.TestLoggerExtension> {
+	theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA_PARALLEL
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
+	maxParallelForks = Runtime.getRuntime().availableProcessors().div(2) ?: 1
+	testlogger {
+		showSimpleNames = true
+	}
 }

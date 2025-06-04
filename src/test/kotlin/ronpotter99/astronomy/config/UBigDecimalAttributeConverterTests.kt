@@ -25,8 +25,8 @@ class UBigDecimalAttributeConverterTests {
         val objectMapperMock: ObjectMapper = mock()
         val attributeConverter: UBigDecimalAttributeConverter =
                 UBigDecimalAttributeConverter(objectMapperMock)
-        val uBigDecimal = UBigDecimal(BigDecimal(123))
-        val uBigDecimalString = "123"
+        val uBigDecimal = UBigDecimal(BigDecimal("1.23"))
+        val uBigDecimalString = "1.23"
 
         whenever(objectMapperMock.writeValueAsString(uBigDecimal)).thenReturn(uBigDecimalString)
 
@@ -39,8 +39,8 @@ class UBigDecimalAttributeConverterTests {
         val objectMapperMock: ObjectMapper = mock()
         val attributeConverter: UBigDecimalAttributeConverter =
                 UBigDecimalAttributeConverter(objectMapperMock)
-        val uBigDecimal = UBigDecimal(BigDecimal(123), BigDecimal(456))
-        val uBigDecimalString = "123u456"
+        val uBigDecimal = UBigDecimal(BigDecimal("1.23"), BigDecimal("4.56"))
+        val uBigDecimalString = "1.23u4.56"
 
         whenever(objectMapperMock.writeValueAsString(uBigDecimal)).thenReturn(uBigDecimalString)
 
@@ -73,8 +73,8 @@ class UBigDecimalAttributeConverterTests {
         val objectMapperMock: ObjectMapper = mock()
         val attributeConverter: UBigDecimalAttributeConverter =
                 UBigDecimalAttributeConverter(objectMapperMock)
-        val uBigDecimal = UBigDecimal(BigDecimal(123))
-        val uBigDecimalString = "123"
+        val uBigDecimal = UBigDecimal(BigDecimal("1.23"))
+        val uBigDecimalString = "1.23"
 
         whenever(objectMapperMock.readValue(uBigDecimalString, UBigDecimal::class.java))
                 .thenReturn(uBigDecimal)
@@ -88,8 +88,8 @@ class UBigDecimalAttributeConverterTests {
         val objectMapperMock: ObjectMapper = mock()
         val attributeConverter: UBigDecimalAttributeConverter =
                 UBigDecimalAttributeConverter(objectMapperMock)
-        val uBigDecimal = UBigDecimal(BigDecimal(123), BigDecimal(456))
-        val uBigDecimalString = "123u456"
+        val uBigDecimal = UBigDecimal(BigDecimal("1.23"), BigDecimal("4.56"))
+        val uBigDecimalString = "1.23u4.56"
 
         whenever(objectMapperMock.readValue(uBigDecimalString, UBigDecimal::class.java))
                 .thenReturn(uBigDecimal)

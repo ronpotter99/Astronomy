@@ -15,10 +15,10 @@ class UBigDecimalSerializationTests {
         val serializer: UBigDecimalSerializer = UBigDecimalSerializer()
         val jsonGeneratorMock: JsonGenerator = mock()
         val serializersMock: SerializerProvider = mock()
-        val uBigDecimal = UBigDecimal(BigDecimal(123))
+        val uBigDecimal = UBigDecimal(BigDecimal("1.23"))
 
         serializer.serialize(uBigDecimal, jsonGeneratorMock, serializersMock)
-        verify(jsonGeneratorMock).writeString("123")
+        verify(jsonGeneratorMock).writeString("1.23")
     }
 
     @Test
@@ -26,9 +26,9 @@ class UBigDecimalSerializationTests {
         val serializer: UBigDecimalSerializer = UBigDecimalSerializer()
         val jsonGeneratorMock: JsonGenerator = mock()
         val serializersMock: SerializerProvider = mock()
-        val uBigDecimal = UBigDecimal(BigDecimal(123), BigDecimal(456))
+        val uBigDecimal = UBigDecimal(BigDecimal("1.23"), BigDecimal("4.56"))
 
         serializer.serialize(uBigDecimal, jsonGeneratorMock, serializersMock)
-        verify(jsonGeneratorMock).writeString("123u456")
+        verify(jsonGeneratorMock).writeString("1.23u4.56")
     }
 }

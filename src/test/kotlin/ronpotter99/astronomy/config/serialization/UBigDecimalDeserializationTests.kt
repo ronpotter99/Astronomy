@@ -16,9 +16,9 @@ class UBigDecimalDeserializationTests {
         val deserializer: UBigDecimalDeserializer = UBigDecimalDeserializer()
         val parserMock: JsonParser = mock()
         val contextMock: DeserializationContext = mock()
-        val uBigDecimal = UBigDecimal(BigDecimal(123))
+        val uBigDecimal = UBigDecimal(BigDecimal("1.23"))
 
-        whenever(parserMock.text).thenReturn("123")
+        whenever(parserMock.text).thenReturn("1.23")
 
         val toCheck: UBigDecimal = deserializer.deserialize(parserMock, contextMock)
         assertEquals(uBigDecimal, toCheck)
@@ -29,9 +29,9 @@ class UBigDecimalDeserializationTests {
         val deserializer: UBigDecimalDeserializer = UBigDecimalDeserializer()
         val parserMock: JsonParser = mock()
         val contextMock: DeserializationContext = mock()
-        val uBigDecimal = UBigDecimal(BigDecimal(123), BigDecimal(456))
+        val uBigDecimal = UBigDecimal(BigDecimal("1.23"), BigDecimal("4.56"))
 
-        whenever(parserMock.text).thenReturn("123u456")
+        whenever(parserMock.text).thenReturn("1.23u4.56")
 
         val toCheck: UBigDecimal = deserializer.deserialize(parserMock, contextMock)
         assertEquals(uBigDecimal, toCheck)

@@ -9,16 +9,16 @@ INSERT INTO "star_designation"
 
 INSERT INTO "planet"
 (id, star_id, common_name, classification_type, mass, radius, density, orbit_semimajor_axis, orbit_eccentricity, orbit_period, orbit_inclination, rotational_period, surface_temperature) VALUES
-(0, 0, 'Earth', 'TERRESTRIAL', '5.974e24', '6.378e6',  null, null, null, null, null, null, null),
-(1, 0, 'Mercury', 'TERRESTRIAL', null, null, null, null, null, null, null, null, null),
-(2, 0, 'Venus', 'TERRESTRIAL', null, null, null, null, null, null, null, null, null),
-(3, 0, 'Mars', 'TERRESTRIAL', null, null, null, null, null, null, null, null, null),
-(4, 0, 'Ceres', 'DWARF', null, null, null, null, null, null, null, null, null),
-(5, 0, 'Jupiter', 'GAS_GIANT', null, null, null, null, null, null, null, null, null),
-(6, 0, 'Saturn', 'GAS_GIANT', null, null, null, null, null, null, null, null, null),
-(7, 0, 'Uranus', 'NEPTUNE_LIKE', null, null, null, null, null, null, null, null, null),
-(8, 0, 'Neptune', 'NEPTUNE_LIKE', null, null, null, null, null, null, null, null, null),
-(9, 0, 'Pluto', 'DWARF', null, null, null, null, null, null, null, null, null),
-(10, 0, 'Haumea', 'DWARF', null, null, null, null, null, null, null, null, null),
-(11, 0, 'Makemake', 'DWARF', null, null, null, null, null, null, null, null, null),
-(12, 0, 'Eris', 'DWARF', '1.6608276e22', '1163', '2.52', '1.01523099e13', '0.43605', '1.764322301e10', '44.0393', '9.324e4', '43');
+(0, 0, 'Earth', 'TERRESTRIAL', '5.974e24', '6.378e6',  '5.2513', '1.495983195e11', '0.01671', '31558150', '0.00', '86163', '288'),
+(1, 0, 'Mercury', 'TERRESTRIAL', '3.30194034e23', '2440285', '5.427', '5.7900923103e10', '0.20564', '7600544', '7.005', '5067032', '403u300'),
+(2, 0, 'Venus', 'TERRESTRIAL', '4.868973e24', '6051893', '5.243', '1.082095254e11', '0.00678', '19414149', '3.3947', '20996798', '738'),
+(3, 0, 'Mars', 'TERRESTRIAL', '6.4192779e23', '3393998', '3.9335', '2.279437716e11', '0.09339', '5.9350727', '1.850', '88643', '213'),
+(4, 0, 'Ceres', 'DWARF', '9.498978e20', '487840', '2.1616u0.0025', '4.137577908e11', '0.078', '145159911', '10.607', '32667', '133'),
+(5, 0, 'Jupiter', 'GAS_GIANT', '1.898779986e27', '71492526', '1.326', '7.783427614e11', '0.0484', '374163410', '1.304', '35618', null),
+(6, 0, 'Saturn', 'GAS_GIANT', '5.684988978e26', '60268283', '0.687', '1.426714893e12', '0.0539', '928535643', '2.486', '38844', null),
+(7, 0, 'Uranus', 'NEPTUNE_LIKE', '8.66259e25', '25559104', '1.27', '2.870633541e12', '0.04726', '2642867171', '0.773', '62064', null),
+(8, 0, 'Neptune', 'NEPTUNE_LIKE', '1.027801368e26', '24766302', '1.638', '4.498393012e12', '0.00859', '5166711572', '1.7700', '57492', null),
+(9, 0, 'Pluto', 'DWARF', '1.314324e22', '1151254', '1.853u0.004', '5.90643809e12', '0.24883', '7826941198', '17.14001', '551867', '73'),
+(10, 0, 'Haumea', 'DWARF', '4.18194e21', '765', '2.018u0.66', '6.459965172e12', '0.19489', '8955100152', '28.213545', '14095', '32'),
+(11, 0, 'Makemake', 'DWARF', '3.106584e21', '702', '1.7u0.3', '6.796335984e12', '0.161250', '9662568272', '28.98347', '214272', '33'),
+(12, 0, 'Eris', 'DWARF', '1.6608276e22', '1163', '2.52u0.07', '1.01523099e13', '0.43605', '1.764322301e10', '44.0393', '9.324e4', '43');

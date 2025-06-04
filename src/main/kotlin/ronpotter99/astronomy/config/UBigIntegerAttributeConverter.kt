@@ -1,14 +1,13 @@
 package ronpotter99.astronomy.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import com.fasterxml.jackson.databind.ObjectMapper
 import ronpotter99.astronomy.DTO.UBigInteger
 
 @Converter(autoApply = true)
-open class UBigIntegerAttributeConverter(
-    private val objectMapper: ObjectMapper
-): AttributeConverter<UBigInteger, String> {
+open class UBigIntegerAttributeConverter(private val objectMapper: ObjectMapper) :
+        AttributeConverter<UBigInteger, String> {
 
     override fun convertToDatabaseColumn(uBigInteger: UBigInteger?): String? {
         if (uBigInteger == null) {
@@ -16,7 +15,7 @@ open class UBigIntegerAttributeConverter(
         }
 
         try {
-            return objectMapper.writeValueAsString(uBigInteger)
+            return objectMapper.convertValue(uBigInteger, String::class.java)
         } catch (ex: Exception) {
             println("error in convertToDatabaseColumn($uBigInteger)")
             println(ex)
@@ -30,7 +29,7 @@ open class UBigIntegerAttributeConverter(
         }
 
         try {
-            return objectMapper.readValue(dbData, UBigInteger::class.java)
+            return objectMapper.convertValue(dbData, UBigInteger::class.java)
         } catch (ex: Exception) {
             println("error in convertToEntityAttribute($dbData)")
             println(ex)

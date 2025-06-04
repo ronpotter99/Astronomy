@@ -28,7 +28,8 @@ class UBigDecimalAttributeConverterTests {
         val uBigDecimal = UBigDecimal(BigDecimal("1.23"))
         val uBigDecimalString = "1.23"
 
-        whenever(objectMapperMock.writeValueAsString(uBigDecimal)).thenReturn(uBigDecimalString)
+        whenever(objectMapperMock.convertValue(uBigDecimal, String::class.java))
+                .thenReturn(uBigDecimalString)
 
         val toCheck: String? = attributeConverter.convertToDatabaseColumn(uBigDecimal)
         assertEquals(uBigDecimalString, toCheck)
@@ -42,7 +43,8 @@ class UBigDecimalAttributeConverterTests {
         val uBigDecimal = UBigDecimal(BigDecimal("1.23"), BigDecimal("4.56"))
         val uBigDecimalString = "1.23u4.56"
 
-        whenever(objectMapperMock.writeValueAsString(uBigDecimal)).thenReturn(uBigDecimalString)
+        whenever(objectMapperMock.convertValue(uBigDecimal, String::class.java))
+                .thenReturn(uBigDecimalString)
 
         val toCheck: String? = attributeConverter.convertToDatabaseColumn(uBigDecimal)
         assertEquals(uBigDecimalString, toCheck)
@@ -76,7 +78,7 @@ class UBigDecimalAttributeConverterTests {
         val uBigDecimal = UBigDecimal(BigDecimal("1.23"))
         val uBigDecimalString = "1.23"
 
-        whenever(objectMapperMock.readValue(uBigDecimalString, UBigDecimal::class.java))
+        whenever(objectMapperMock.convertValue(uBigDecimalString, UBigDecimal::class.java))
                 .thenReturn(uBigDecimal)
 
         val toCheck: UBigDecimal? = attributeConverter.convertToEntityAttribute(uBigDecimalString)
@@ -91,7 +93,7 @@ class UBigDecimalAttributeConverterTests {
         val uBigDecimal = UBigDecimal(BigDecimal("1.23"), BigDecimal("4.56"))
         val uBigDecimalString = "1.23u4.56"
 
-        whenever(objectMapperMock.readValue(uBigDecimalString, UBigDecimal::class.java))
+        whenever(objectMapperMock.convertValue(uBigDecimalString, UBigDecimal::class.java))
                 .thenReturn(uBigDecimal)
 
         val toCheck: UBigDecimal? = attributeConverter.convertToEntityAttribute(uBigDecimalString)

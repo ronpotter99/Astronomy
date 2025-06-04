@@ -28,7 +28,8 @@ class UBigIntegerAttributeConverterTests {
         val uBigInteger = UBigInteger(BigInteger("123"))
         val uBigIntegerString = "123"
 
-        whenever(objectMapperMock.writeValueAsString(uBigInteger)).thenReturn(uBigIntegerString)
+        whenever(objectMapperMock.convertValue(uBigInteger, String::class.java))
+                .thenReturn(uBigIntegerString)
 
         val toCheck: String? = attributeConverter.convertToDatabaseColumn(uBigInteger)
         assertEquals(uBigIntegerString, toCheck)
@@ -42,7 +43,8 @@ class UBigIntegerAttributeConverterTests {
         val uBigInteger = UBigInteger(BigInteger("123"), BigInteger("456"))
         val uBigIntegerString = "123u456"
 
-        whenever(objectMapperMock.writeValueAsString(uBigInteger)).thenReturn(uBigIntegerString)
+        whenever(objectMapperMock.convertValue(uBigInteger, String::class.java))
+                .thenReturn(uBigIntegerString)
 
         val toCheck: String? = attributeConverter.convertToDatabaseColumn(uBigInteger)
         assertEquals(uBigIntegerString, toCheck)
@@ -76,7 +78,7 @@ class UBigIntegerAttributeConverterTests {
         val uBigInteger = UBigInteger(BigInteger("123"))
         val uBigIntegerString = "123"
 
-        whenever(objectMapperMock.readValue(uBigIntegerString, UBigInteger::class.java))
+        whenever(objectMapperMock.convertValue(uBigIntegerString, UBigInteger::class.java))
                 .thenReturn(uBigInteger)
 
         val toCheck: UBigInteger? = attributeConverter.convertToEntityAttribute(uBigIntegerString)
@@ -91,7 +93,7 @@ class UBigIntegerAttributeConverterTests {
         val uBigInteger = UBigInteger(BigInteger("123"), BigInteger("456"))
         val uBigIntegerString = "123u456"
 
-        whenever(objectMapperMock.readValue(uBigIntegerString, UBigInteger::class.java))
+        whenever(objectMapperMock.convertValue(uBigIntegerString, UBigInteger::class.java))
                 .thenReturn(uBigInteger)
 
         val toCheck: UBigInteger? = attributeConverter.convertToEntityAttribute(uBigIntegerString)

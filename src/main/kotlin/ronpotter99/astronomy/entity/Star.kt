@@ -32,4 +32,18 @@ class Star {
     @JsonManagedReference
     @OneToMany(mappedBy = "star")
     var planets: MutableList<Planet> = mutableListOf()
+
+    override fun toString(): String {
+        return (
+            "Star("
+            + "id=$id, "
+            + "designations=$designations, "
+            + "mass=$mass, "
+            + "radius=$radius, "
+            + "luminosity=$luminosity, "
+            + "effectiveTemperature=$effectiveTemperature, "
+            + "planets=$planets"
+            + ")"
+        )
+    }
 }

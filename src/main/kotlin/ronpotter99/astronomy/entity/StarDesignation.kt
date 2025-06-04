@@ -22,4 +22,8 @@ class StarDesignation {
 
     @Column(name = "source")
     var source: String = ""
+
+    override fun toString(): String {
+        return "StarDesignation(id=$id, designation=$designation, source=$source)"
+    }
 }

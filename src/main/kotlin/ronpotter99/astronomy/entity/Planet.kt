@@ -61,4 +61,23 @@ class Planet {
 
     @Column(name = "surface_temperature")
     var surfaceTemperature: UBigInteger? = null
+
+    override fun toString(): String {
+        return (
+            "Planet("
+            + "id=$id, "
+            + "commonName=$commonName, "
+            + "classificationType=$classificationType, "
+            + "mass=$mass, "
+            + "radius=$radius, "
+            + "density=$density, "
+            + "orbitSemimajorAxis=$orbitSemimajorAxis, "
+            + "orbitEccentricity=$orbitEccentricity, "
+            + "orbitPeriod=$orbitPeriod, "
+            + "orbitInclination=$orbitInclination, "
+            + "rotationalPeriod=$rotationalPeriod, "
+            + "surfaceTemperature=$surfaceTemperature"
+            + ")"
+        )
+    }
 }

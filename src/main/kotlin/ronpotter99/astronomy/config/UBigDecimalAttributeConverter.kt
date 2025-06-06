@@ -1,5 +1,6 @@
 package ronpotter99.astronomy.config
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
@@ -9,6 +10,8 @@ import ronpotter99.astronomy.DTO.UBigDecimal
 open class UBigDecimalAttributeConverter(private val objectMapper: ObjectMapper) :
         AttributeConverter<UBigDecimal, String> {
 
+    private val logger = KotlinLogging.logger {}
+
     override fun convertToDatabaseColumn(uBigDecimal: UBigDecimal?): String? {
         if (uBigDecimal == null) {
             return null
@@ -17,8 +20,8 @@ open class UBigDecimalAttributeConverter(private val objectMapper: ObjectMapper)
         try {
             return objectMapper.convertValue(uBigDecimal, String::class.java)
         } catch (ex: Exception) {
-            println("error in convertToDatabaseColumn($uBigDecimal)")
-            println(ex)
+            logger.warn { "error in convertToDatabaseColumn($uBigDecimal)" }
+            logger.warn { ex }
             return null
         }
     }
@@ -31,8 +34,8 @@ open class UBigDecimalAttributeConverter(private val objectMapper: ObjectMapper)
         try {
             return objectMapper.convertValue(dbData, UBigDecimal::class.java)
         } catch (ex: Exception) {
-            println("error in convertToEntityAttribute($dbData)")
-            println(ex)
+            logger.warn { "error in convertToEntityAttribute($dbData)" }
+            logger.warn { ex }
             return null
         }
     }

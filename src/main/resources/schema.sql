@@ -11,10 +11,10 @@ CREATE TABLE "star"
 DROP TABLE IF EXISTS "star_designation";
 CREATE TABLE "star_designation"
 (
-    id              BIGINT AUTO_INCREMENT PRIMARY KEY,
-    star_id         BIGINT NOT NULL REFERENCES "star"(id),
-    designation     VARCHAR(255) NOT NULL,
-    source          VARCHAR(255) NOT NULL
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    star_id             BIGINT NOT NULL REFERENCES "star"(id),
+    designation         VARCHAR(255) NOT NULL,
+    designation_origin  VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS "planet";
@@ -32,7 +32,8 @@ CREATE TABLE "planet"
     orbit_period            VARCHAR(255),
     orbit_inclination       VARCHAR(255),
     rotational_period       VARCHAR(255),
-    surface_temperature     VARCHAR(255)
+    surface_temperature     VARCHAR(255),
+    source                  VARCHAR(255)
 );
 
 DROP TABLE IF EXISTS "moon";
@@ -43,5 +44,6 @@ CREATE TABLE "moon"
     common_name             VARCHAR(255),
     mass                    VARCHAR(255),
     orbit_semimajor_axis    VARCHAR(255),
-    orbit_period            VARCHAR(255)
+    orbit_period            VARCHAR(255),
+    source                  VARCHAR(255)
 );

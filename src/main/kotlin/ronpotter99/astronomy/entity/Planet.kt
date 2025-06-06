@@ -63,6 +63,9 @@ class Planet {
     @Column(name = "surface_temperature")
     var surfaceTemperature: UBigInteger? = null
 
+    @Column(name = "source")
+    var source: String? = null
+
     @JsonManagedReference
     @OneToMany(mappedBy = "planet")
     var moons: MutableList<Moon> = mutableListOf()
@@ -82,6 +85,7 @@ class Planet {
             + "orbitInclination=$orbitInclination, "
             + "rotationalPeriod=$rotationalPeriod, "
             + "surfaceTemperature=$surfaceTemperature, "
+            + "source=$source, "
             + "moons=$moons"
             + ")"
         )

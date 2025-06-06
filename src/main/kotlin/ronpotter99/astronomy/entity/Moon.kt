@@ -31,6 +31,9 @@ class Moon {
     @Column(name = "orbit_period")
     var orbitPeriod: UBigInteger? = null
 
+    @Column(name = "source")
+    var source: String? = null
+
     override fun toString(): String {
         return (
             "Planet("
@@ -38,7 +41,8 @@ class Moon {
             + "commonName=$commonName, "
             + "mass=$mass, "
             + "orbitSemimajorAxis=$orbitSemimajorAxis, "
-            + "orbitPeriod=$orbitPeriod"
+            + "orbitPeriod=$orbitPeriod, "
+            + "source=$source"
             + ")"
         )
     }

@@ -20,10 +20,16 @@ class StarDesignation {
     @Column(name = "designation")
     var designation: String = ""
 
-    @Column(name = "source")
-    var source: String = ""
+    @Column(name = "designation_origin")
+    var designationOrigin: String = ""
 
     override fun toString(): String {
-        return "StarDesignation(id=$id, designation=$designation, source=$source)"
+        return (
+            "StarDesignation("
+            + "id=$id, "
+            + "designation=$designation, "
+            + "designationOrigin=$designationOrigin"
+            + ")"
+        )
     }
 }

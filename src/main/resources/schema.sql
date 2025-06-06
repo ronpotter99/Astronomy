@@ -33,4 +33,15 @@ CREATE TABLE "planet"
     orbit_inclination       VARCHAR(255),
     rotational_period       VARCHAR(255),
     surface_temperature     VARCHAR(255)
-)
+);
+
+DROP TABLE IF EXISTS "moon";
+CREATE TABLE "moon"
+(
+    id                      BIGINT AUTO_INCREMENT PRIMARY KEY,
+    planet_id               BIGINT NOT NULL REFERENCES "planet"(id),
+    common_name             VARCHAR(255),
+    mass                    VARCHAR(255),
+    orbit_semimajor_axis    VARCHAR(255),
+    orbit_period            VARCHAR(255)
+);

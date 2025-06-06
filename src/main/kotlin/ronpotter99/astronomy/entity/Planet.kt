@@ -2,6 +2,7 @@ package ronpotter99.astronomy.entity
 
 import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import ronpotter99.astronomy.DTO.UBigInteger
 import ronpotter99.astronomy.DTO.UBigDecimal
 
@@ -62,6 +63,10 @@ class Planet {
     @Column(name = "surface_temperature")
     var surfaceTemperature: UBigInteger? = null
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "planet")
+    var moons: MutableList<Moon> = mutableListOf()
+
     override fun toString(): String {
         return (
             "Planet("
@@ -76,7 +81,8 @@ class Planet {
             + "orbitPeriod=$orbitPeriod, "
             + "orbitInclination=$orbitInclination, "
             + "rotationalPeriod=$rotationalPeriod, "
-            + "surfaceTemperature=$surfaceTemperature"
+            + "surfaceTemperature=$surfaceTemperature, "
+            + "moons=$moons"
             + ")"
         )
     }

@@ -34,7 +34,15 @@ data class UBigDecimal(
         return UBigDecimal(number, uncertainty)
     }
     
-    operator fun rem(divisor: UBigDecimal): UBigDecimal {
-        return UBigDecimal(number % divisor.number, null)
+    operator fun rem(divisor: BigDecimal): BigDecimal {
+        return number % divisor
+    }
+    
+    operator fun rem(divisor: Long): BigDecimal {
+        return rem(BigDecimal.valueOf(divisor))
+    }
+    
+    operator fun rem(divisor: Double): BigDecimal {
+        return rem(BigDecimal.valueOf(divisor))
     }
 }

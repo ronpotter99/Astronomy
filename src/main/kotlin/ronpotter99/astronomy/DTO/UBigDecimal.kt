@@ -14,14 +14,6 @@ data class UBigDecimal(
         return UBigDecimal(-number, uncertainty)
     }
     
-    operator fun inc(): UBigDecimal {
-        return (UBigDecimal(number, uncertainty) + UBigDecimal(BigDecimal("1")))
-    }
-    
-    operator fun dec(): UBigDecimal {
-        return (UBigDecimal(number, uncertainty) - UBigDecimal(BigDecimal("1")))
-    }
-    
     operator fun plus(toAdd: UBigDecimal): UBigDecimal {
         // TODO
         return UBigDecimal(number, uncertainty)

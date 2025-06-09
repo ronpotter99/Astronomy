@@ -1,6 +1,7 @@
 package ronpotter99.astronomy.DTO
 
 import java.math.BigDecimal
+import kotlin.math.*
 
 data class UBigDecimal(
     var number: BigDecimal,
@@ -44,5 +45,9 @@ data class UBigDecimal(
     
     operator fun rem(divisor: Double): BigDecimal {
         return rem(BigDecimal.valueOf(divisor))
+    }
+
+    fun fractionalUncertainty(): BigDecimal? {
+        return uncertainty?.let { uncertainty as BigDecimal / number.abs() }
     }
 }

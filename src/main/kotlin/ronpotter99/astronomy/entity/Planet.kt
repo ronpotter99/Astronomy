@@ -37,31 +37,31 @@ class Planet {
     var classificationType: ClassificationType? = null
 
     @Column(name = "mass")
-    var mass: UBigInteger? = null
+    var mass: UBigDecimal? = null
 
     @Column(name = "radius")
-    var radius: UBigInteger? = null
+    var radius: UBigDecimal? = null
 
     @Column(name = "density")
     var density: UBigDecimal? = null
 
     @Column(name = "orbit_semimajor_axis")
-    var orbitSemimajorAxis: UBigInteger? = null
+    var orbitSemimajorAxis: UBigDecimal? = null
 
     @Column(name = "orbit_eccentricity")
     var orbitEccentricity: UBigDecimal? = null
 
     @Column(name = "orbit_period")
-    var orbitPeriod: UBigInteger? = null
+    var orbitPeriod: UBigDecimal? = null
 
     @Column(name = "orbit_inclination")
     var orbitInclination: UBigDecimal? = null
 
     @Column(name = "rotational_period")
-    var rotationalPeriod: UBigInteger? = null
+    var rotationalPeriod: UBigDecimal? = null
 
     @Column(name = "surface_temperature")
-    var surfaceTemperature: UBigInteger? = null
+    var surfaceTemperature: UBigDecimal? = null
 
     @Column(name = "source")
     var source: String? = null

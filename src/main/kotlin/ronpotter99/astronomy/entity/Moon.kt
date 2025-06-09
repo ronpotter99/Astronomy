@@ -23,13 +23,13 @@ class Moon {
     var commonName: String = ""
 
     @Column(name = "mass")
-    var mass: UBigInteger? = null
+    var mass: UBigDecimal? = null
 
     @Column(name = "orbit_semimajor_axis")
-    var orbitSemimajorAxis: UBigInteger? = null
+    var orbitSemimajorAxis: UBigDecimal? = null
 
     @Column(name = "orbit_period")
-    var orbitPeriod: UBigInteger? = null
+    var orbitPeriod: UBigDecimal? = null
 
     @Column(name = "source")
     var source: String? = null

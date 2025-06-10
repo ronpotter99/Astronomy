@@ -165,4 +165,76 @@ class ScientificNumberTests {
         assertEquals(2, numberSigFigs)
         assertEquals(5, uncertaintySigFigs)
     }
+
+    @Test
+    fun significantFigures_scientificNotation_wholeNumber() {
+        val toCheck = ScientificNumber(BigDecimal("3.5e4"), BigDecimal("3.4672e7"))
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(2, numberSigFigs)
+        assertEquals(5, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_scientificNotation_decimalNumber() {
+        val toCheck = ScientificNumber(BigDecimal("3.524e1"), BigDecimal("3.4672e2"))
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(4, numberSigFigs)
+        assertEquals(5, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_scientificNotation_largePositiveExponent() {
+        val toCheck = ScientificNumber(BigDecimal("3.5e137"), BigDecimal("3.4672e674"))
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(2, numberSigFigs)
+        assertEquals(5, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_scientificNotation_largePositiveExponent_trailingZeros() {
+        val toCheck = ScientificNumber(BigDecimal("3.500e137"), BigDecimal("3.46720000e674"))
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(4, numberSigFigs)
+        assertEquals(9, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_scientificNotation_largePositiveExponent_leadingZeros() {
+        val toCheck = ScientificNumber(BigDecimal("0.0035e137"), BigDecimal("0.0000034672e674"))
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(2, numberSigFigs)
+        assertEquals(5, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_scientificNotation_largeNegativeExponent() {
+        val toCheck = ScientificNumber(BigDecimal("3.5e-137"), BigDecimal("3.4672e-674"))
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(2, numberSigFigs)
+        assertEquals(5, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_scientificNotation_largeNegativeExponent_trailingZeros() {
+        val toCheck = ScientificNumber(BigDecimal("3.500e-137"), BigDecimal("3.46720000e-674"))
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(4, numberSigFigs)
+        assertEquals(9, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_scientificNotation_largeNegativeExponent_leadingZeros() {
+        val toCheck = ScientificNumber(BigDecimal("0.0035e-137"), BigDecimal("0.00034672e-674"))
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(2, numberSigFigs)
+        assertEquals(5, uncertaintySigFigs)
+    }
 }

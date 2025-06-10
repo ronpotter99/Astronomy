@@ -7,7 +7,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
 
     constructor(
             numberString: String,
-            uncertaintyString: String?
+            uncertaintyString: String? = null
     ) : this(BigDecimal(numberString), uncertaintyString?.let { BigDecimal(it) })
 
     operator fun unaryPlus(): ScientificNumber {

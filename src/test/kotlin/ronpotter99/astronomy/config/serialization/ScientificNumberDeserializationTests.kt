@@ -16,7 +16,7 @@ class ScientificNumberDeserializationTests {
         val deserializer: ScientificNumberDeserializer = ScientificNumberDeserializer()
         val parserMock: JsonParser = mock()
         val contextMock: DeserializationContext = mock()
-        val scientificNumber = ScientificNumber(BigDecimal("1.23"))
+        val scientificNumber = ScientificNumber("1.23")
 
         whenever(parserMock.text).thenReturn("1.23")
 
@@ -29,7 +29,7 @@ class ScientificNumberDeserializationTests {
         val deserializer: ScientificNumberDeserializer = ScientificNumberDeserializer()
         val parserMock: JsonParser = mock()
         val contextMock: DeserializationContext = mock()
-        val scientificNumber = ScientificNumber(BigDecimal("1.23"), BigDecimal("4.56"))
+        val scientificNumber = ScientificNumber("1.23", "4.56")
 
         whenever(parserMock.text).thenReturn("1.23u4.56")
 

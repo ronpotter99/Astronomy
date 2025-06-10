@@ -15,7 +15,7 @@ class ScientificNumberSerializationTests {
         val serializer: ScientificNumberSerializer = ScientificNumberSerializer()
         val jsonGeneratorMock: JsonGenerator = mock()
         val serializersMock: SerializerProvider = mock()
-        val scientificNumber = ScientificNumber(BigDecimal("1.23"))
+        val scientificNumber = ScientificNumber("1.23")
 
         serializer.serialize(scientificNumber, jsonGeneratorMock, serializersMock)
         verify(jsonGeneratorMock).writeString("1.23")
@@ -26,7 +26,7 @@ class ScientificNumberSerializationTests {
         val serializer: ScientificNumberSerializer = ScientificNumberSerializer()
         val jsonGeneratorMock: JsonGenerator = mock()
         val serializersMock: SerializerProvider = mock()
-        val scientificNumber = ScientificNumber(BigDecimal("1.23"), BigDecimal("4.56"))
+        val scientificNumber = ScientificNumber("1.23", "4.56")
 
         serializer.serialize(scientificNumber, jsonGeneratorMock, serializersMock)
         verify(jsonGeneratorMock).writeString("1.23u4.56")

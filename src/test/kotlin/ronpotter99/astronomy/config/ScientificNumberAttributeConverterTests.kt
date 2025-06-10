@@ -25,7 +25,7 @@ class ScientificNumberAttributeConverterTests {
         val objectMapperMock: ObjectMapper = mock()
         val attributeConverter: ScientificNumberAttributeConverter =
                 ScientificNumberAttributeConverter(objectMapperMock)
-        val scientificNumber = ScientificNumber(BigDecimal("1.23"))
+        val scientificNumber = ScientificNumber("1.23")
         val scientificNumberString = "1.23"
 
         whenever(objectMapperMock.convertValue(scientificNumber, String::class.java))
@@ -40,7 +40,7 @@ class ScientificNumberAttributeConverterTests {
         val objectMapperMock: ObjectMapper = mock()
         val attributeConverter: ScientificNumberAttributeConverter =
                 ScientificNumberAttributeConverter(objectMapperMock)
-        val scientificNumber = ScientificNumber(BigDecimal("1.23"), BigDecimal("4.56"))
+        val scientificNumber = ScientificNumber("1.23", "4.56")
         val scientificNumberString = "1.23u4.56"
 
         whenever(objectMapperMock.convertValue(scientificNumber, String::class.java))
@@ -75,7 +75,7 @@ class ScientificNumberAttributeConverterTests {
         val objectMapperMock: ObjectMapper = mock()
         val attributeConverter: ScientificNumberAttributeConverter =
                 ScientificNumberAttributeConverter(objectMapperMock)
-        val scientificNumber = ScientificNumber(BigDecimal("1.23"))
+        val scientificNumber = ScientificNumber("1.23")
         val scientificNumberString = "1.23"
 
         whenever(objectMapperMock.convertValue(scientificNumberString, ScientificNumber::class.java))
@@ -90,7 +90,7 @@ class ScientificNumberAttributeConverterTests {
         val objectMapperMock: ObjectMapper = mock()
         val attributeConverter: ScientificNumberAttributeConverter =
                 ScientificNumberAttributeConverter(objectMapperMock)
-        val scientificNumber = ScientificNumber(BigDecimal("1.23"), BigDecimal("4.56"))
+        val scientificNumber = ScientificNumber("1.23", "4.56")
         val scientificNumberString = "1.23u4.56"
 
         whenever(objectMapperMock.convertValue(scientificNumberString, ScientificNumber::class.java))

@@ -1,7 +1,7 @@
 package ronpotter99.astronomy.config
 
-import io.github.oshai.kotlinlogging.KotlinLogging
 import com.fasterxml.jackson.databind.ObjectMapper
+import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 import ronpotter99.astronomy.DTO.ScientificNumber

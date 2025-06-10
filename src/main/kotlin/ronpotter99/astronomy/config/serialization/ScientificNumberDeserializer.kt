@@ -8,14 +8,19 @@ import ronpotter99.astronomy.DTO.ScientificNumber
 
 class ScientificNumberDeserializer : JsonDeserializer<ScientificNumber>() {
 
-    override fun deserialize(parser: JsonParser, context: DeserializationContext): ScientificNumber {
+    override fun deserialize(
+            parser: JsonParser,
+            context: DeserializationContext
+    ): ScientificNumber {
         val numParts = parser.text.split("u", limit = 2)
 
         val number: BigDecimal = BigDecimal(numParts[0])
-        var uncertainty: BigDecimal? = null
-        if (numParts.size > 1) {
-            uncertainty = BigDecimal(numParts[1])
-        }
+        val uncertainty: BigDecimal? =
+                if (numParts.size > 1) {
+                    BigDecimal(numParts[1])
+                } else {
+                    null
+                }
 
         return ScientificNumber(number, uncertainty)
     }

@@ -5,6 +5,11 @@ import kotlin.math.*
 
 data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal? = null) {
 
+    constructor(
+            numberString: String,
+            uncertaintyString: String?
+    ) : this(BigDecimal(numberString), uncertaintyString?.let { BigDecimal(it) })
+
     operator fun unaryPlus(): ScientificNumber {
         return ScientificNumber(number, uncertainty)
     }

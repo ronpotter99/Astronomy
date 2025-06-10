@@ -3,36 +3,36 @@ package ronpotter99.astronomy.DTO
 import java.math.BigDecimal
 import kotlin.math.*
 
-data class UBigDecimal(
+data class ScientificNumber(
     var number: BigDecimal,
     var uncertainty: BigDecimal? = null
 ) {
-    operator fun unaryPlus(): UBigDecimal {
-        return UBigDecimal(number, uncertainty)
+    operator fun unaryPlus(): ScientificNumber {
+        return ScientificNumber(number, uncertainty)
     }
 
-    operator fun unaryMinus(): UBigDecimal {
-        return UBigDecimal(-number, uncertainty)
+    operator fun unaryMinus(): ScientificNumber {
+        return ScientificNumber(-number, uncertainty)
     }
     
-    operator fun plus(toAdd: UBigDecimal): UBigDecimal {
+    operator fun plus(toAdd: ScientificNumber): ScientificNumber {
         // TODO
-        return UBigDecimal(number, uncertainty)
+        return ScientificNumber(number, uncertainty)
     }
     
-    operator fun minus(toSubtract: UBigDecimal): UBigDecimal {
+    operator fun minus(toSubtract: ScientificNumber): ScientificNumber {
         // TODO
-        return UBigDecimal(number, uncertainty)
+        return ScientificNumber(number, uncertainty)
     }
     
-    operator fun times(toMultiply: UBigDecimal): UBigDecimal {
+    operator fun times(toMultiply: ScientificNumber): ScientificNumber {
         // TODO
-        return UBigDecimal(number, uncertainty)
+        return ScientificNumber(number, uncertainty)
     }
     
-    operator fun div(toDivide: UBigDecimal): UBigDecimal {
+    operator fun div(toDivide: ScientificNumber): ScientificNumber {
         // TODO
-        return UBigDecimal(number, uncertainty)
+        return ScientificNumber(number, uncertainty)
     }
     
     operator fun rem(divisor: BigDecimal): BigDecimal {

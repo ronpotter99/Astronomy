@@ -5,30 +5,30 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import java.math.BigDecimal
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
-import ronpotter99.astronomy.DTO.UBigDecimal
-import ronpotter99.astronomy.config.serialization.UBigDecimalSerializer
+import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.config.serialization.ScientificNumberSerializer
 
-class UBigDecimalSerializationTests {
+class ScientificNumberSerializationTests {
 
     @Test
     fun withNumber_noUncertainty() {
-        val serializer: UBigDecimalSerializer = UBigDecimalSerializer()
+        val serializer: ScientificNumberSerializer = ScientificNumberSerializer()
         val jsonGeneratorMock: JsonGenerator = mock()
         val serializersMock: SerializerProvider = mock()
-        val uBigDecimal = UBigDecimal(BigDecimal("1.23"))
+        val scientificNumber = ScientificNumber(BigDecimal("1.23"))
 
-        serializer.serialize(uBigDecimal, jsonGeneratorMock, serializersMock)
+        serializer.serialize(scientificNumber, jsonGeneratorMock, serializersMock)
         verify(jsonGeneratorMock).writeString("1.23")
     }
 
     @Test
     fun withNumber_withUncertainty() {
-        val serializer: UBigDecimalSerializer = UBigDecimalSerializer()
+        val serializer: ScientificNumberSerializer = ScientificNumberSerializer()
         val jsonGeneratorMock: JsonGenerator = mock()
         val serializersMock: SerializerProvider = mock()
-        val uBigDecimal = UBigDecimal(BigDecimal("1.23"), BigDecimal("4.56"))
+        val scientificNumber = ScientificNumber(BigDecimal("1.23"), BigDecimal("4.56"))
 
-        serializer.serialize(uBigDecimal, jsonGeneratorMock, serializersMock)
+        serializer.serialize(scientificNumber, jsonGeneratorMock, serializersMock)
         verify(jsonGeneratorMock).writeString("1.23u4.56")
     }
 }

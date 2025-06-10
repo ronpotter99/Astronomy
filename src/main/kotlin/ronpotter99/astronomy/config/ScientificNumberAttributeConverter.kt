@@ -4,35 +4,35 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import ronpotter99.astronomy.DTO.UBigDecimal
+import ronpotter99.astronomy.DTO.ScientificNumber
 
 @Converter(autoApply = true)
-open class UBigDecimalAttributeConverter(private val objectMapper: ObjectMapper) :
-        AttributeConverter<UBigDecimal, String> {
+open class ScientificNumberAttributeConverter(private val objectMapper: ObjectMapper) :
+        AttributeConverter<ScientificNumber, String> {
 
     private val logger = KotlinLogging.logger {}
 
-    override fun convertToDatabaseColumn(uBigDecimal: UBigDecimal?): String? {
-        if (uBigDecimal == null) {
+    override fun convertToDatabaseColumn(scientificNumber: ScientificNumber?): String? {
+        if (scientificNumber == null) {
             return null
         }
 
         try {
-            return objectMapper.convertValue(uBigDecimal, String::class.java)
+            return objectMapper.convertValue(scientificNumber, String::class.java)
         } catch (ex: Exception) {
-            logger.warn { "error in convertToDatabaseColumn($uBigDecimal)" }
+            logger.warn { "error in convertToDatabaseColumn($scientificNumber)" }
             logger.warn { ex }
             return null
         }
     }
 
-    override fun convertToEntityAttribute(dbData: String?): UBigDecimal? {
+    override fun convertToEntityAttribute(dbData: String?): ScientificNumber? {
         if (dbData == null) {
             return null
         }
 
         try {
-            return objectMapper.convertValue(dbData, UBigDecimal::class.java)
+            return objectMapper.convertValue(dbData, ScientificNumber::class.java)
         } catch (ex: Exception) {
             logger.warn { "error in convertToEntityAttribute($dbData)" }
             logger.warn { ex }

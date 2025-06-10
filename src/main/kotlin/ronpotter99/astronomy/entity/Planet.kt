@@ -3,8 +3,7 @@ package ronpotter99.astronomy.entity
 import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
-import ronpotter99.astronomy.DTO.UBigInteger
-import ronpotter99.astronomy.DTO.UBigDecimal
+import ronpotter99.astronomy.DTO.ScientificNumber
 
 @Entity
 @Table(name = "planet")
@@ -37,31 +36,31 @@ class Planet {
     var classificationType: ClassificationType? = null
 
     @Column(name = "mass")
-    var mass: UBigDecimal? = null
+    var mass: ScientificNumber? = null
 
     @Column(name = "radius")
-    var radius: UBigDecimal? = null
+    var radius: ScientificNumber? = null
 
     @Column(name = "density")
-    var density: UBigDecimal? = null
+    var density: ScientificNumber? = null
 
     @Column(name = "orbit_semimajor_axis")
-    var orbitSemimajorAxis: UBigDecimal? = null
+    var orbitSemimajorAxis: ScientificNumber? = null
 
     @Column(name = "orbit_eccentricity")
-    var orbitEccentricity: UBigDecimal? = null
+    var orbitEccentricity: ScientificNumber? = null
 
     @Column(name = "orbit_period")
-    var orbitPeriod: UBigDecimal? = null
+    var orbitPeriod: ScientificNumber? = null
 
     @Column(name = "orbit_inclination")
-    var orbitInclination: UBigDecimal? = null
+    var orbitInclination: ScientificNumber? = null
 
     @Column(name = "rotational_period")
-    var rotationalPeriod: UBigDecimal? = null
+    var rotationalPeriod: ScientificNumber? = null
 
     @Column(name = "surface_temperature")
-    var surfaceTemperature: UBigDecimal? = null
+    var surfaceTemperature: ScientificNumber? = null
 
     @Column(name = "source")
     var source: String? = null

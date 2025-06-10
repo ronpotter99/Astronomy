@@ -2,8 +2,7 @@ package ronpotter99.astronomy.entity
 
 import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonManagedReference
-import ronpotter99.astronomy.DTO.UBigInteger
-import ronpotter99.astronomy.DTO.UBigDecimal
+import ronpotter99.astronomy.DTO.ScientificNumber
 
 @Entity
 @Table(name = "star")
@@ -19,16 +18,16 @@ class Star {
     var designations: MutableList<StarDesignation> = mutableListOf()
 
     @Column(name = "mass")
-    var mass: UBigDecimal? = null
+    var mass: ScientificNumber? = null
 
     @Column(name = "radius")
-    var radius: UBigDecimal? = null
+    var radius: ScientificNumber? = null
 
     @Column(name = "luminosity")
-    var luminosity: UBigDecimal? = null
+    var luminosity: ScientificNumber? = null
 
     @Column(name = "effective_temperature")
-    var effectiveTemperature: UBigDecimal? = null
+    var effectiveTemperature: ScientificNumber? = null
 
     @JsonManagedReference
     @OneToMany(mappedBy = "star")

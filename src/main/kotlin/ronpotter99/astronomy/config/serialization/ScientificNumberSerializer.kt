@@ -3,12 +3,12 @@ package ronpotter99.astronomy.config.serialization
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import ronpotter99.astronomy.DTO.UBigDecimal
+import ronpotter99.astronomy.DTO.ScientificNumber
 
-class UBigDecimalSerializer : JsonSerializer<UBigDecimal>() {
+class ScientificNumberSerializer : JsonSerializer<ScientificNumber>() {
 
     override fun serialize(
-            value: UBigDecimal,
+            value: ScientificNumber,
             gen: JsonGenerator,
             serializers: SerializerProvider
     ) {

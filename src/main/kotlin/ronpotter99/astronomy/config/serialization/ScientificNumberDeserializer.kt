@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import java.math.BigDecimal
-import ronpotter99.astronomy.DTO.UBigDecimal
+import ronpotter99.astronomy.DTO.ScientificNumber
 
-class UBigDecimalDeserializer : JsonDeserializer<UBigDecimal>() {
+class ScientificNumberDeserializer : JsonDeserializer<ScientificNumber>() {
 
-    override fun deserialize(parser: JsonParser, context: DeserializationContext): UBigDecimal {
+    override fun deserialize(parser: JsonParser, context: DeserializationContext): ScientificNumber {
         val numParts = parser.text.split("u", limit = 2)
 
         val number: BigDecimal = BigDecimal(numParts[0])
@@ -17,6 +17,6 @@ class UBigDecimalDeserializer : JsonDeserializer<UBigDecimal>() {
             uncertainty = BigDecimal(numParts[1])
         }
 
-        return UBigDecimal(number, uncertainty)
+        return ScientificNumber(number, uncertainty)
     }
 }

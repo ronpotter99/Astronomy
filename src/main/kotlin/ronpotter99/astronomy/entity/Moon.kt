@@ -2,8 +2,7 @@ package ronpotter99.astronomy.entity
 
 import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonBackReference
-import ronpotter99.astronomy.DTO.UBigInteger
-import ronpotter99.astronomy.DTO.UBigDecimal
+import ronpotter99.astronomy.DTO.ScientificNumber
 
 @Entity
 @Table(name = "moon")
@@ -23,13 +22,13 @@ class Moon {
     var commonName: String = ""
 
     @Column(name = "mass")
-    var mass: UBigDecimal? = null
+    var mass: ScientificNumber? = null
 
     @Column(name = "orbit_semimajor_axis")
-    var orbitSemimajorAxis: UBigDecimal? = null
+    var orbitSemimajorAxis: ScientificNumber? = null
 
     @Column(name = "orbit_period")
-    var orbitPeriod: UBigDecimal? = null
+    var orbitPeriod: ScientificNumber? = null
 
     @Column(name = "source")
     var source: String? = null

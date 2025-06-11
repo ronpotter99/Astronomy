@@ -22,9 +22,14 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     operator fun plus(toAdd: ScientificNumber): ScientificNumber {
         val newNumber = add(number, toAdd.number)
 
-        val baseUncertainty = uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
-        val inputUncertainty = toAdd.uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
-        val newUncertainty = sqrt(add(baseUncertainty, inputUncertainty))
+        val newUncertainty =
+                if (uncertainty != null || toAdd.uncertainty != null) {
+                    val baseUncertainty = uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+                    val inputUncertainty = toAdd.uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+                    sqrt(add(baseUncertainty, inputUncertainty))
+                } else {
+                    null
+                }
 
         return ScientificNumber(newNumber, newUncertainty)
     }
@@ -32,9 +37,15 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     operator fun minus(toSubtract: ScientificNumber): ScientificNumber {
         val newNumber = subtract(number, toSubtract.number)
 
-        val baseUncertainty = uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
-        val inputUncertainty = toSubtract.uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
-        val newUncertainty = sqrt(add(baseUncertainty, inputUncertainty))
+        val newUncertainty =
+                if (uncertainty != null || toSubtract.uncertainty != null) {
+                    val baseUncertainty = uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+                    val inputUncertainty =
+                            toSubtract.uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+                    sqrt(add(baseUncertainty, inputUncertainty))
+                } else {
+                    null
+                }
 
         return ScientificNumber(newNumber, newUncertainty)
     }
@@ -42,9 +53,17 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     operator fun times(toMultiply: ScientificNumber): ScientificNumber {
         val newNumber = multiply(number, toMultiply.number)
 
-        val baseUncertainty = uncertainty?.let { pow(divide(it, number), 2) } ?: BigDecimal("0")
-        val inputUncertainty = toMultiply.uncertainty?.let { pow(divide(it, toMultiply.number), 2) } ?: BigDecimal("0")
-        val newUncertainty = multiply(newNumber.abs(), sqrt(add(baseUncertainty, inputUncertainty)))
+        val newUncertainty =
+                if (uncertainty != null || toMultiply.uncertainty != null) {
+                    val baseUncertainty =
+                            uncertainty?.let { pow(divide(it, number), 2) } ?: BigDecimal("0")
+                    val inputUncertainty =
+                            toMultiply.uncertainty?.let { pow(divide(it, toMultiply.number), 2) }
+                                    ?: BigDecimal("0")
+                    multiply(newNumber.abs(), sqrt(add(baseUncertainty, inputUncertainty)))
+                } else {
+                    null
+                }
 
         return ScientificNumber(newNumber, newUncertainty)
     }
@@ -52,9 +71,17 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     operator fun div(toDivide: ScientificNumber): ScientificNumber {
         val newNumber = divide(number, toDivide.number)
 
-        val baseUncertainty = uncertainty?.let { pow(divide(it, number), 2) } ?: BigDecimal("0")
-        val inputUncertainty = toDivide.uncertainty?.let { pow(divide(it, toDivide.number), 2) } ?: BigDecimal("0")
-        val newUncertainty = multiply(newNumber.abs(), sqrt(add(baseUncertainty, inputUncertainty)))
+        val newUncertainty =
+                if (uncertainty != null || toDivide.uncertainty != null) {
+                    val baseUncertainty =
+                            uncertainty?.let { pow(divide(it, number), 2) } ?: BigDecimal("0")
+                    val inputUncertainty =
+                            toDivide.uncertainty?.let { pow(divide(it, toDivide.number), 2) }
+                                    ?: BigDecimal("0")
+                    multiply(newNumber.abs(), sqrt(add(baseUncertainty, inputUncertainty)))
+                } else {
+                    null
+                }
 
         return ScientificNumber(newNumber, newUncertainty)
     }

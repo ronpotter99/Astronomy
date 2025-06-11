@@ -144,12 +144,30 @@ class ScientificNumberTests {
     }
 
     @Test
+    fun significantFigures_decimalNumbers_trailingZeros_withWholeNumber() {
+        val toCheck = ScientificNumber("1.23450000", "1.2300")
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(9, numberSigFigs)
+        assertEquals(5, uncertaintySigFigs)
+    }
+
+    @Test
     fun significantFigures_decimalNumbers_leadingZeros_noWholeNumber() {
         val toCheck = ScientificNumber("0.00000000000035", "0.0000000000000000034672")
         val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
 
         assertEquals(2, numberSigFigs)
         assertEquals(5, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_decimalNumbers_leadingAndTrailingZeros_noWholeNumber() {
+        val toCheck = ScientificNumber("0.0000000000003500", "0.000000000000000003467200")
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(4, numberSigFigs)
+        assertEquals(7, uncertaintySigFigs)
     }
 
     @Test

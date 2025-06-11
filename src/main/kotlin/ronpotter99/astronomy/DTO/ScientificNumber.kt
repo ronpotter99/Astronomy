@@ -1,5 +1,6 @@
 package ronpotter99.astronomy.DTO
 
+import ch.obermuhlner.math.big.DefaultBigDecimalMath.*
 import java.math.BigDecimal
 import kotlin.math.*
 
@@ -19,13 +20,23 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun plus(toAdd: ScientificNumber): ScientificNumber {
-        // TODO
-        return ScientificNumber(number, uncertainty)
+        val newNumber = add(number, toAdd.number)
+
+        val baseUncertainty = uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+        val inputUncertainty = toAdd.uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+        val newUncertainty = sqrt(add(baseUncertainty, inputUncertainty))
+
+        return ScientificNumber(newNumber, newUncertainty)
     }
 
     operator fun minus(toSubtract: ScientificNumber): ScientificNumber {
-        // TODO
-        return ScientificNumber(number, uncertainty)
+        val newNumber = subtract(number, toSubtract.number)
+
+        val baseUncertainty = uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+        val inputUncertainty = toSubtract.uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+        val newUncertainty = sqrt(add(baseUncertainty, inputUncertainty))
+
+        return ScientificNumber(newNumber, newUncertainty)
     }
 
     operator fun times(toMultiply: ScientificNumber): ScientificNumber {
@@ -39,7 +50,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun rem(divisor: BigDecimal): BigDecimal {
-        return number % divisor
+        return remainder(number, divisor)
     }
 
     operator fun rem(divisor: Long): BigDecimal {
@@ -51,7 +62,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     fun fractionalUncertainty(): BigDecimal? {
-        return uncertainty?.let { uncertainty as BigDecimal / number.abs() }
+        return uncertainty?.let { divide(it, number.abs()) }
     }
 
     fun significantFigures(): Pair<Int, Int> {

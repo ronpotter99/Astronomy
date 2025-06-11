@@ -71,6 +71,23 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
         return rem(BigDecimal.valueOf(divisor))
     }
 
+    fun pow(exponent: BigDecimal): ScientificNumber {
+        val newNumber = pow(number, exponent)
+
+        val newUncertainty =
+                uncertainty?.let {
+                    multiply(
+                            multiply(
+                                    exponent.abs(),
+                                    pow(number, subtract(exponent, BigDecimal("1")))
+                            ),
+                            it
+                    )
+                }
+
+        return ScientificNumber(newNumber, newUncertainty)
+    }
+
     fun fractionalUncertainty(): BigDecimal? {
         return uncertainty?.let { divide(it, number.abs()) }
     }

@@ -40,13 +40,23 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun times(toMultiply: ScientificNumber): ScientificNumber {
-        // TODO
-        return ScientificNumber(number, uncertainty)
+        val newNumber = multiply(number, toMultiply.number)
+
+        val baseUncertainty = uncertainty?.let { pow(divide(it, number), 2) } ?: BigDecimal("0")
+        val inputUncertainty = toMultiply.uncertainty?.let { pow(divide(it, toMultiply.number), 2) } ?: BigDecimal("0")
+        val newUncertainty = multiply(newNumber.abs(), sqrt(add(baseUncertainty, inputUncertainty)))
+
+        return ScientificNumber(newNumber, newUncertainty)
     }
 
     operator fun div(toDivide: ScientificNumber): ScientificNumber {
-        // TODO
-        return ScientificNumber(number, uncertainty)
+        val newNumber = divide(number, toDivide.number)
+
+        val baseUncertainty = uncertainty?.let { pow(divide(it, number), 2) } ?: BigDecimal("0")
+        val inputUncertainty = toDivide.uncertainty?.let { pow(divide(it, toDivide.number), 2) } ?: BigDecimal("0")
+        val newUncertainty = multiply(newNumber.abs(), sqrt(add(baseUncertainty, inputUncertainty)))
+
+        return ScientificNumber(newNumber, newUncertainty)
     }
 
     operator fun rem(divisor: BigDecimal): BigDecimal {

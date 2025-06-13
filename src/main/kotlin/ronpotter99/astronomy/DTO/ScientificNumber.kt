@@ -119,6 +119,31 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
         return uncertainty?.let { divide(it, number.abs()) }
     }
 
+        /**
+     * The ScientificNumber is used for exact calculations.
+     * For exact significant digit management, always use scientific notation.
+     * Thus, ScientificNumber uses the following rules for significant digits:
+     * 
+     * 1. All non-zero numbers are significant.
+     * 2. Zeros between two non-zero numbers are always significant.
+     * 3. Zeros that only set the decimal point to the left are not significant.
+     *      Both 0.000035 and 0.35 contain two significant figures.
+     * 4. Zeros that aren't needed to hold the decimal point are significant.
+     *      35.0 has three significant digits.
+     * 5. Zeros following a whole number with no decimal ARE significant if 
+     *      entered as a whole number. 3500 has FOUR significant digits.
+     * 6. Scientific notation explicitly defines the number of significant digits.
+     *      3500 has FOUR significant digits, but 3.5e3 has TWO significant digits.
+     * 7. Exactly defined values with explicitly defined 0 uncertainty have an 
+     *      infinite number of significant figures. 0 uncertainty and null uncertainty
+     *      are NOT the same thing. Exactly defined values are either numbers defined 
+     *      by their definitions (1 AU = 149,597,870,700 m) or by counting objects
+     *      where the process contains no inherent uncertainty (3 telescopes).
+     *      Note: counting in Astronomy often contains inherent uncertainty.
+     * 
+     * Warning: Running the 'stripTrailingZeros()' function on BigDecimal will ruin 
+     *      significant figure calculation.
+     */
     fun significantFigures(): Pair<Int, Int> {
 
         val numberSigFigs =

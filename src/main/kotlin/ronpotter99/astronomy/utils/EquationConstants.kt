@@ -1,4 +1,4 @@
-package ronpotter99.astronomy.service.utils
+package ronpotter99.astronomy.utils
 
 import java.math.BigInteger
 import java.math.BigDecimal

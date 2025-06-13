@@ -5,9 +5,9 @@ import ronpotter99.astronomy.entity.Planet
 import ronpotter99.astronomy.repository.PlanetRepository
 
 @Service
-class PlanetService(private val planetRepository: PlanetRepository) {
+class PlanetService(private val planetRepository: PlanetRepository) : IPlanetService {
 
-    fun getAllPlanets(): List<Planet> {
+    override fun getAllPlanets(): List<Planet> {
         return planetRepository.findAll()
     }
 }

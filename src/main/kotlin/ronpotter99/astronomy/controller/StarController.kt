@@ -1,17 +1,16 @@
 package ronpotter99.astronomy.controller
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.web.bind.annotation.RestController
 import ronpotter99.astronomy.entity.Star
 import ronpotter99.astronomy.service.StarService
 
 @RestController
-@RequestMapping("/star")
-class StarController(private val starService: StarService) {
+class StarController(private val starService: StarService) : IStarController {
 
-    @GetMapping("/list")
-    fun getAllStars(): List<Star> {
+    private val logger = KotlinLogging.logger {}
+
+    override fun getAllStars(): List<Star> {
         return starService.getAllStars()
     }
 }

@@ -6,38 +6,65 @@ import kotlin.test.assertEquals
 class ScientificNumberTests {
 
     @Test
-    fun significantFigures_zeroValue() {
-        val toCheck = ScientificNumber("0", "0")
-        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
-
-        assertEquals(0, numberSigFigs)
-        assertEquals(0, uncertaintySigFigs)
-    }
-
-    @Test
-    fun significantFigures_zeroValue_trailingZeros() {
-        val toCheck = ScientificNumber("0.000", "0.00000")
-        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
-
-        assertEquals(0, numberSigFigs)
-        assertEquals(0, uncertaintySigFigs)
-    }
-
-    @Test
-    fun significantFigures_zeroValue_leadingZeros() {
-        val toCheck = ScientificNumber("000000", "0000000")
-        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
-
-        assertEquals(0, numberSigFigs)
-        assertEquals(0, uncertaintySigFigs)
-    }
-
-    @Test
-    fun significantFigures_noUncertainty() {
+    fun significantFigures_ignoreNumber_noUncertainty() {
         val toCheck = ScientificNumber("0", null)
         val uncertaintySigFigs = toCheck.significantFigures().second
 
         assertEquals(0, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_zeroNumber_noUncertainty() {
+        val toCheck = ScientificNumber("0", null)
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(0, numberSigFigs)
+        assertEquals(0, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_anyNumber_zeroUncertainty() {
+        val toCheck = ScientificNumber("0", "0")
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(Int.MAX_VALUE, numberSigFigs)
+        assertEquals(Int.MAX_VALUE, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_zeroNumber_noUncertainty_trailingZeros() {
+        val toCheck = ScientificNumber("0.000", null)
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(0, numberSigFigs)
+        assertEquals(0, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_zeroNumber_zeroUncertainty_trailingZeros() {
+        val toCheck = ScientificNumber("0.000", "0.00000")
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(Int.MAX_VALUE, numberSigFigs)
+        assertEquals(Int.MAX_VALUE, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_zeroNumber_noUncertainty_leadingZeros() {
+        val toCheck = ScientificNumber("000000", null)
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(0, numberSigFigs)
+        assertEquals(0, uncertaintySigFigs)
+    }
+
+    @Test
+    fun significantFigures_zeroNumber_zeroUncertainty_leadingZeros() {
+        val toCheck = ScientificNumber("000000", "0000000")
+        val (numberSigFigs, uncertaintySigFigs) = toCheck.significantFigures()
+
+        assertEquals(Int.MAX_VALUE, numberSigFigs)
+        assertEquals(Int.MAX_VALUE, uncertaintySigFigs)
     }
 
     @Test

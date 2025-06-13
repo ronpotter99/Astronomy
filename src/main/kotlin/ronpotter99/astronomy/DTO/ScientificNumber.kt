@@ -120,21 +120,23 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     fun significantFigures(): Pair<Int, Int> {
-        val numberToCheck: BigDecimal = number
-        val uncertaintyToCheck: BigDecimal = uncertainty?.let { it } ?: BigDecimal("0")
 
         val numberSigFigs =
-                if (numberToCheck.compareTo(BigDecimal("0")) == 0) {
+                if (uncertainty != null && uncertainty!!.compareTo(BigDecimal("0")) == 0) {
+                    Int.MAX_VALUE
+                } else if (number.compareTo(BigDecimal("0")) == 0) {
                     0
                 } else {
-                    numberToCheck.precision()
+                    number.precision()
                 }
 
         val uncertaintySigFigs =
-                if (uncertaintyToCheck.compareTo(BigDecimal("0")) == 0) {
+                if (uncertainty == null) {
                     0
+                } else if (uncertainty!!.compareTo(BigDecimal("0")) == 0) {
+                    Int.MAX_VALUE
                 } else {
-                    uncertaintyToCheck.precision()
+                    uncertainty!!.precision()
                 }
 
         return Pair(numberSigFigs, uncertaintySigFigs)

@@ -3,13 +3,18 @@ package ronpotter99.astronomy.DTO
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+/**
+ * This is an abstract class to encapsulate all ScientificNumber method tests. Individual method
+ * tests are encapsulated in subclasses for better organization.
+ */
 abstract class ScientificNumberTests {
 
     /**
-     * This is a class to encapsulate all SignificantFigure method
-     * tests within the ScientificNumber class
+     * This is a class to encapsulate all significantFigure method tests within the ScientificNumber
+     * class
      */
-    class SNSignificantFigures: ScientificNumberTests() {
+    class SNSignificantFigures : ScientificNumberTests() {
+        /** This test verifies a null uncertainty has 0 significant figures. */
         @Test
         fun significantFigures_ignoreNumber_noUncertainty() {
             val toCheck = ScientificNumber("0", null)
@@ -18,6 +23,7 @@ abstract class ScientificNumberTests {
             assertEquals(0, uncertaintySigFigs)
         }
 
+        /** This test verifies number 0 with unknown uncertainty has 0 significant figures. */
         @Test
         fun significantFigures_zeroNumber_noUncertainty() {
             val toCheck = ScientificNumber("0", null)
@@ -27,6 +33,12 @@ abstract class ScientificNumberTests {
             assertEquals(0, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies that for any number value, including zero, if the uncertainty is zero
+         * then that number is exactly known and has infinite significant figures.
+         *
+         * See significantFigure method documentation for full list of rules followed.
+         */
         @Test
         fun significantFigures_anyNumber_zeroUncertainty() {
             val toCheck = ScientificNumber("0", "0")
@@ -36,6 +48,10 @@ abstract class ScientificNumberTests {
             assertEquals(Int.MAX_VALUE, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies trailing zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_zeroNumber_noUncertainty_trailingZeros() {
             val toCheck = ScientificNumber("0.000", null)
@@ -45,6 +61,10 @@ abstract class ScientificNumberTests {
             assertEquals(0, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies trailing zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_zeroNumber_zeroUncertainty_trailingZeros() {
             val toCheck = ScientificNumber("0.000", "0.00000")
@@ -54,6 +74,10 @@ abstract class ScientificNumberTests {
             assertEquals(Int.MAX_VALUE, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_zeroNumber_noUncertainty_leadingZeros() {
             val toCheck = ScientificNumber("000000", null)
@@ -63,6 +87,10 @@ abstract class ScientificNumberTests {
             assertEquals(0, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_zeroNumber_zeroUncertainty_leadingZeros() {
             val toCheck = ScientificNumber("000000", "0000000")
@@ -72,6 +100,12 @@ abstract class ScientificNumberTests {
             assertEquals(Int.MAX_VALUE, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies whole numbers with no decimal portion are correctly converted to
+         * significant figures.
+         *
+         * This explicitly does not include zeros.
+         */
         @Test
         fun significantFigures_wholeNumbers() {
             val toCheck = ScientificNumber("12345", "123456789")
@@ -81,6 +115,12 @@ abstract class ScientificNumberTests {
             assertEquals(9, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies negative whole numbers with no decimal portion are correctly converted
+         * to significant figures.
+         *
+         * This explicitly does not include zeros.
+         */
         @Test
         fun significantFigures_wholeNumbers_negativeValue() {
             val toCheck = ScientificNumber("-35", "-34672")
@@ -90,6 +130,10 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_wholeNumbers_leadingZeros() {
             val toCheck = ScientificNumber("000000000012345", "0000123")
@@ -100,10 +144,11 @@ abstract class ScientificNumberTests {
         }
 
         /**
-         * Whole numbers with trailing zeros are treated as if they have an implicit decimal point.
-         * If a different significant figure precision is required, use scientific notation.
+         * This test verifies whole numbers with trailing zeros are treated as if they have an
+         * implicit decimal point. If a different significant figure precision is required, use
+         * scientific notation.
          *
-         * See significant figure documentation for full list of rules followed.
+         * See significantFigure method documentation for full list of rules followed.
          */
         @Test
         fun significantFigures_wholeNumbers_trailingZeros() {
@@ -114,6 +159,7 @@ abstract class ScientificNumberTests {
             assertEquals(22, uncertaintySigFigs)
         }
 
+        /** This test verifies all whole numbers with a decimal point are significant figures. */
         @Test
         fun significantFigures_wholeNumbers_trailingZeros_withDecimalPoint_noDecimalValue() {
             val toCheck = ScientificNumber("35000000000000.", "3467200000000000000000.")
@@ -123,6 +169,10 @@ abstract class ScientificNumberTests {
             assertEquals(22, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies zeros not required to hold a decimal point are counted as significant
+         * figures.
+         */
         @Test
         fun significantFigures_wholeNumbers_trailingZeros_withDecimalPoint_withZeroDecimalValue() {
             val toCheck = ScientificNumber("35000000000000.0", "3467200000000000000000.0")
@@ -132,6 +182,12 @@ abstract class ScientificNumberTests {
             assertEquals(23, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies numbers with a decimal portion are correctly converted to significant
+         * figures.
+         *
+         * This explicitly does not include zeros.
+         */
         @Test
         fun significantFigures_decimalNumbers() {
             val toCheck = ScientificNumber("12.345", "12.3")
@@ -141,6 +197,12 @@ abstract class ScientificNumberTests {
             assertEquals(3, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies negative numbers with a decimal portion are correctly converted to
+         * significant figures.
+         *
+         * This explicitly does not include zeros.
+         */
         @Test
         fun significantFigures_decimalNumbers_negativeValue() {
             val toCheck = ScientificNumber("-1.23", "-3.4672")
@@ -150,6 +212,12 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies numbers with only a decimal portion are correctly converted to
+         * significant figures.
+         *
+         * This explicitly does not include zeros.
+         */
         @Test
         fun significantFigures_decimalNumbers_firstCharacterDecimalPoint() {
             val toCheck = ScientificNumber(".12345", ".123")
@@ -159,6 +227,12 @@ abstract class ScientificNumberTests {
             assertEquals(3, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies negative numbers with only a decimal portion are correctly converted
+         * to significant figures.
+         *
+         * This explicitly does not include zeros.
+         */
         @Test
         fun significantFigures_decimalNumbers_firstCharacterDecimalPoint_negativeValue() {
             val toCheck = ScientificNumber("-.12345", "-.123")
@@ -168,6 +242,10 @@ abstract class ScientificNumberTests {
             assertEquals(3, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_decimalNumbers_leadingZeros_withWholeNumber() {
             val toCheck = ScientificNumber("00001.2345", "001.23")
@@ -177,6 +255,12 @@ abstract class ScientificNumberTests {
             assertEquals(3, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies trailing zeros in decimal numbers are counted as having significant
+         * figure precision.
+         *
+         * See significantFigure method documentation for full list of rules followed.
+         */
         @Test
         fun significantFigures_decimalNumbers_trailingZeros_withWholeNumber() {
             val toCheck = ScientificNumber("1.23450000", "1.2300")
@@ -186,6 +270,10 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_decimalNumbers_leadingZeros_noWholeNumber() {
             val toCheck = ScientificNumber("0.00000000000035", "0.0000000000000000034672")
@@ -195,6 +283,12 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests, while trailing zeros in decimals work as expected.
+         *
+         * See significantFigure method documentation for full list of rules followed.
+         */
         @Test
         fun significantFigures_decimalNumbers_leadingAndTrailingZeros_noWholeNumber() {
             val toCheck = ScientificNumber("0.0000000000003500", "0.000000000000000003467200")
@@ -204,6 +298,7 @@ abstract class ScientificNumberTests {
             assertEquals(7, uncertaintySigFigs)
         }
 
+        /** This test verifies scientific notation sets significant figures. */
         @Test
         fun significantFigures_scientificNotation_wholeNumber() {
             val toCheck = ScientificNumber("3.5e4", "3.4672e7")
@@ -213,6 +308,7 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /** This test verifies scientific notation sets significant figures. */
         @Test
         fun significantFigures_scientificNotation_decimalNumber() {
             val toCheck = ScientificNumber("3.524e1", "3.4672e2")
@@ -222,6 +318,7 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /** This test verifies scientific notation sets significant figures. */
         @Test
         fun significantFigures_scientificNotation_largePositiveExponent() {
             val toCheck = ScientificNumber("3.5e137", "3.4672e674")
@@ -231,6 +328,7 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /** This test verifies scientific notation sets significant figures. */
         @Test
         fun significantFigures_scientificNotation_largePositiveExponent_trailingZeros() {
             val toCheck = ScientificNumber("3.500e137", "3.46720000e674")
@@ -240,6 +338,10 @@ abstract class ScientificNumberTests {
             assertEquals(9, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_scientificNotation_largePositiveExponent_leadingZeros() {
             val toCheck = ScientificNumber("0.0035e137", "0.0000034672e674")
@@ -249,6 +351,7 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /** This test verifies scientific notation sets significant figures. */
         @Test
         fun significantFigures_scientificNotation_largeNegativeExponent() {
             val toCheck = ScientificNumber("3.5e-137", "3.4672e-674")
@@ -258,6 +361,7 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFigs)
         }
 
+        /** This test verifies scientific notation sets significant figures. */
         @Test
         fun significantFigures_scientificNotation_largeNegativeExponent_trailingZeros() {
             val toCheck = ScientificNumber("3.500e-137", "3.46720000e-674")
@@ -267,6 +371,10 @@ abstract class ScientificNumberTests {
             assertEquals(9, uncertaintySigFigs)
         }
 
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
         @Test
         fun significantFigures_scientificNotation_largeNegativeExponent_leadingZeros() {
             val toCheck = ScientificNumber("0.0035e-137", "0.00034672e-674")

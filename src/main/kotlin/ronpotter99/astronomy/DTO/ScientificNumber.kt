@@ -2,6 +2,7 @@ package ronpotter99.astronomy.DTO
 
 import ch.obermuhlner.math.big.DefaultBigDecimalMath.*
 import java.math.BigDecimal
+import java.util.IllegalFormatException
 import kotlin.math.*
 
 data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal? = null) {
@@ -119,7 +120,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
         return uncertainty?.let { divide(it, number.abs()) }
     }
 
-        /**
+    /**
      * The ScientificNumber is used for exact calculations.
      * For exact significant digit management, always use scientific notation.
      * Thus, ScientificNumber uses the following rules for significant digits:
@@ -165,5 +166,16 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
                 }
 
         return Pair(numberSigFigs, uncertaintySigFigs)
+    }
+
+    fun fractionalLength(): Pair<Int, Int> {
+
+        val plainNumber: BigDecimal = BigDecimal(number.toPlainString())
+        val plainUncertainty: BigDecimal = BigDecimal(uncertainty?.let { it.toPlainString() } ?: "0")
+        
+        val fractionalNumberSize: Int = plainNumber.scale()
+        val fractionalUncertaintySize: Int = plainUncertainty.scale()
+
+        return Pair(fractionalNumberSize, fractionalUncertaintySize)
     }
 }

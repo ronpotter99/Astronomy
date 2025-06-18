@@ -573,5 +573,85 @@ abstract class ScientificNumberTests {
             assertEquals(16, numberFractionalLength)
             assertEquals(24, uncertaintyFractionalLength)
         }
+
+        /** This test verifies scientific notation does not change expected results. */
+        @Test
+        fun fractionalLength_scientificNotation_wholeNumber() {
+            val toCheck = ScientificNumber("3.5e4", "3.4672e7")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies scientific notation does not change expected results. */
+        @Test
+        fun fractionalLength_scientificNotation_decimalNumber() {
+            val toCheck = ScientificNumber("3.524e1", "3.46732e2")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(2, numberFractionalLength)
+            assertEquals(3, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies scientific notation does not change expected results. */
+        @Test
+        fun fractionalLength_scientificNotation_largePositiveExponent() {
+            val toCheck = ScientificNumber("3.5e137", "3.4672e674")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies scientific notation does not change expected results. */
+        @Test
+        fun fractionalLength_scientificNotation_largePositiveExponent_trailingZeros() {
+            val toCheck = ScientificNumber("3.500e137", "3.46720000e674")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies scientific notation does not change expected results. */
+        @Test
+        fun fractionalLength_scientificNotation_largePositiveExponent_leadingZeros() {
+            val toCheck = ScientificNumber("0.0035e137", "0.0000034672e674")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies scientific notation does not change expected results. */
+        @Test
+        fun fractionalLength_scientificNotation_largeNegativeExponent() {
+            val toCheck = ScientificNumber("3.5e-137", "3.4672e-674")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(138, numberFractionalLength)
+            assertEquals(678, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies scientific notation does not change expected results. */
+        @Test
+        fun fractionalLength_scientificNotation_largeNegativeExponent_trailingZeros() {
+            val toCheck = ScientificNumber("3.500e-137", "3.46720000e-674")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(140, numberFractionalLength)
+            assertEquals(682, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies scientific notation does not change expected results. */
+        @Test
+        fun fractionalLength_scientificNotation_largeNegativeExponent_leadingZeros() {
+            val toCheck = ScientificNumber("0.0035e-137", "0.00034672e-674")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(141, numberFractionalLength)
+            assertEquals(682, uncertaintyFractionalLength)
+        }
     }
 }

@@ -168,6 +168,12 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
         return Pair(numberSigFigs, uncertaintySigFigs)
     }
 
+    /**
+     * The ScientificNumber is used for exact calculations.
+     * 
+     * This method is used for counting the number of decimal places a number and uncertainty 
+     * have. A null uncertainty has 0 decimal places.
+     */
     fun fractionalLength(): Pair<Int, Int> {
 
         val plainNumber: BigDecimal = BigDecimal(number.toPlainString())

@@ -11,7 +11,7 @@ abstract class ScientificNumberTests {
 
     /**
      * This is a class to encapsulate all significantFigure method tests within the ScientificNumber
-     * class
+     * class.
      */
     class SNSignificantFigures : ScientificNumberTests() {
         /** This test verifies a null uncertainty has 0 significant figures. */
@@ -382,6 +382,81 @@ abstract class ScientificNumberTests {
 
             assertEquals(2, numberSigFigs)
             assertEquals(5, uncertaintySigFigs)
+        }
+    }
+
+    /**
+     * This is a class to encapsulate all fractionalLength method tests within the ScientificNumber
+     * class.
+     */
+    class SNFractionalLength : ScientificNumberTests() {
+        /** This test verifies a null uncertainty has 0 decimals. */
+        @Test
+        fun fractionalLength_ignoreNumber_noUncertainty() {
+            val toCheck = ScientificNumber("0", null)
+            val uncertaintyFractionalLength = toCheck.fractionalLength().second
+
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies number 0 with unknown uncertainty has 0 decimals. */
+        @Test
+        fun fractionalLength_zeroNumber_noUncertainty() {
+            val toCheck = ScientificNumber("0", null)
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies any whole number with 0 uncertainty has 0 decimals. */
+        @Test
+        fun fractionalLength_anyWholeNumber_zeroUncertainty() {
+            val toCheck = ScientificNumber("5", "0")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
+        @Test
+        fun fractionalLength_wholeNumbers_leadingZeros() {
+            val toCheck = ScientificNumber("000000000012345", "0000123")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies trailing zeros do not have different outputs from expected based on
+         * previous tests.
+         */
+        @Test
+        fun fractionalLength_wholeNumbers_trailingZeros() {
+            val toCheck = ScientificNumber("35000000000000", "3467200000000000000000")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies trailing zeros do not have different outputs from expected based on
+         * previous tests, and a decimal point with no decimals does not change expected decimal
+         * value.
+         */
+        @Test
+        fun fractionalLength_wholeNumbers_trailingZeros_withDecimalPoint_noDecimalValue() {
+            val toCheck = ScientificNumber("35000000000000.", "3467200000000000000000.")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
         }
     }
 }

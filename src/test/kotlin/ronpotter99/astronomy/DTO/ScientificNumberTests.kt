@@ -458,5 +458,120 @@ abstract class ScientificNumberTests {
             assertEquals(0, numberFractionalLength)
             assertEquals(0, uncertaintyFractionalLength)
         }
+
+        /** This test verifies zeros count as decimals. */
+        @Test
+        fun fractionalLength_decimalNumbers_decimalZeros() {
+            val toCheck = ScientificNumber("10.000", "1.00000")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(3, numberFractionalLength)
+            assertEquals(5, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies numbers with a decimal portion are correctly counted.
+         *
+         * This explicitly does not include zeros.
+         */
+        @Test
+        fun fractionalLength_decimalNumbers() {
+            val toCheck = ScientificNumber("12.345", "12.3")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(3, numberFractionalLength)
+            assertEquals(1, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies negative numbers with a decimal portion are correctly counted.
+         *
+         * This explicitly does not include zeros.
+         */
+        @Test
+        fun fractionalLength_decimalNumbers_negativeValue() {
+            val toCheck = ScientificNumber("-1.23", "-3.4672")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(2, numberFractionalLength)
+            assertEquals(4, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies numbers with only a decimal portion are correctly counted.
+         *
+         * This explicitly does not include zeros.
+         */
+        @Test
+        fun fractionalLength_decimalNumbers_firstCharacterDecimalPoint() {
+            val toCheck = ScientificNumber(".12345", ".123")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(5, numberFractionalLength)
+            assertEquals(3, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies negative numbers with only a decimal portion are correctly counted.
+         *
+         * This explicitly does not include zeros.
+         */
+        @Test
+        fun fractionalLength_decimalNumbers_firstCharacterDecimalPoint_negativeValue() {
+            val toCheck = ScientificNumber("-.12345", "-.123")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(5, numberFractionalLength)
+            assertEquals(3, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
+        @Test
+        fun fractionalLength_decimalNumbers_leadingZeros_withWholeNumber() {
+            val toCheck = ScientificNumber("00001.2345", "001.23")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(4, numberFractionalLength)
+            assertEquals(2, uncertaintyFractionalLength)
+        }
+
+        /** This test verifies trailing zeros in decimal numbers are counted. */
+        @Test
+        fun fractionalLength_decimalNumbers_trailingZeros_withWholeNumber() {
+            val toCheck = ScientificNumber("1.23450000", "1.2300")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(8, numberFractionalLength)
+            assertEquals(4, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies leading zeros do not have different outputs from expected based on
+         * previous tests.
+         */
+        @Test
+        fun fractionalLength_decimalNumbers_leadingZeros_noWholeNumber() {
+            val toCheck = ScientificNumber("0.00000000000035", "0.0000000000000000034672")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(14, numberFractionalLength)
+            assertEquals(22, uncertaintyFractionalLength)
+        }
+
+        /**
+         * This test verifies leading zeros and trailing zeros in the decimal place do not have
+         * different outputs from expected based on previous tests.
+         */
+        @Test
+        fun fractionalLength_decimalNumbers_leadingAndTrailingZeros_noWholeNumber() {
+            val toCheck = ScientificNumber("0.0000000000003500", "0.000000000000000003467200")
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+
+            assertEquals(16, numberFractionalLength)
+            assertEquals(24, uncertaintyFractionalLength)
+        }
     }
 }

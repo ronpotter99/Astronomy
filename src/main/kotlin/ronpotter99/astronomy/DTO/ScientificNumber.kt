@@ -1,6 +1,6 @@
 package ronpotter99.astronomy.DTO
 
-import ch.obermuhlner.math.big.DefaultBigDecimalMath.*
+import ch.obermuhlner.math.big.DefaultBigDecimalMath as BDMath
 import java.math.BigDecimal
 import java.util.IllegalFormatException
 import kotlin.math.*
@@ -21,29 +21,18 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun plus(toAdd: ScientificNumber): ScientificNumber {
-        val newNumber = add(number, toAdd.number)
-
-        val newUncertainty =
-                if (uncertainty != null || toAdd.uncertainty != null) {
-                    val baseUncertainty = uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
-                    val inputUncertainty = toAdd.uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
-                    sqrt(add(baseUncertainty, inputUncertainty))
-                } else {
-                    null
-                }
-
-        return ScientificNumber(newNumber, newUncertainty)
+        return add(this, toAdd)
     }
 
     operator fun minus(toSubtract: ScientificNumber): ScientificNumber {
-        val newNumber = subtract(number, toSubtract.number)
+        val newNumber = BDMath.subtract(number, toSubtract.number)
 
         val newUncertainty =
                 if (uncertainty != null || toSubtract.uncertainty != null) {
-                    val baseUncertainty = uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
+                    val baseUncertainty = uncertainty?.let { BDMath.pow(it, 2) } ?: BigDecimal("0")
                     val inputUncertainty =
-                            toSubtract.uncertainty?.let { pow(it, 2) } ?: BigDecimal("0")
-                    sqrt(add(baseUncertainty, inputUncertainty))
+                            toSubtract.uncertainty?.let { BDMath.pow(it, 2) } ?: BigDecimal("0")
+                    BDMath.sqrt(BDMath.add(baseUncertainty, inputUncertainty))
                 } else {
                     null
                 }
@@ -52,16 +41,16 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun times(toMultiply: ScientificNumber): ScientificNumber {
-        val newNumber = multiply(number, toMultiply.number)
+        val newNumber = BDMath.multiply(number, toMultiply.number)
 
         val newUncertainty =
                 if (uncertainty != null || toMultiply.uncertainty != null) {
                     val baseUncertainty =
-                            uncertainty?.let { pow(divide(it, number), 2) } ?: BigDecimal("0")
+                            uncertainty?.let { BDMath.pow(BDMath.divide(it, number), 2) } ?: BigDecimal("0")
                     val inputUncertainty =
-                            toMultiply.uncertainty?.let { pow(divide(it, toMultiply.number), 2) }
+                            toMultiply.uncertainty?.let { BDMath.pow(BDMath.divide(it, toMultiply.number), 2) }
                                     ?: BigDecimal("0")
-                    multiply(newNumber.abs(), sqrt(add(baseUncertainty, inputUncertainty)))
+                    BDMath.multiply(newNumber.abs(), BDMath.sqrt(BDMath.add(baseUncertainty, inputUncertainty)))
                 } else {
                     null
                 }
@@ -70,16 +59,16 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun div(toDivide: ScientificNumber): ScientificNumber {
-        val newNumber = divide(number, toDivide.number)
+        val newNumber = BDMath.divide(number, toDivide.number)
 
         val newUncertainty =
                 if (uncertainty != null || toDivide.uncertainty != null) {
                     val baseUncertainty =
-                            uncertainty?.let { pow(divide(it, number), 2) } ?: BigDecimal("0")
+                            uncertainty?.let { BDMath.pow(BDMath.divide(it, number), 2) } ?: BigDecimal("0")
                     val inputUncertainty =
-                            toDivide.uncertainty?.let { pow(divide(it, toDivide.number), 2) }
+                            toDivide.uncertainty?.let { BDMath.pow(BDMath.divide(it, toDivide.number), 2) }
                                     ?: BigDecimal("0")
-                    multiply(newNumber.abs(), sqrt(add(baseUncertainty, inputUncertainty)))
+                    BDMath.multiply(newNumber.abs(), BDMath.sqrt(BDMath.add(baseUncertainty, inputUncertainty)))
                 } else {
                     null
                 }
@@ -88,7 +77,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun rem(divisor: BigDecimal): BigDecimal {
-        return remainder(number, divisor)
+        return BDMath.remainder(number, divisor)
     }
 
     operator fun rem(divisor: Long): BigDecimal {
@@ -100,14 +89,14 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     fun pow(exponent: BigDecimal): ScientificNumber {
-        val newNumber = pow(number, exponent)
+        val newNumber = BDMath.pow(number, exponent)
 
         val newUncertainty =
                 uncertainty?.let {
-                    multiply(
-                            multiply(
+                    BDMath.multiply(
+                            BDMath.multiply(
                                     exponent.abs(),
-                                    pow(number, subtract(exponent, BigDecimal("1")))
+                                    BDMath.pow(number, BDMath.subtract(exponent, BigDecimal("1")))
                             ),
                             it
                     )
@@ -117,7 +106,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     fun fractionalUncertainty(): BigDecimal? {
-        return uncertainty?.let { divide(it, number.abs()) }
+        return uncertainty?.let { BDMath.divide(it, number.abs()) }
     }
 
     /**
@@ -183,5 +172,29 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
         val fractionalUncertaintySize: Int = plainUncertainty.scale()
 
         return Pair(fractionalNumberSize, fractionalUncertaintySize)
+    }
+
+    companion object {
+        fun add(vararg scientificNumbers: ScientificNumber): ScientificNumber {
+            var newNumber: BigDecimal = BigDecimal("0")
+            var newUncertainty: BigDecimal? = null
+
+            if (scientificNumbers.isEmpty()) {
+                throw IllegalArgumentException("Must pass in a non-empty list of numbers to add.")
+            }
+
+            scientificNumbers.forEach {
+                newNumber = BDMath.add(newNumber, it.number)
+                it.uncertainty?.let {
+                    newUncertainty = BDMath.add(newUncertainty ?: BigDecimal("0"), BDMath.pow(it, 2))
+                }
+            }
+
+            if (newUncertainty != null) {
+                newUncertainty = BDMath.sqrt(newUncertainty)
+            }
+
+            return ScientificNumber(newNumber, newUncertainty)
+        }
     }
 }

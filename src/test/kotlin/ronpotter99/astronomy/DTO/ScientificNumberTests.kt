@@ -2,6 +2,9 @@ package ronpotter99.astronomy.DTO
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import ronpotter99.astronomy.DTO.ScientificNumber
+import java.math.RoundingMode
 
 /**
  * This is an abstract class to encapsulate all ScientificNumber method tests. Individual method
@@ -652,6 +655,54 @@ abstract class ScientificNumberTests {
 
             assertEquals(141, numberFractionalLength)
             assertEquals(682, uncertaintyFractionalLength)
+        }
+    }
+
+    class SNAddition : ScientificNumberTests() {
+        @Test
+        fun add_twoNumbers_wholeNumbers_noUncertainty() {
+            val addOne = ScientificNumber("1", null)
+            val addTwo = ScientificNumber("3", null)
+            val toCheck = addOne + addTwo
+
+            assertEquals(ScientificNumber("4", null), toCheck)
+        }
+
+        @Test
+        fun add_twoNumbers_decimalNumbers_noUncertainty() {
+            val addOne = ScientificNumber("1.123", null)
+            val addTwo = ScientificNumber("3.23456", null)
+            val toCheck = addOne + addTwo
+
+            assertEquals(ScientificNumber("4.358", null), toCheck)
+        }
+
+        @Test
+        fun add_twoNumbers_wholeNumbers_withUncertainty() {
+            val addOne = ScientificNumber("145", "3")
+            val addTwo = ScientificNumber("287", "92")
+            val toCheck = addOne + addTwo
+
+            assertEquals(ScientificNumber("432", "92"), toCheck)
+        }
+
+        @Test
+        fun add_twoNumbers_decimalNumbers_withUncertainty() {
+            val addOne = ScientificNumber("145.273", "3.1234")
+            val addTwo = ScientificNumber("287.19", "92.871")
+            val toCheck = addOne + addTwo
+
+            assertEquals(ScientificNumber("432.46", "92.924"), toCheck)
+        }
+
+        @Test
+        fun add_twoNumbers_defaultPlusEqualsAddStaticFunction() {
+            val addOne = ScientificNumber("145.273", "3.1234")
+            val addTwo = ScientificNumber("287.19", "92.871")
+            val toCheckOne = addOne + addTwo
+            val toCheckTwo = ScientificNumber.add(addOne, addTwo)
+
+            assertEquals(toCheckTwo, toCheckOne)
         }
     }
 }

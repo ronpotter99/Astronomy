@@ -2,6 +2,7 @@ package ronpotter99.astronomy.DTO
 
 import ch.obermuhlner.math.big.DefaultBigDecimalMath as BDMath
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.IllegalFormatException
 import kotlin.math.*
 
@@ -175,23 +176,34 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     companion object {
-        fun add(vararg scientificNumbers: ScientificNumber): ScientificNumber {
+        fun add(vararg scientificNumbers: ScientificNumber, roundingMode: RoundingMode = RoundingMode.HALF_EVEN): ScientificNumber {
             var newNumber: BigDecimal = BigDecimal("0")
             var newUncertainty: BigDecimal? = null
+
+            var numberFractionalLengths: MutableList<Int> = mutableListOf()
+            var uncertaintyFractionalLengths: MutableList<Int> = mutableListOf()
 
             if (scientificNumbers.isEmpty()) {
                 throw IllegalArgumentException("Must pass in a non-empty list of numbers to add.")
             }
 
             scientificNumbers.forEach {
+                val (numberFractionalLength: Int, uncertaintyFractionalLength: Int) = it.fractionalLength()
+                
                 newNumber = BDMath.add(newNumber, it.number)
+                numberFractionalLengths.add(numberFractionalLength)
+
                 it.uncertainty?.let {
                     newUncertainty = BDMath.add(newUncertainty ?: BigDecimal("0"), BDMath.pow(it, 2))
+                    uncertaintyFractionalLengths.add(uncertaintyFractionalLength)
                 }
             }
 
+            newNumber = newNumber.setScale(numberFractionalLengths.min(), roundingMode)
+
             if (newUncertainty != null) {
                 newUncertainty = BDMath.sqrt(newUncertainty)
+                newUncertainty = newUncertainty!!.setScale(uncertaintyFractionalLengths.min(), roundingMode)
             }
 
             return ScientificNumber(newNumber, newUncertainty)

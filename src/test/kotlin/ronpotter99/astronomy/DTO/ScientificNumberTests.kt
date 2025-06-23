@@ -747,5 +747,32 @@ abstract class ScientificNumberTests {
 
             assertEquals(ScientificNumber("539.80", "6.22"), toCheck)
         }
+
+        @Test
+        fun add_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundUp() {
+            val addOne = ScientificNumber("145.285", "0.0")
+            val addTwo = ScientificNumber("287.19", "0.35")
+            val toCheck = addOne + addTwo
+
+            assertEquals(ScientificNumber("432.48", "0.4"), toCheck)
+        }
+
+        @Test
+        fun add_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundDown() {
+            val addOne = ScientificNumber("145.275", "0.0")
+            val addTwo = ScientificNumber("287.19", "0.25")
+            val toCheck = addOne + addTwo
+
+            assertEquals(ScientificNumber("432.46", "0.2"), toCheck)
+        }
+
+        @Test
+        fun add_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
+            val addOne = ScientificNumber("145.275", "0.0")
+            val addTwo = ScientificNumber("287.19", "0.25")
+            val toCheck = ScientificNumber.add(addOne, addTwo, roundingMode = RoundingMode.HALF_UP)
+
+            assertEquals(ScientificNumber("432.47", "0.3"), toCheck)
+        }
     }
 }

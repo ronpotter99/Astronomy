@@ -704,5 +704,48 @@ abstract class ScientificNumberTests {
 
             assertEquals(toCheckTwo, toCheckOne)
         }
+
+        @Test
+        fun add_noNumbers_getException() {
+            assertFailsWith<IllegalArgumentException> {
+                ScientificNumber.add()
+            }
+        }
+
+        @Test
+        fun add_oneNumber_wholeNumbers_withUncertainty() {
+            val addOne = ScientificNumber("145", "3")
+            val toCheck = ScientificNumber.add(addOne)
+
+            assertEquals(ScientificNumber("145", "3"), toCheck)
+        }
+
+        @Test
+        fun add_oneNumber_decimalNumbers_withUncertainty() {
+            val addOne = ScientificNumber("145.273", "3.1234")
+            val toCheck = ScientificNumber.add(addOne)
+
+            assertEquals(ScientificNumber("145.273", "3.1234"), toCheck)
+        }
+
+        @Test
+        fun add_threeNumbers_wholeNumbers_withUncertainty() {
+            val addOne = ScientificNumber("145", "3")
+            val addTwo = ScientificNumber("12", "2")
+            val addThree = ScientificNumber("382", "4")
+            val toCheck = ScientificNumber.add(addOne, addTwo, addThree)
+
+            assertEquals(ScientificNumber("539", "5"), toCheck)
+        }
+
+        @Test
+        fun add_threeNumbers_decimalNumbers_withUncertainty() {
+            val addOne = ScientificNumber("145.273", "3.1234")
+            val addTwo = ScientificNumber("12.3852", "2.36")
+            val addThree = ScientificNumber("382.14", "4.836")
+            val toCheck = ScientificNumber.add(addOne, addTwo, addThree)
+
+            assertEquals(ScientificNumber("539.80", "6.22"), toCheck)
+        }
     }
 }

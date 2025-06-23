@@ -774,5 +774,37 @@ abstract class ScientificNumberTests {
 
             assertEquals(ScientificNumber("432.47", "0.3"), toCheck)
         }
+
+        @Test
+        fun add_twoNumbers_wholeNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
+            val addOne = ScientificNumber("145", "3")
+            val addTwo = ScientificNumber("287", "92")
+            val toCheck = addOne + addTwo
+
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+            val (numberSigFig, uncertaintySigFig) = toCheck.significantFigures()
+
+            assertEquals(ScientificNumber("432", "92"), toCheck)
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+            assertEquals(3, numberSigFig)
+            assertEquals(2, uncertaintySigFig)
+        }
+
+        @Test
+        fun add_twoNumbers_decimalNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
+            val addOne = ScientificNumber("145.273", "3.1234")
+            val addTwo = ScientificNumber("287.19", "92.871")
+            val toCheck = addOne + addTwo
+
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+            val (numberSigFig, uncertaintySigFig) = toCheck.significantFigures()
+
+            assertEquals(ScientificNumber("432.46", "92.924"), toCheck)
+            assertEquals(2, numberFractionalLength)
+            assertEquals(3, uncertaintyFractionalLength)
+            assertEquals(5, numberSigFig)
+            assertEquals(5, uncertaintySigFig)
+        }
     }
 }

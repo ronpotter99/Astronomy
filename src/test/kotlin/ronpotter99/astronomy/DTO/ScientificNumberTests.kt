@@ -924,8 +924,8 @@ abstract class ScientificNumberTests {
         }
 
         /**
-         * This verifies subtracting three numbers returns the correct subtraction and rounds decimal places
-         * appropriately according to scientific uncertainty standards.
+         * This verifies subtracting three numbers returns the correct subtraction and rounds
+         * decimal places appropriately according to scientific uncertainty standards.
          */
         @Test
         fun subtract_threeNumbers_decimalNumbers_withUncertainty() {
@@ -935,6 +935,81 @@ abstract class ScientificNumberTests {
             val toCheck = ScientificNumber.subtract(baseNumber, subtractOne, subtractTwo)
 
             assertEquals(ScientificNumber("-249.25", "6.22"), toCheck)
+        }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun subtract_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundUp() {
+            val baseNumber = ScientificNumber("287.195", "0.0")
+            val subtractOne = ScientificNumber("145.28", "0.35")
+            val toCheck = baseNumber - subtractOne
+
+            assertEquals(ScientificNumber("141.92", "0.4"), toCheck)
+        }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun subtract_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundDown() {
+            val baseNumber = ScientificNumber("287.19", "0.0")
+            val subtractOne = ScientificNumber("145.285", "0.25")
+            val toCheck = baseNumber - subtractOne
+
+            assertEquals(ScientificNumber("141.90", "0.2"), toCheck)
+        }
+
+        /** This verifies the default rounding mode is able to be overridden. */
+        @Test
+        fun subtract_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
+            val baseNumber = ScientificNumber("287.19", "0.0")
+            val subtractOne = ScientificNumber("145.285", "0.25")
+            val toCheck =
+                    ScientificNumber.subtract(
+                            baseNumber,
+                            subtractOne,
+                            roundingMode = RoundingMode.HALF_UP
+                    )
+
+            assertEquals(ScientificNumber("141.91", "0.3"), toCheck)
+        }
+
+        /**
+         * This verifies subtraction does not mess up results of fractional length and significant
+         * figure methods.
+         */
+        @Test
+        fun subtract_twoNumbers_wholeNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
+            val baseNumber = ScientificNumber("287", "3")
+            val subtractOne = ScientificNumber("145", "92")
+            val toCheck = baseNumber - subtractOne
+
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+            val (numberSigFig, uncertaintySigFig) = toCheck.significantFigures()
+
+            assertEquals(ScientificNumber("142", "92"), toCheck)
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+            assertEquals(3, numberSigFig)
+            assertEquals(2, uncertaintySigFig)
+        }
+
+        /**
+         * This verifies subtraction does not mess up results of fractional length and significant
+         * figure methods.
+         */
+        @Test
+        fun subtract_twoNumbers_decimalNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
+            val baseNumber = ScientificNumber("287.19", "92.871")
+            val subtractOne = ScientificNumber("145.273", "3.1234")
+            val toCheck = baseNumber - subtractOne
+
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+            val (numberSigFig, uncertaintySigFig) = toCheck.significantFigures()
+
+            assertEquals(ScientificNumber("141.92", "92.924"), toCheck)
+            assertEquals(2, numberFractionalLength)
+            assertEquals(3, uncertaintyFractionalLength)
+            assertEquals(5, numberSigFig)
+            assertEquals(5, uncertaintySigFig)
         }
     }
 }

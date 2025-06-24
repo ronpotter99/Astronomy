@@ -832,4 +832,50 @@ abstract class ScientificNumberTests {
             assertEquals(5, uncertaintySigFig)
         }
     }
+
+    /**
+     * This is a class to encapsulate all kotlin minus and subtract static method tests within the
+     * ScientificNumber class.
+     */
+    class SNSubtraction : ScientificNumberTests() {
+        /** This is a basic test of ScientificNumber number subtraction. */
+        @Test
+        fun subtract_twoNumbers_wholeNumbers_noUncertainty() {
+            val baseNumber = ScientificNumber("3", null)
+            val subtractOne = ScientificNumber("1", null)
+            val toCheck = baseNumber - subtractOne
+
+            assertEquals(ScientificNumber("2", null), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber number subtraction. */
+        @Test
+        fun subtract_twoNumbers_decimalNumbers_noUncertainty() {
+            val baseNumber = ScientificNumber("3.23456", null)
+            val subtractOne = ScientificNumber("1.123", null)
+            val toCheck = baseNumber - subtractOne
+
+            assertEquals(ScientificNumber("2.112", null), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber uncertainty subtraction. */
+        @Test
+        fun subtract_twoNumbers_wholeNumbers_withUncertainty() {
+            val baseNumber = ScientificNumber("145", "3")
+            val subtractOne = ScientificNumber("287", "92")
+            val toCheck = baseNumber - subtractOne
+
+            assertEquals(ScientificNumber("-142", "92"), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber uncertainty subtraction. */
+        @Test
+        fun subtract_twoNumbers_decimalNumbers_withUncertainty() {
+            val baseNumber = ScientificNumber("287.19", "92.871")
+            val subtractOne = ScientificNumber("145.273", "3.1234")
+            val toCheck = baseNumber - subtractOne
+
+            assertEquals(ScientificNumber("141.92", "92.924"), toCheck)
+        }
+    }
 }

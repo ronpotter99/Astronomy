@@ -207,6 +207,8 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
          * This method is used for subtracting multiple ScientificNumbers. By using this static method instead of 
          * using the kotlin minus operator, numbers are correctly rounded after subtracting more than two values.
          * 
+         * The first number is the base number, and subsequent numbers are subtracted from the base.
+         * 
          * This is the same as using the kotlin minus operator if only two numbers are subtracted.
          */
         fun subtract(vararg scientificNumbers: ScientificNumber, roundingMode: RoundingMode = RoundingMode.HALF_EVEN): ScientificNumber {

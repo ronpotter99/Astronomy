@@ -176,6 +176,12 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     companion object {
+        /**
+         * This method is used for adding multiple ScientificNumbers together. By using this static method instead of 
+         * using the kotlin plus operator, numbers are correctly rounded after addition of more than two values.
+         * 
+         * This is the same as using the kotlin plus operator if only two numbers are added.
+         */
         fun add(vararg scientificNumbers: ScientificNumber, roundingMode: RoundingMode = RoundingMode.HALF_EVEN): ScientificNumber {
             var newNumber: BigDecimal = BigDecimal("0")
             var newUncertainty: BigDecimal? = null

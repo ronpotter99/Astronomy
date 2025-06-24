@@ -26,19 +26,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun minus(toSubtract: ScientificNumber): ScientificNumber {
-        val newNumber = BDMath.subtract(number, toSubtract.number)
-
-        val newUncertainty =
-                if (uncertainty != null || toSubtract.uncertainty != null) {
-                    val baseUncertainty = uncertainty?.let { BDMath.pow(it, 2) } ?: BigDecimal("0")
-                    val inputUncertainty =
-                            toSubtract.uncertainty?.let { BDMath.pow(it, 2) } ?: BigDecimal("0")
-                    BDMath.sqrt(BDMath.add(baseUncertainty, inputUncertainty))
-                } else {
-                    null
-                }
-
-        return ScientificNumber(newNumber, newUncertainty)
+        return subtract(this, toSubtract)
     }
 
     operator fun times(toMultiply: ScientificNumber): ScientificNumber {
@@ -213,6 +201,50 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
             }
 
             return ScientificNumber(newNumber, newUncertainty)
+        }
+
+        /**
+         * This method is used for subtracting multiple ScientificNumbers. By using this static method instead of 
+         * using the kotlin minus operator, numbers are correctly rounded after subtracting more than two values.
+         * 
+         * This is the same as using the kotlin minus operator if only two numbers are subtracted.
+         */
+        fun subtract(vararg scientificNumbers: ScientificNumber, roundingMode: RoundingMode = RoundingMode.HALF_EVEN): ScientificNumber {
+            var newNumber: BigDecimal? = null
+            var newUncertainty: BigDecimal? = null
+
+            var numberFractionalLengths: MutableList<Int> = mutableListOf()
+            var uncertaintyFractionalLengths: MutableList<Int> = mutableListOf()
+
+            if (scientificNumbers.isEmpty()) {
+                throw IllegalArgumentException("Must pass in a non-empty list of numbers to add.")
+            }
+
+            scientificNumbers.forEach {
+                val (numberFractionalLength: Int, uncertaintyFractionalLength: Int) = it.fractionalLength()
+                
+                if (newNumber == null) {
+                    newNumber = it.number
+                } else {
+                    newNumber = BDMath.subtract(newNumber, it.number)
+                }
+                
+                numberFractionalLengths.add(numberFractionalLength)
+
+                it.uncertainty?.let {
+                    newUncertainty = BDMath.add(newUncertainty ?: BigDecimal("0"), BDMath.pow(it, 2))
+                    uncertaintyFractionalLengths.add(uncertaintyFractionalLength)
+                }
+            }
+
+            newNumber = newNumber!!.setScale(numberFractionalLengths.min(), roundingMode)
+
+            if (newUncertainty != null) {
+                newUncertainty = BDMath.sqrt(newUncertainty)
+                newUncertainty = newUncertainty!!.setScale(uncertaintyFractionalLengths.min(), roundingMode)
+            }
+
+            return ScientificNumber(newNumber!!, newUncertainty)
         }
     }
 }

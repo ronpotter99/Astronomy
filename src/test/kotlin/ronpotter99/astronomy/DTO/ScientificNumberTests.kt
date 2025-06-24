@@ -1,10 +1,9 @@
 package ronpotter99.astronomy.DTO
 
+import java.math.RoundingMode
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import ronpotter99.astronomy.DTO.ScientificNumber
-import java.math.RoundingMode
 
 /**
  * This is an abstract class to encapsulate all ScientificNumber method tests. Individual method
@@ -658,7 +657,12 @@ abstract class ScientificNumberTests {
         }
     }
 
+    /**
+     * This is a class to encapsulate all kotlin plus and add static method tests within the
+     * ScientificNumber class.
+     */
     class SNAddition : ScientificNumberTests() {
+        /** This is a basic test of ScientificNumber number addition. */
         @Test
         fun add_twoNumbers_wholeNumbers_noUncertainty() {
             val addOne = ScientificNumber("1", null)
@@ -668,6 +672,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("4", null), toCheck)
         }
 
+        /** This is a basic test of ScientificNumber number addition. */
         @Test
         fun add_twoNumbers_decimalNumbers_noUncertainty() {
             val addOne = ScientificNumber("1.123", null)
@@ -677,6 +682,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("4.358", null), toCheck)
         }
 
+        /** This is a basic test of ScientificNumber uncertainty addition. */
         @Test
         fun add_twoNumbers_wholeNumbers_withUncertainty() {
             val addOne = ScientificNumber("145", "3")
@@ -686,6 +692,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("432", "92"), toCheck)
         }
 
+        /** This is a basic test of ScientificNumber uncertainty addition. */
         @Test
         fun add_twoNumbers_decimalNumbers_withUncertainty() {
             val addOne = ScientificNumber("145.273", "3.1234")
@@ -695,6 +702,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("432.46", "92.924"), toCheck)
         }
 
+        /** This verifies a kotlin plus and the static add method have the same output. */
         @Test
         fun add_twoNumbers_defaultPlusEqualsAddStaticFunction() {
             val addOne = ScientificNumber("145.273", "3.1234")
@@ -705,13 +713,13 @@ abstract class ScientificNumberTests {
             assertEquals(toCheckTwo, toCheckOne)
         }
 
+        /** This verifies adding no numbers throws an exception. */
         @Test
         fun add_noNumbers_getException() {
-            assertFailsWith<IllegalArgumentException> {
-                ScientificNumber.add()
-            }
+            assertFailsWith<IllegalArgumentException> { ScientificNumber.add() }
         }
 
+        /** This verifies adding one number returns itself. */
         @Test
         fun add_oneNumber_wholeNumbers_withUncertainty() {
             val addOne = ScientificNumber("145", "3")
@@ -720,6 +728,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("145", "3"), toCheck)
         }
 
+        /** This verifies adding one number returns itself. */
         @Test
         fun add_oneNumber_decimalNumbers_withUncertainty() {
             val addOne = ScientificNumber("145.273", "3.1234")
@@ -728,6 +737,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("145.273", "3.1234"), toCheck)
         }
 
+        /** This verifies adding three numbers returns the intended result. */
         @Test
         fun add_threeNumbers_wholeNumbers_withUncertainty() {
             val addOne = ScientificNumber("145", "3")
@@ -738,6 +748,10 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("539", "5"), toCheck)
         }
 
+        /**
+         * This verifies adding three numbers returns the correct addition and rounds decimal places
+         * appropriately according to scientific uncertainty standards.
+         */
         @Test
         fun add_threeNumbers_decimalNumbers_withUncertainty() {
             val addOne = ScientificNumber("145.273", "3.1234")
@@ -748,6 +762,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("539.80", "6.22"), toCheck)
         }
 
+        /** This verifies the default rounding mode rounds up and down appropriately. */
         @Test
         fun add_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundUp() {
             val addOne = ScientificNumber("145.285", "0.0")
@@ -757,6 +772,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("432.48", "0.4"), toCheck)
         }
 
+        /** This verifies the default rounding mode rounds up and down appropriately. */
         @Test
         fun add_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundDown() {
             val addOne = ScientificNumber("145.275", "0.0")
@@ -766,6 +782,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("432.46", "0.2"), toCheck)
         }
 
+        /** This verifies the default rounding mode is able to be overridden. */
         @Test
         fun add_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
             val addOne = ScientificNumber("145.275", "0.0")
@@ -775,6 +792,10 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("432.47", "0.3"), toCheck)
         }
 
+        /**
+         * This verifies addition does not mess up results of fractional length and significant
+         * figure methods.
+         */
         @Test
         fun add_twoNumbers_wholeNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
             val addOne = ScientificNumber("145", "3")
@@ -791,6 +812,10 @@ abstract class ScientificNumberTests {
             assertEquals(2, uncertaintySigFig)
         }
 
+        /**
+         * This verifies addition does not mess up results of fractional length and significant
+         * figure methods.
+         */
         @Test
         fun add_twoNumbers_decimalNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
             val addOne = ScientificNumber("145.273", "3.1234")

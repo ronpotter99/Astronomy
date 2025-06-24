@@ -877,5 +877,64 @@ abstract class ScientificNumberTests {
 
             assertEquals(ScientificNumber("141.92", "92.924"), toCheck)
         }
+        /** This verifies a kotlin minus and the static subtract method have the same output. */
+        @Test
+        fun subtract_twoNumbers_defaultMinusEqualsSubtractStaticFunction() {
+            val baseNumber = ScientificNumber("287.19", "3.1234")
+            val subtractOne = ScientificNumber("145.273", "92.871")
+            val toCheckOne = baseNumber - subtractOne
+            val toCheckTwo = ScientificNumber.subtract(baseNumber, subtractOne)
+
+            assertEquals(toCheckTwo, toCheckOne)
+        }
+
+        /** This verifies subtracting no numbers throws an exception. */
+        @Test
+        fun subtract_noNumbers_getException() {
+            assertFailsWith<IllegalArgumentException> { ScientificNumber.subtract() }
+        }
+
+        /** This verifies subtracting one number returns itself. */
+        @Test
+        fun subtract_oneNumber_wholeNumbers_withUncertainty() {
+            val baseNumber = ScientificNumber("145", "3")
+            val toCheck = ScientificNumber.subtract(baseNumber)
+
+            assertEquals(ScientificNumber("145", "3"), toCheck)
+        }
+
+        /** This verifies subtracting one number returns itself. */
+        @Test
+        fun subtract_oneNumber_decimalNumbers_withUncertainty() {
+            val baseNumber = ScientificNumber("145.273", "3.1234")
+            val toCheck = ScientificNumber.subtract(baseNumber)
+
+            assertEquals(ScientificNumber("145.273", "3.1234"), toCheck)
+        }
+
+        /** This verifies subtracting three numbers returns the intended result. */
+        @Test
+        fun subtract_threeNumbers_wholeNumbers_withUncertainty() {
+            val baseNumber = ScientificNumber("145", "3")
+            val subtractOne = ScientificNumber("12", "2")
+            val subtractTwo = ScientificNumber("382", "4")
+            val toCheck = ScientificNumber.subtract(baseNumber, subtractOne, subtractTwo)
+
+            assertEquals(ScientificNumber("-249", "5"), toCheck)
+        }
+
+        /**
+         * This verifies subtracting three numbers returns the correct subtraction and rounds decimal places
+         * appropriately according to scientific uncertainty standards.
+         */
+        @Test
+        fun subtract_threeNumbers_decimalNumbers_withUncertainty() {
+            val baseNumber = ScientificNumber("145.273", "3.1234")
+            val subtractOne = ScientificNumber("12.3852", "2.36")
+            val subtractTwo = ScientificNumber("382.14", "4.836")
+            val toCheck = ScientificNumber.subtract(baseNumber, subtractOne, subtractTwo)
+
+            assertEquals(ScientificNumber("-249.25", "6.22"), toCheck)
+        }
     }
 }

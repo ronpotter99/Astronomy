@@ -3,6 +3,7 @@ package ronpotter99.astronomy.DTO
 import ch.obermuhlner.math.big.DefaultBigDecimalMath as BDMath
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.math.MathContext
 import java.util.IllegalFormatException
 import kotlin.math.*
 
@@ -30,21 +31,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun times(toMultiply: ScientificNumber): ScientificNumber {
-        val newNumber = BDMath.multiply(number, toMultiply.number)
-
-        val newUncertainty =
-                if (uncertainty != null || toMultiply.uncertainty != null) {
-                    val baseUncertainty =
-                            uncertainty?.let { BDMath.pow(BDMath.divide(it, number), 2) } ?: BigDecimal("0")
-                    val inputUncertainty =
-                            toMultiply.uncertainty?.let { BDMath.pow(BDMath.divide(it, toMultiply.number), 2) }
-                                    ?: BigDecimal("0")
-                    BDMath.multiply(newNumber.abs(), BDMath.sqrt(BDMath.add(baseUncertainty, inputUncertainty)))
-                } else {
-                    null
-                }
-
-        return ScientificNumber(newNumber, newUncertainty)
+        return multiply(this, toMultiply)
     }
 
     operator fun div(toDivide: ScientificNumber): ScientificNumber {
@@ -219,7 +206,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
             var uncertaintyFractionalLengths: MutableList<Int> = mutableListOf()
 
             if (scientificNumbers.isEmpty()) {
-                throw IllegalArgumentException("Must pass in a non-empty list of numbers to add.")
+                throw IllegalArgumentException("Must pass in a non-empty list of numbers to subtract.")
             }
 
             scientificNumbers.forEach {
@@ -247,6 +234,42 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
             }
 
             return ScientificNumber(newNumber!!, newUncertainty)
+        }
+
+        fun multiply(vararg scientificNumbers: ScientificNumber, roundingMode: RoundingMode = RoundingMode.HALF_EVEN): ScientificNumber {
+            var newNumber: BigDecimal = BigDecimal("1")
+            var newUncertainty: BigDecimal? = null
+
+            var numberSigFigs: MutableList<Int> = mutableListOf()
+            var uncertaintySigFigs: MutableList<Int> = mutableListOf()
+
+            if (scientificNumbers.isEmpty()) {
+                throw IllegalArgumentException("Must pass in a non-empty list of numbers to multiply.")
+            }
+
+            scientificNumbers.forEach { scientificNumber: ScientificNumber ->
+                val (numberSigFig: Int, uncertaintySigFig: Int) = scientificNumber.significantFigures()
+                
+                newNumber = BDMath.multiply(newNumber, scientificNumber.number)
+                
+                numberSigFigs.add(numberSigFig)
+
+                scientificNumber.uncertainty?.let {
+                    newUncertainty = BDMath.add(newUncertainty ?: BigDecimal("0"), BDMath.pow(scientificNumber.fractionalUncertainty(), 2))
+                    uncertaintySigFigs.add(uncertaintySigFig)
+                }
+            }
+
+            // TODO re-evaluate this rounding with uncertainty values
+            newNumber = newNumber.round(MathContext(numberSigFigs.min(), roundingMode))
+
+            if (newUncertainty != null) {
+                newUncertainty = BDMath.multiply(newNumber.abs(), BDMath.sqrt(newUncertainty))
+                // TODO re-evaluate this rounding with uncertainty values
+                // newUncertainty = newUncertainty!!.round(MathContext(uncertaintySigFigs.min(), roundingMode))
+            }
+
+            return ScientificNumber(newNumber, newUncertainty)
         }
     }
 }

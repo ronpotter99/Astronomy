@@ -21,12 +21,21 @@ class Moon {
     @Column(name = "common_name")
     var commonName: String = ""
 
+    /**
+     * Units in 'kg'
+     */
     @Column(name = "mass")
     var mass: ScientificNumber? = null
 
+    /**
+     * Units in 'm'
+     */
     @Column(name = "orbit_semimajor_axis")
     var orbitSemimajorAxis: ScientificNumber? = null
 
+    /**
+     * Units in 's'
+     */
     @Column(name = "orbit_period")
     var orbitPeriod: ScientificNumber? = null
 

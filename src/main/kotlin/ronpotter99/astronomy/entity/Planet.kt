@@ -35,30 +35,57 @@ class Planet {
     @Enumerated(EnumType.STRING)
     var classificationType: ClassificationType? = null
 
+    /**
+     * Units in 'kg'
+     */
     @Column(name = "mass")
     var mass: ScientificNumber? = null
 
+    /**
+     * Units in 'm'
+     */
     @Column(name = "radius")
     var radius: ScientificNumber? = null
 
+    /**
+     * Units in 'g/cm^3'
+     */
     @Column(name = "density")
     var density: ScientificNumber? = null
 
+    /**
+     * Units in 'm'
+     */
     @Column(name = "orbit_semimajor_axis")
     var orbitSemimajorAxis: ScientificNumber? = null
 
+    /**
+     * Unitless
+     */
     @Column(name = "orbit_eccentricity")
     var orbitEccentricity: ScientificNumber? = null
 
+    /**
+     * Units in 's'
+     */
     @Column(name = "orbit_period")
     var orbitPeriod: ScientificNumber? = null
 
+    /**
+     * Units in 'rad'
+     */
     @Column(name = "orbit_inclination")
     var orbitInclination: ScientificNumber? = null
 
+    /**
+     * Units in 's'
+     */
     @Column(name = "rotational_period")
     var rotationalPeriod: ScientificNumber? = null
 
+    /**
+     * Units in 'K'
+     */
     @Column(name = "surface_temperature")
     var surfaceTemperature: ScientificNumber? = null
 

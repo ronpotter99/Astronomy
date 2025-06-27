@@ -81,6 +81,10 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
         return ScientificNumber(newNumber, newUncertainty)
     }
 
+    fun sqrt(): ScientificNumber {
+        return pow(BigDecimal("0.5"))
+    }
+
     fun fractionalUncertainty(): BigDecimal? {
         return uncertainty?.let { BDMath.divide(it, number.abs()) }
     }

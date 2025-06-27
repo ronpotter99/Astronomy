@@ -1,0 +1,59 @@
+package ronpotter99.astronomy.service.equation
+
+import io.github.oshai.kotlinlogging.KotlinLogging
+import java.math.BigDecimal
+import org.springframework.stereotype.Component
+import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.utils.EquationConstants as Constants
+
+@Component
+class UniversalLawOfGraviatation : IEquation {
+
+    private val EQUATION_REFERENCE: String = "UniversalLawOfGravitation"
+
+    private val logger = KotlinLogging.logger {}
+
+    override fun getEquationReference(): String {
+        return "UniversalLawOfGravitation"
+    }
+
+    override fun getVariableList(): Map<String, String> {
+        return mapOf(
+                "F" to "force of gravity (N)",
+                "M" to "mass of object 1 (kg)",
+                "m" to "mass of object 2 (kg)",
+                "r" to "radius between objects (m)"
+        )
+    }
+
+    override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
+        if (variables.size != getVariableList().size - 1) {
+            throw IllegalArgumentException(
+                    "${ variables.size } variables provided but ${ getVariableList().size - 1 } variables expected."
+            )
+        }
+
+        val toReturn: ScientificNumber? =
+                if (!variables.containsKey("F")) {
+                    Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT *
+                            ((variables.get("M")!! * variables.get("m")!!) /
+                                    variables.get("r")!!.pow(BigDecimal("2")))
+                } else if (!variables.containsKey("M")) {
+                    (variables.get("F")!! * variables.get("r")!!.pow(BigDecimal("2"))) /
+                            (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT * variables.get("m")!!)
+                } else if (!variables.containsKey("m")) {
+                    (variables.get("F")!! * variables.get("r")!!.pow(BigDecimal("2"))) /
+                            (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT * variables.get("M")!!)
+                } else if (!variables.containsKey("r")) {
+                    (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT *
+                                    ((variables.get("M")!! * variables.get("m")!!) /
+                                            variables.get("F")!!))
+                            .sqrt()
+                } else {
+                    logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
+                    null
+                }
+
+        return toReturn
+    }
+}

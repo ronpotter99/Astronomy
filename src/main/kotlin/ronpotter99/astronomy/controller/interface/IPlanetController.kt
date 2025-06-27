@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import ronpotter99.astronomy.entity.Planet
 
 @RequestMapping("/planet")
-interface PlanetControllerInterface {
+interface IPlanetController {
 
     @GetMapping("/list")
     fun getAllPlanet(): List<Planet>

@@ -6,7 +6,7 @@ import ronpotter99.astronomy.entity.Planet
 import ronpotter99.astronomy.service.PlanetService
 
 @RestController
-class PlanetController(private val planetService: PlanetService) : PlanetControllerInterface {
+class PlanetController(private val planetService: PlanetService) : IPlanetController {
 
     private val logger = KotlinLogging.logger {}
 

@@ -9,12 +9,14 @@ import ronpotter99.astronomy.utils.EquationConstants as Constants
 @Component
 class UniversalLawOfGraviatation : IEquation {
 
-    private val EQUATION_REFERENCE: String = "UniversalLawOfGravitation"
+    companion object {
+        const val EQUATION_REFERENCE: String = "UniversalLawOfGravitation"
+    }
 
     private val logger = KotlinLogging.logger {}
 
     override fun getEquationReference(): String {
-        return "UniversalLawOfGravitation"
+        return EQUATION_REFERENCE
     }
 
     override fun getVariableList(): Map<String, String> {
@@ -27,11 +29,7 @@ class UniversalLawOfGraviatation : IEquation {
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
-        if (variables.size != getVariableList().size - 1) {
-            throw IllegalArgumentException(
-                    "${ variables.size } variables provided but ${ getVariableList().size - 1 } variables expected."
-            )
-        }
+        validateInputVariables(variables)
 
         val toReturn: ScientificNumber? =
                 if (!variables.containsKey("F")) {

@@ -1,10 +1,11 @@
-package ronpotter99.astronomy.service.equation
+package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import ch.obermuhlner.math.big.DefaultBigDecimalMath as BDMath
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.math.BigDecimal
 import org.springframework.stereotype.Component
 import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.service.equation.IEquation
 import ronpotter99.astronomy.utils.EquationConstants as Constants
 
 @Component

@@ -1,9 +1,10 @@
-package ronpotter99.astronomy.service.equation
+package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.math.BigDecimal
 import org.springframework.stereotype.Component
 import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.service.equation.IEquation
 
 @Component
 class EllipseSemiMinorAxis : IEquation {
@@ -31,11 +32,20 @@ class EllipseSemiMinorAxis : IEquation {
 
         val toReturn: ScientificNumber? =
                 if (!variables.containsKey("b")) {
-                    (variables.get("a")!!.pow(BigDecimal("2")) * (ScientificNumber("1") - variables.get("e")!!.pow(BigDecimal("2")))).sqrt()
+                    (variables.get("a")!!.pow(BigDecimal("2")) *
+                                    (ScientificNumber("1") -
+                                            variables.get("e")!!.pow(BigDecimal("2"))))
+                            .sqrt()
                 } else if (!variables.containsKey("a")) {
-                    (variables.get("b")!!.pow(BigDecimal("2")) / (ScientificNumber("1") - variables.get("e")!!.pow(BigDecimal("2")))).sqrt()
+                    (variables.get("b")!!.pow(BigDecimal("2")) /
+                                    (ScientificNumber("1") -
+                                            variables.get("e")!!.pow(BigDecimal("2"))))
+                            .sqrt()
                 } else if (!variables.containsKey("e")) {
-                    (ScientificNumber("1") - (variables.get("b")!!.pow(BigDecimal("2")) / variables.get("a")!!.pow(BigDecimal("2")))).sqrt()
+                    (ScientificNumber("1") -
+                                    (variables.get("b")!!.pow(BigDecimal("2")) /
+                                            variables.get("a")!!.pow(BigDecimal("2"))))
+                            .sqrt()
                 } else {
                     logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                     null

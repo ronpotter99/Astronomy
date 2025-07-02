@@ -1,11 +1,10 @@
-package ronpotter99.astronomy.service.equation
+package ronpotter99.astronomy.service.equation.distanceAndMovement
 
-import ch.obermuhlner.math.big.DefaultBigDecimalMath as BDMath
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.math.BigDecimal
 import org.springframework.stereotype.Component
 import ronpotter99.astronomy.DTO.ScientificNumber
-import ronpotter99.astronomy.utils.EquationConstants as Constants
+import ronpotter99.astronomy.service.equation.IEquation
 
 @Component
 class KeplersThirdLawStandardized : IEquation {
@@ -35,7 +34,8 @@ class KeplersThirdLawStandardized : IEquation {
                 if (!variables.containsKey("P")) {
                     (variables.get("a")!!.pow(BigDecimal("3")) / variables.get("M")!!).sqrt()
                 } else if (!variables.containsKey("M")) {
-                    (variables.get("a")!!.pow(BigDecimal("3")) / variables.get("P")!!.pow(BigDecimal("2")))
+                    (variables.get("a")!!.pow(BigDecimal("3")) /
+                            variables.get("P")!!.pow(BigDecimal("2")))
                 } else if (!variables.containsKey("a")) {
                     (variables.get("P")!!.pow(BigDecimal("2")) * variables.get("M")!!).cbrt()
                 } else {

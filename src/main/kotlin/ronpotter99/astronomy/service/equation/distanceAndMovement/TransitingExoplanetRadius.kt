@@ -1,9 +1,10 @@
-package ronpotter99.astronomy.service.equation
+package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.math.BigDecimal
 import org.springframework.stereotype.Component
 import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.service.equation.IEquation
 
 @Component
 class TransitingExoplanetRadius : IEquation {

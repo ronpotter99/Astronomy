@@ -83,7 +83,7 @@ class EllipseRadius : IEquation {
         super.validateInputVariables(variables)
 
         // TODO create trig methods to support uncertainty calculations
-        if (variables.containsKey("theta") && variables.get("theta")!!.uncertainty == null) {
+        if (variables.containsKey("theta") && variables.get("theta")!!.uncertainty != null) {
             throw IllegalArgumentException("Uncertainties of 'theta' are not currently supported.")
         }
 

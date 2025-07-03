@@ -1,4 +1,4 @@
-package ronpotter99.astronomy.service.equation.distanceAndMovement
+package ronpotter99.astronomy.service.equation.massAndGravitation
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.math.BigDecimal

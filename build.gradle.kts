@@ -20,18 +20,22 @@ repositories {
     mavenCentral()
 }
 
+val kotlinLoggingVersion = "7.0.7"
+val bigMathVersion = "2.3.2"
+val kotlinMockitoVersion = "5.4.0"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.h2database:h2")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("io.github.oshai:kotlin-logging-jvm:7.0.7")
-    implementation("ch.obermuhlner:big-math:2.3.2")
+    implementation("io.github.oshai:kotlin-logging-jvm:$kotlinLoggingVersion")
+    implementation("ch.obermuhlner:big-math:$bigMathVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:$kotlinMockitoVersion")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

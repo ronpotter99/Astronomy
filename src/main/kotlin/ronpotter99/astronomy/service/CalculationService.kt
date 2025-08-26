@@ -12,13 +12,13 @@ class CalculationService(private val equations: HashMap<String, IEquation>) : IC
     private val logger = KotlinLogging.logger {}
 
     override fun getEquationVariables(equationReference: String): Map<String, String>? {
-        return equations.get(equationReference.uppercase())?.getVariableList()
+        return equations[equationReference.uppercase()]?.getVariableList()
     }
 
     override fun calculate(
         equationReference: String,
         equationVariables: Map<String, ScientificNumber>
     ): ScientificNumber? {
-        return equations.get(equationReference.uppercase())?.calculate(equationVariables)
+        return equations[equationReference.uppercase()]?.calculate(equationVariables)
     }
 }

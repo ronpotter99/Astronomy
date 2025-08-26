@@ -31,12 +31,18 @@ class CalculationController(private val calculationService: CalculationService) 
             }
 
         val toReturn =
-            if (calculatedValue == null) {
-                ResponseEntity("Equation not found.", HttpStatus.NOT_FOUND)
-            } else if (calculatedValue is String) {
-                ResponseEntity(calculatedValue, HttpStatus.BAD_REQUEST)
-            } else {
-                ResponseEntity(calculatedValue, HttpStatus.OK)
+            when (calculatedValue) {
+                null -> {
+                    ResponseEntity("Equation not found.", HttpStatus.NOT_FOUND)
+                }
+
+                is String -> {
+                    ResponseEntity(calculatedValue, HttpStatus.BAD_REQUEST)
+                }
+
+                else -> {
+                    ResponseEntity(calculatedValue, HttpStatus.OK)
+                }
             }
 
         return toReturn

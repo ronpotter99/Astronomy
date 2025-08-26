@@ -148,7 +148,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     fun fractionalLength(): Pair<Int, Int> {
 
         val plainNumber: BigDecimal = BigDecimal(number.toPlainString())
-        val plainUncertainty: BigDecimal = BigDecimal(uncertainty?.let { it.toPlainString() } ?: "0")
+        val plainUncertainty: BigDecimal = BigDecimal(uncertainty?.toPlainString() ?: "0")
 
         val fractionalNumberSize: Int = plainNumber.scale()
         val fractionalUncertaintySize: Int = plainUncertainty.scale()
@@ -170,20 +170,18 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
             var newNumber: BigDecimal = BigDecimal("0")
             var newUncertainty: BigDecimal? = null
 
-            var numberFractionalLengths: MutableList<Int> = mutableListOf()
-            var uncertaintyFractionalLengths: MutableList<Int> = mutableListOf()
+            val numberFractionalLengths: MutableList<Int> = mutableListOf()
+            val uncertaintyFractionalLengths: MutableList<Int> = mutableListOf()
 
-            if (scientificNumbers.isEmpty()) {
-                throw IllegalArgumentException("Must pass in a non-empty list of numbers to add.")
-            }
+            require(!scientificNumbers.isEmpty()) { "Must pass in a non-empty list of numbers to add." }
 
-            scientificNumbers.forEach {
-                val (numberFractionalLength: Int, uncertaintyFractionalLength: Int) = it.fractionalLength()
+            scientificNumbers.forEach { scientificNumber ->
+                val (numberFractionalLength: Int, uncertaintyFractionalLength: Int) = scientificNumber.fractionalLength()
 
-                newNumber = BDMath.add(newNumber, it.number)
+                newNumber = BDMath.add(newNumber, scientificNumber.number)
                 numberFractionalLengths.add(numberFractionalLength)
 
-                it.uncertainty?.let {
+                scientificNumber.uncertainty?.let {
                     newUncertainty = BDMath.add(newUncertainty ?: BigDecimal("0"), BDMath.pow(it, 2))
                     uncertaintyFractionalLengths.add(uncertaintyFractionalLength)
                 }
@@ -214,20 +212,18 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
             var newNumber: BigDecimal? = null
             var newUncertainty: BigDecimal? = null
 
-            var numberFractionalLengths: MutableList<Int> = mutableListOf()
-            var uncertaintyFractionalLengths: MutableList<Int> = mutableListOf()
+            val numberFractionalLengths: MutableList<Int> = mutableListOf()
+            val uncertaintyFractionalLengths: MutableList<Int> = mutableListOf()
 
-            if (scientificNumbers.isEmpty()) {
-                throw IllegalArgumentException("Must pass in a non-empty list of numbers to subtract.")
-            }
+            require(!scientificNumbers.isEmpty()) { "Must pass in a non-empty list of numbers to subtract." }
 
             scientificNumbers.forEach {
                 val (numberFractionalLength: Int, uncertaintyFractionalLength: Int) = it.fractionalLength()
 
-                if (newNumber == null) {
-                    newNumber = it.number
+                newNumber = if (newNumber == null) {
+                    it.number
                 } else {
-                    newNumber = BDMath.subtract(newNumber, it.number)
+                    BDMath.subtract(newNumber, it.number)
                 }
 
                 numberFractionalLengths.add(numberFractionalLength)
@@ -255,12 +251,10 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
             var newNumber: BigDecimal = BigDecimal("1")
             var newUncertainty: BigDecimal? = null
 
-            var numberSigFigs: MutableList<Int> = mutableListOf()
-            var uncertaintySigFigs: MutableList<Int> = mutableListOf()
+            val numberSigFigs: MutableList<Int> = mutableListOf()
+            val uncertaintySigFigs: MutableList<Int> = mutableListOf()
 
-            if (scientificNumbers.isEmpty()) {
-                throw IllegalArgumentException("Must pass in a non-empty list of numbers to multiply.")
-            }
+            require(!scientificNumbers.isEmpty()) { "Must pass in a non-empty list of numbers to multiply." }
 
             scientificNumbers.forEach { scientificNumber: ScientificNumber ->
                 val (numberSigFig: Int, uncertaintySigFig: Int) = scientificNumber.significantFigures()

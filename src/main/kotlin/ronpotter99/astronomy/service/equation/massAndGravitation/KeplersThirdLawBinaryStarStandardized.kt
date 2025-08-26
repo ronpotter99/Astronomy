@@ -33,8 +33,8 @@ class KeplersThirdLawBinaryStarStandardized : IEquation {
 
         val toReturn: ScientificNumber? = when {
             !variables.containsKey("P") -> {
-                (variables.getValue("a")!!
-                    .pow(BigDecimal("3")) / (variables.getValue("M_1")!! + variables.getValue("M_2")!!)).sqrt()
+                (variables.getValue("a")
+                    .pow(BigDecimal("3")) / (variables.getValue("M_1") + variables.getValue("M_2"))).sqrt()
             }
 
             !variables.containsKey("M_1") -> {

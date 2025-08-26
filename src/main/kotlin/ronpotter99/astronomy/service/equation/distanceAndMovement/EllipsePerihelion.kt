@@ -53,11 +53,10 @@ class EllipsePerihelion : IEquation {
     override fun validateInputVariables(variables: Map<String, ScientificNumber>) {
         super.validateInputVariables(variables)
 
-        if (variables.containsKey("e") && (variables.get("e")!!.number < BigDecimal("0") || variables.get("e")!!.number >= BigDecimal(
+        require(
+            !(variables.containsKey("e") && (variables.getValue("e").number < BigDecimal("0") || variables.getValue("e").number >= BigDecimal(
                 "1"
-            ))
-        ) {
-            throw IllegalArgumentException("Variable 'e' must fit the range 0 <= e < 1.")
-        }
+            )))
+        ) { "Variable 'e' must fit the range 0 <= e < 1." }
     }
 }

@@ -30,18 +30,24 @@ class KeplersThirdLawStandardized : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("P")) {
-                (variables.get("a")!!.pow(BigDecimal("3")) / variables.get("M")!!).sqrt()
-            } else if (!variables.containsKey("M")) {
-                (variables.get("a")!!.pow(BigDecimal("3")) /
-                        variables.get("P")!!.pow(BigDecimal("2")))
-            } else if (!variables.containsKey("a")) {
-                (variables.get("P")!!.pow(BigDecimal("2")) * variables.get("M")!!).cbrt()
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("P") -> {
+                (variables.getValue("a").pow(BigDecimal("3")) / variables.getValue("M")).sqrt()
+            }
+
+            !variables.containsKey("M") -> {
+                (variables.getValue("a").pow(BigDecimal("3")) / variables.getValue("P").pow(BigDecimal("2")))
+            }
+
+            !variables.containsKey("a") -> {
+                (variables.getValue("P").pow(BigDecimal("2")) * variables.getValue("M")).cbrt()
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

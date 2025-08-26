@@ -31,25 +31,30 @@ class TransitingExoplanetRadius : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("R_P")) {
-                (variables.get("R_star")!! *
-                        (variables.get("Delta F")!! / variables.get("F")!!).sqrt())
-            } else if (!variables.containsKey("R_star")) {
-                (variables.get("R_P")!! /
-                        (variables.get("Delta F")!! / variables.get("F")!!).sqrt())
-            } else if (!variables.containsKey("Delta F")) {
-                ((variables.get("R_P")!! / variables.get("R_star")!!).pow(BigDecimal("2")) *
-                        variables.get("F")!!)
-            } else if (!variables.containsKey("F")) {
-                (variables.get("Delta F")!! /
-                        (variables.get("R_P")!! / variables.get("R_star")!!).pow(
-                            BigDecimal("2")
-                        ))
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("R_P") -> {
+                (variables.getValue("R_star") * (variables.getValue("Delta F") / variables.getValue("F")).sqrt())
+            }
+
+            !variables.containsKey("R_star") -> {
+                (variables.getValue("R_P") / (variables.getValue("Delta F") / variables.getValue("F")).sqrt())
+            }
+
+            !variables.containsKey("Delta F") -> {
+                ((variables.getValue("R_P") / variables.getValue("R_star")).pow(BigDecimal("2")) * variables.getValue("F"))
+            }
+
+            !variables.containsKey("F") -> {
+                (variables.getValue("Delta F") / (variables.getValue("R_P") / variables.getValue("R_star")).pow(
+                    BigDecimal("2")
+                ))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

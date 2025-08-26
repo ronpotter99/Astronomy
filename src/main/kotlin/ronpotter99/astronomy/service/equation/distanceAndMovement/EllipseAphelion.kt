@@ -21,26 +21,31 @@ class EllipseAphelion : IEquation {
 
     override fun getVariableList(): Map<String, String> {
         return mapOf(
-            "r_a" to "distance of orbit at the aphelion (m)",
-            "a" to "semi-major axis (m)",
-            "e" to "eccentricity"
+            "r_a" to "distance of orbit at the aphelion (m)", "a" to "semi-major axis (m)", "e" to "eccentricity"
         )
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("r_a")) {
-                (variables.get("a")!! * (ScientificNumber("1") + variables.get("e")!!))
-            } else if (!variables.containsKey("a")) {
-                (variables.get("r_a")!! / (ScientificNumber("1") + variables.get("e")!!))
-            } else if (!variables.containsKey("e")) {
-                ((variables.get("r_a")!! / variables.get("a")!!) - ScientificNumber("1"))
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("r_a") -> {
+                (variables.getValue("a") * (ScientificNumber("1") + variables.getValue("e")))
+            }
+
+            !variables.containsKey("a") -> {
+                (variables.getValue("r_a") / (ScientificNumber("1") + variables.getValue("e")))
+            }
+
+            !variables.containsKey("e") -> {
+                ((variables.getValue("r_a") / variables.getValue("a")) - ScientificNumber("1"))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }
@@ -48,11 +53,10 @@ class EllipseAphelion : IEquation {
     override fun validateInputVariables(variables: Map<String, ScientificNumber>) {
         super.validateInputVariables(variables)
 
-        if (variables.containsKey("e") &&
-            (variables.get("e")!!.number < BigDecimal("0") ||
-                    variables.get("e")!!.number >= BigDecimal("1"))
-        ) {
-            throw IllegalArgumentException("Variable 'e' must fit the range 0 <= e < 1.")
-        }
+        require(
+            !(variables.containsKey("e") && (variables.getValue("e").number < BigDecimal("0") || variables.getValue("e").number >= BigDecimal(
+                "1"
+            )))
+        ) { "Variable 'e' must fit the range 0 <= e < 1." }
     }
 }

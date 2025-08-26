@@ -29,17 +29,24 @@ class AngularSeparation : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("alpha")) {
-                (variables.get("a")!! / variables.get("d")!!)
-            } else if (!variables.containsKey("a")) {
-                (variables.get("alpha")!! * variables.get("d")!!)
-            } else if (!variables.containsKey("d")) {
-                (variables.get("a")!! / variables.get("alpha")!!)
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("alpha") -> {
+                (variables.getValue("a") / variables.getValue("d"))
+            }
+
+            !variables.containsKey("a") -> {
+                (variables.getValue("alpha") * variables.getValue("d"))
+            }
+
+            !variables.containsKey("d") -> {
+                (variables.getValue("a") / variables.getValue("alpha"))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

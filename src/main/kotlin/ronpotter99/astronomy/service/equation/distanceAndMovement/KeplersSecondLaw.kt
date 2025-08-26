@@ -30,23 +30,30 @@ class KeplersSecondLaw : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("r")) {
-                (variables.get("L")!! / (variables.get("m")!! * variables.get("v_t")!!))
-            } else if (!variables.containsKey("v_t")) {
-                (variables.get("L")!! / (variables.get("m")!! * variables.get("r")!!))
-            } else if (!variables.containsKey("L")) {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("r") -> {
+                (variables.getValue("L") / (variables.getValue("m") * variables.getValue("v_t")))
+            }
+
+            !variables.containsKey("v_t") -> {
+                (variables.getValue("L") / (variables.getValue("m") * variables.getValue("r")))
+            }
+
+            !variables.containsKey("L") -> {
                 ScientificNumber.multiply(
-                    variables.get("r")!!,
-                    variables.get("v_t")!!,
-                    variables.get("m")!!
+                    variables.getValue("r"), variables.getValue("v_t"), variables.getValue("m")
                 )
-            } else if (!variables.containsKey("m")) {
-                (variables.get("L")!! / (variables.get("r")!! * variables.get("v_t")!!))
-            } else {
+            }
+
+            !variables.containsKey("m") -> {
+                (variables.getValue("L") / (variables.getValue("r") * variables.getValue("v_t")))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

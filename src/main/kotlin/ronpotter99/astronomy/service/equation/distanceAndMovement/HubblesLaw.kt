@@ -26,15 +26,20 @@ class HubblesLaw : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("z")) {
-                (Constants.HUBBLE_CONSTANT * variables.get("d")!! / Constants.SPEED_OF_LIGHT)
-            } else if (!variables.containsKey("d")) {
-                (variables.get("z")!! * Constants.SPEED_OF_LIGHT / Constants.HUBBLE_CONSTANT)
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("z") -> {
+                (Constants.HUBBLE_CONSTANT * variables.getValue("d") / Constants.SPEED_OF_LIGHT)
+            }
+
+            !variables.containsKey("d") -> {
+                (variables.getValue("z") * Constants.SPEED_OF_LIGHT / Constants.HUBBLE_CONSTANT)
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

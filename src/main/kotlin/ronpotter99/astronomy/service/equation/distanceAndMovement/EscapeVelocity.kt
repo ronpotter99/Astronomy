@@ -31,27 +31,29 @@ class EscapeVelocity : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("v_e")) {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("v_e") -> {
                 (ScientificNumber.multiply(
-                    ScientificNumber("2"),
-                    Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                    variables.get("M")!!
-                ) / variables.get("r")!!)
-                    .sqrt()
-            } else if (!variables.containsKey("M")) {
-                ((variables.get("v_e")!!.pow(BigDecimal("2")) * variables.get("r")!!) /
-                        (ScientificNumber("2") * Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT))
-            } else if (!variables.containsKey("r")) {
+                    ScientificNumber("2"), Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT, variables.getValue("M")
+                ) / variables.getValue("r")).sqrt()
+            }
+
+            !variables.containsKey("M") -> {
+                ((variables.getValue("v_e")
+                    .pow(BigDecimal("2")) * variables.getValue("r")) / (ScientificNumber("2") * Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT))
+            }
+
+            !variables.containsKey("r") -> {
                 (ScientificNumber.multiply(
-                    ScientificNumber("2"),
-                    Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                    variables.get("M")!!
-                ) / variables.get("v_e")!!.pow(BigDecimal("2")))
-            } else {
+                    ScientificNumber("2"), Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT, variables.getValue("M")
+                ) / variables.getValue("v_e").pow(BigDecimal("2")))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

@@ -36,99 +36,91 @@ class KeplersFirstLaw : IEquation {
         validateInputVariables(variables)
 
         // TODO create trig methods to support uncertainty calculations
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("r")) {
-                val theta: BigDecimal = variables.get("theta")!!.number
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("r") -> {
+                val theta: BigDecimal = variables.getValue("theta").number
 
-                (variables.get("L")!!.pow(BigDecimal("2")) /
-                        (ScientificNumber.multiply(
-                            Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                            variables.get("M")!!,
-                            variables.get("m")!!.pow(BigDecimal("2")),
-                            ScientificNumber("1") +
-                                    (variables.get("e")!! *
-                                            ScientificNumber(
-                                                BDMath.cos(theta).toPlainString()
-                                            ))
-                        )))
-            } else if (!variables.containsKey("L")) {
-                val theta: BigDecimal = variables.get("theta")!!.number
+                (variables.getValue("L").pow(BigDecimal("2")) / (ScientificNumber.multiply(
+                    Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
+                    variables.getValue("M"),
+                    variables.getValue("m").pow(BigDecimal("2")),
+                    ScientificNumber("1") + (variables.getValue("e") * ScientificNumber(
+                        BDMath.cos(theta).toPlainString()
+                    ))
+                )))
+            }
+
+            !variables.containsKey("L") -> {
+                val theta: BigDecimal = variables.getValue("theta").number
 
                 (ScientificNumber.multiply(
-                    variables.get("r")!!,
+                    variables.getValue("r"),
                     Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                    variables.get("M")!!,
-                    variables.get("m")!!.pow(BigDecimal("2")),
-                    ScientificNumber("1") +
-                            (variables.get("e")!! *
-                                    ScientificNumber(
-                                        BDMath.cos(theta).toPlainString()
-                                    ))
-                ))
-                    .sqrt()
-            } else if (!variables.containsKey("M")) {
-                val theta: BigDecimal = variables.get("theta")!!.number
+                    variables.getValue("M"),
+                    variables.getValue("m").pow(BigDecimal("2")),
+                    ScientificNumber("1") + (variables.getValue("e") * ScientificNumber(
+                        BDMath.cos(theta).toPlainString()
+                    ))
+                )).sqrt()
+            }
 
-                (variables.get("L")!!.pow(BigDecimal("2")) /
-                        (ScientificNumber.multiply(
-                            Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                            variables.get("r")!!,
-                            variables.get("m")!!.pow(BigDecimal("2")),
-                            ScientificNumber("1") +
-                                    (variables.get("e")!! *
-                                            ScientificNumber(
-                                                BDMath.cos(theta).toPlainString()
-                                            ))
-                        )))
-            } else if (!variables.containsKey("m")) {
-                val theta: BigDecimal = variables.get("theta")!!.number
+            !variables.containsKey("M") -> {
+                val theta: BigDecimal = variables.getValue("theta").number
 
-                (variables.get("L")!!.pow(BigDecimal("2")) /
-                        (ScientificNumber.multiply(
-                            Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                            variables.get("M")!!,
-                            variables.get("r")!!,
-                            ScientificNumber("1") +
-                                    (variables.get("e")!! *
-                                            ScientificNumber(
-                                                BDMath.cos(theta)
-                                                    .toPlainString()
-                                            ))
-                        )))
-                    .sqrt()
-            } else if (!variables.containsKey("e")) {
-                val theta: BigDecimal = variables.get("theta")!!.number
+                (variables.getValue("L").pow(BigDecimal("2")) / (ScientificNumber.multiply(
+                    Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
+                    variables.getValue("r"),
+                    variables.getValue("m").pow(BigDecimal("2")),
+                    ScientificNumber("1") + (variables.getValue("e") * ScientificNumber(
+                        BDMath.cos(theta).toPlainString()
+                    ))
+                )))
+            }
 
-                ((variables.get("L")!!.pow(BigDecimal("2")) /
-                        (ScientificNumber.multiply(
-                            Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                            variables.get("r")!!,
-                            variables.get("M")!!,
-                            variables.get("m")!!.pow(BigDecimal("2"))
-                        ))) - ScientificNumber("1")) /
-                        ScientificNumber(BDMath.cos(theta).toPlainString())
-            } else if (!variables.containsKey("theta")) {
+            !variables.containsKey("m") -> {
+                val theta: BigDecimal = variables.getValue("theta").number
+
+                (variables.getValue("L").pow(BigDecimal("2")) / (ScientificNumber.multiply(
+                    Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
+                    variables.getValue("M"),
+                    variables.getValue("r"),
+                    ScientificNumber("1") + (variables.getValue("e") * ScientificNumber(
+                        BDMath.cos(theta).toPlainString()
+                    ))
+                ))).sqrt()
+            }
+
+            !variables.containsKey("e") -> {
+                val theta: BigDecimal = variables.getValue("theta").number
+
+                ((variables.getValue("L").pow(BigDecimal("2")) / (ScientificNumber.multiply(
+                    Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
+                    variables.getValue("r"),
+                    variables.getValue("M"),
+                    variables.getValue("m").pow(BigDecimal("2"))
+                ))) - ScientificNumber("1")) / ScientificNumber(BDMath.cos(theta).toPlainString())
+            }
+
+            !variables.containsKey("theta") -> {
                 ScientificNumber(
                     BDMath.cos(
-                        (((variables.get("L")!!.pow(BigDecimal("2")) /
-                                (ScientificNumber.multiply(
-                                    Constants
-                                        .UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                                    variables.get("r")!!,
-                                    variables.get("M")!!,
-                                    variables.get("m")!!.pow(
-                                        BigDecimal("2")
-                                    )
-                                ))) - ScientificNumber("1")) /
-                                variables.get("e")!!)
-                            .number
-                    )
-                        .toPlainString()
+                        (((variables.getValue("L").pow(BigDecimal("2")) / (ScientificNumber.multiply(
+                            Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
+                            variables.getValue("r"),
+                            variables.getValue("M"),
+                            variables.getValue("m").pow(
+                                BigDecimal("2")
+                            )
+                        ))) - ScientificNumber("1")) / variables.getValue("e")).number
+                    ).toPlainString()
                 )
-            } else {
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }
@@ -137,15 +129,12 @@ class KeplersFirstLaw : IEquation {
         super.validateInputVariables(variables)
 
         // TODO create trig methods to support uncertainty calculations
-        if (variables.containsKey("theta") && variables.get("theta")!!.uncertainty != null) {
-            throw IllegalArgumentException("Uncertainties of 'theta' are not currently supported.")
-        }
+        require(!(variables.containsKey("theta") && variables.getValue("theta").uncertainty != null)) { "Uncertainties of 'theta' are not currently supported." }
 
-        if (variables.containsKey("e") &&
-            (variables.get("e")!!.number < BigDecimal("0") ||
-                    variables.get("e")!!.number >= BigDecimal("1"))
-        ) {
-            throw IllegalArgumentException("Variable 'e' must fit the range 0 <= e < 1.")
-        }
+        require(
+            !(variables.containsKey("e") && (variables.getValue("e").number < BigDecimal("0") || variables.getValue("e").number >= BigDecimal(
+                "1"
+            )))
+        ) { "Variable 'e' must fit the range 0 <= e < 1." }
     }
 }

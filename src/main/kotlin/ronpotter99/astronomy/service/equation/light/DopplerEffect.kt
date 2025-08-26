@@ -30,20 +30,24 @@ class DopplerEffect : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("lambda")) {
-                ((variables.get("Delta lambda")!! * Constants.SPEED_OF_LIGHT) /
-                        variables.get("v_r")!!)
-            } else if (!variables.containsKey("Delta lambda")) {
-                ((variables.get("lambda")!! * variables.get("v_r")!!) /
-                        Constants.SPEED_OF_LIGHT)
-            } else if (!variables.containsKey("v_r")) {
-                ((variables.get("Delta lambda")!! * Constants.SPEED_OF_LIGHT) /
-                        variables.get("lambda")!!)
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("lambda") -> {
+                ((variables.getValue("Delta lambda") * Constants.SPEED_OF_LIGHT) / variables.getValue("v_r"))
+            }
+
+            !variables.containsKey("Delta lambda") -> {
+                ((variables.getValue("lambda") * variables.getValue("v_r")) / Constants.SPEED_OF_LIGHT)
+            }
+
+            !variables.containsKey("v_r") -> {
+                ((variables.getValue("Delta lambda") * Constants.SPEED_OF_LIGHT) / variables.getValue("lambda"))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

@@ -31,21 +31,26 @@ class FluxDensityConversion : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("F_v")) {
-                (variables.get("F_lambda")!! *
-                        (variables.get("lambda")!!.pow(BigDecimal("2")) /
-                                Constants.SPEED_OF_LIGHT))
-            } else if (!variables.containsKey("F_lambda")) {
-                ((variables.get("F_v")!! * Constants.SPEED_OF_LIGHT) /
-                        variables.get("lambda")!!.pow(BigDecimal("2")))
-            } else if (!variables.containsKey("lambda")) {
-                ((variables.get("F_v")!! * Constants.SPEED_OF_LIGHT) /
-                        variables.get("F_lambda")!!)
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("F_v") -> {
+                (variables.getValue("F_lambda") * (variables.getValue("lambda")
+                    .pow(BigDecimal("2")) / Constants.SPEED_OF_LIGHT))
+            }
+
+            !variables.containsKey("F_lambda") -> {
+                ((variables.getValue("F_v") * Constants.SPEED_OF_LIGHT) / variables.getValue("lambda")
+                    .pow(BigDecimal("2")))
+            }
+
+            !variables.containsKey("lambda") -> {
+                ((variables.getValue("F_v") * Constants.SPEED_OF_LIGHT) / variables.getValue("F_lambda"))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

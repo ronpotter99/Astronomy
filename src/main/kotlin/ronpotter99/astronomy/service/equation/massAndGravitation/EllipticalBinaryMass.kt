@@ -30,21 +30,28 @@ class EllipticalBinaryMass : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("m_1")) {
-                ((variables.get("m_2")!! * variables.get("alpha_2")!!) /
-                        variables.get("alpha_1")!!)
-            } else if (!variables.containsKey("m_2")) {
-                ((variables.get("m_1")!! * variables.get("alpha_1")!!) /
-                        variables.get("alpha_2")!!)
-            } else if (!variables.containsKey("alpha_1")) {
-                ((variables.get("m_2")!! * variables.get("alpha_2")!!) / variables.get("m_1")!!)
-            } else if (!variables.containsKey("alpha_2")) {
-                ((variables.get("m_1")!! * variables.get("alpha_1")!!) / variables.get("m_2")!!)
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("m_1") -> {
+                ((variables.getValue("m_2") * variables.getValue("alpha_2")) / variables.getValue("alpha_1"))
+            }
+
+            !variables.containsKey("m_2") -> {
+                ((variables.getValue("m_1") * variables.getValue("alpha_1")) / variables.getValue("alpha_2"))
+            }
+
+            !variables.containsKey("alpha_1") -> {
+                ((variables.getValue("m_2") * variables.getValue("alpha_2")) / variables.getValue("m_1"))
+            }
+
+            !variables.containsKey("alpha_2") -> {
+                ((variables.getValue("m_1") * variables.getValue("alpha_1")) / variables.getValue("m_2"))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

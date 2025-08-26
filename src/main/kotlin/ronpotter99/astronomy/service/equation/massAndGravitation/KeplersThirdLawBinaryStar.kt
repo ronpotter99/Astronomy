@@ -33,38 +33,38 @@ class KeplersThirdLawBinaryStar : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("P")) {
-                (((ScientificNumber("4") * ScientificNumber(BDMath.pi()).pow(BigDecimal("2"))) /
-                        (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT *
-                                (variables.get("M_1")!! + variables.get("M_2")!!))) *
-                        variables.get("a")!!.pow(BigDecimal("3")))
-                    .sqrt()
-            } else if (!variables.containsKey("M_1")) {
-                ((((ScientificNumber("4") *
-                        ScientificNumber(BDMath.pi()).pow(BigDecimal("2"))) /
-                        (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT *
-                                variables.get("P")!!.pow(BigDecimal("2")))) *
-                        variables.get("a")!!.pow(BigDecimal("3"))) - variables.get("M_2")!!)
-            } else if (!variables.containsKey("M_2")) {
-                ((((ScientificNumber("4") *
-                        ScientificNumber(BDMath.pi()).pow(BigDecimal("2"))) /
-                        (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT *
-                                variables.get("P")!!.pow(BigDecimal("2")))) *
-                        variables.get("a")!!.pow(BigDecimal("3"))) - variables.get("M_1")!!)
-            } else if (!variables.containsKey("a")) {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("P") -> {
+                (((ScientificNumber("4") * ScientificNumber(BDMath.pi()).pow(BigDecimal("2"))) / (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT * (variables.getValue(
+                    "M_1"
+                ) + variables.getValue("M_2")))) * variables.getValue("a").pow(BigDecimal("3"))).sqrt()
+            }
+
+            !variables.containsKey("M_1") -> {
+                ((((ScientificNumber("4") * ScientificNumber(BDMath.pi()).pow(BigDecimal("2"))) / (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT * variables.getValue(
+                    "P"
+                ).pow(BigDecimal("2")))) * variables.getValue("a").pow(BigDecimal("3"))) - variables.getValue("M_2"))
+            }
+
+            !variables.containsKey("M_2") -> {
+                ((((ScientificNumber("4") * ScientificNumber(BDMath.pi()).pow(BigDecimal("2"))) / (Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT * variables.getValue(
+                    "P"
+                ).pow(BigDecimal("2")))) * variables.getValue("a").pow(BigDecimal("3"))) - variables.getValue("M_1"))
+            }
+
+            !variables.containsKey("a") -> {
                 (ScientificNumber.multiply(
                     Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                    (variables.get("M_1")!! + variables.get("M_2")!!),
-                    variables.get("P")!!.pow(BigDecimal("2"))
-                ) /
-                        (ScientificNumber("4") *
-                                ScientificNumber(BDMath.pi()).pow(BigDecimal("2")))
-                            .cbrt())
-            } else {
+                    (variables.getValue("M_1") + variables.getValue("M_2")),
+                    variables.getValue("P").pow(BigDecimal("2"))
+                ) / (ScientificNumber("4") * ScientificNumber(BDMath.pi()).pow(BigDecimal("2"))).cbrt())
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

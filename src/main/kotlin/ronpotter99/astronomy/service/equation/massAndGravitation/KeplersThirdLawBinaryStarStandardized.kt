@@ -31,25 +31,32 @@ class KeplersThirdLawBinaryStarStandardized : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("P")) {
-                (variables.get("a")!!.pow(BigDecimal("3")) /
-                        (variables.get("M_1")!! + variables.get("M_2")!!))
-                    .sqrt()
-            } else if (!variables.containsKey("M_1")) {
-                ((variables.get("a")!!.pow(BigDecimal("3")) /
-                        variables.get("P")!!.pow(BigDecimal("2"))) - variables.get("M_2")!!)
-            } else if (!variables.containsKey("M_2")) {
-                (variables.get("a")!!.pow(BigDecimal("3")) /
-                        variables.get("P")!!.pow(BigDecimal("2")) - variables.get("M_1")!!)
-            } else if (!variables.containsKey("a")) {
-                (variables.get("P")!!.pow(BigDecimal("2")) *
-                        (variables.get("M_1")!! + variables.get("M_2")!!))
-                    .cbrt()
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("P") -> {
+                (variables.getValue("a")!!
+                    .pow(BigDecimal("3")) / (variables.getValue("M_1")!! + variables.getValue("M_2")!!)).sqrt()
+            }
+
+            !variables.containsKey("M_1") -> {
+                ((variables.getValue("a").pow(BigDecimal("3")) / variables.getValue("P")
+                    .pow(BigDecimal("2"))) - variables.getValue("M_2"))
+            }
+
+            !variables.containsKey("M_2") -> {
+                (variables.getValue("a").pow(BigDecimal("3")) / variables.getValue("P")
+                    .pow(BigDecimal("2")) - variables.getValue("M_1"))
+            }
+
+            !variables.containsKey("a") -> {
+                (variables.getValue("P")
+                    .pow(BigDecimal("2")) * (variables.getValue("M_1") + variables.getValue("M_2"))).cbrt()
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

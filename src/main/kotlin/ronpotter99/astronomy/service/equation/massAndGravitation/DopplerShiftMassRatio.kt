@@ -30,19 +30,28 @@ class DopplerShiftMassRatio : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("m_1")) {
-                ((variables.get("m_2")!! * variables.get("v_r2")!!) / variables.get("v_r1")!!)
-            } else if (!variables.containsKey("m_2")) {
-                ((variables.get("m_1")!! * variables.get("v_r1")!!) / variables.get("v_r2")!!)
-            } else if (!variables.containsKey("v_r1")) {
-                ((variables.get("m_2")!! * variables.get("v_r2")!!) / variables.get("m_1")!!)
-            } else if (!variables.containsKey("v_r2")) {
-                ((variables.get("m_1")!! * variables.get("v_r1")!!) / variables.get("m_2")!!)
-            } else {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("m_1") -> {
+                ((variables.getValue("m_2") * variables.getValue("v_r2")) / variables.getValue("v_r1"))
+            }
+
+            !variables.containsKey("m_2") -> {
+                ((variables.getValue("m_1") * variables.getValue("v_r1")) / variables.getValue("v_r2"))
+            }
+
+            !variables.containsKey("v_r1") -> {
+                ((variables.getValue("m_2") * variables.getValue("v_r2")) / variables.getValue("m_1"))
+            }
+
+            !variables.containsKey("v_r2") -> {
+                ((variables.getValue("m_1") * variables.getValue("v_r1")) / variables.getValue("m_2"))
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

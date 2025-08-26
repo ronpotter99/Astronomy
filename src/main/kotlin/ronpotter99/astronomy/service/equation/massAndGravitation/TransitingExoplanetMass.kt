@@ -33,58 +33,55 @@ class TransitingExoplanetMass : IEquation {
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 
-        val toReturn: ScientificNumber? =
-            if (!variables.containsKey("M_P")) {
+        val toReturn: ScientificNumber? = when {
+            !variables.containsKey("M_P") -> {
                 ((ScientificNumber.multiply(
-                    variables.get("M_star")!!.pow(BigDecimal("2")),
-                    variables.get("P")!!,
-                    variables.get("v_r")!!.pow(BigDecimal("3"))
-                )) /
-                        (ScientificNumber.multiply(
-                            ScientificNumber("2"),
-                            ScientificNumber(BDMath.pi()),
-                            Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT
-                        )))
-                    .cbrt()
-            } else if (!variables.containsKey("M_star")) {
+                    variables.getValue("M_star").pow(BigDecimal("2")),
+                    variables.getValue("P"),
+                    variables.getValue("v_r").pow(BigDecimal("3"))
+                )) / (ScientificNumber.multiply(
+                    ScientificNumber("2"), ScientificNumber(BDMath.pi()), Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT
+                ))).cbrt()
+            }
+
+            !variables.containsKey("M_star") -> {
                 ((ScientificNumber.multiply(
                     ScientificNumber("2"),
                     ScientificNumber(BDMath.pi()),
                     Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                    variables.get("M_P")!!.pow(BigDecimal("3"))
-                )) /
-                        (ScientificNumber.multiply(
-                            variables.get("P")!!,
-                            variables.get("v_r")!!.pow(BigDecimal("3"))
-                        )))
-                    .sqrt()
-            } else if (!variables.containsKey("P")) {
+                    variables.getValue("M_P").pow(BigDecimal("3"))
+                )) / (ScientificNumber.multiply(
+                    variables.getValue("P"), variables.getValue("v_r").pow(BigDecimal("3"))
+                ))).sqrt()
+            }
+
+            !variables.containsKey("P") -> {
                 ((ScientificNumber.multiply(
                     ScientificNumber("2"),
                     ScientificNumber(BDMath.pi()),
                     Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                    variables.get("M_P")!!.pow(BigDecimal("3"))
-                )) /
-                        (ScientificNumber.multiply(
-                            variables.get("M_star")!!.pow(BigDecimal("2")),
-                            variables.get("v_r")!!.pow(BigDecimal("3"))
-                        )))
-            } else if (!variables.containsKey("v_r")) {
+                    variables.getValue("M_P").pow(BigDecimal("3"))
+                )) / (ScientificNumber.multiply(
+                    variables.getValue("M_star").pow(BigDecimal("2")), variables.getValue("v_r").pow(BigDecimal("3"))
+                )))
+            }
+
+            !variables.containsKey("v_r") -> {
                 ((ScientificNumber.multiply(
                     ScientificNumber("2"),
                     ScientificNumber(BDMath.pi()),
                     Constants.UNIVERSAL_GRAVITATIONAL_CONSTANT,
-                    variables.get("M_P")!!.pow(BigDecimal("3"))
-                )) /
-                        (ScientificNumber.multiply(
-                            variables.get("M_star")!!.pow(BigDecimal("2")),
-                            variables.get("P")!!
-                        )))
-                    .cbrt()
-            } else {
+                    variables.getValue("M_P").pow(BigDecimal("3"))
+                )) / (ScientificNumber.multiply(
+                    variables.getValue("M_star").pow(BigDecimal("2")), variables.getValue("P")
+                ))).cbrt()
+            }
+
+            else -> {
                 logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
                 null
             }
+        }
 
         return toReturn
     }

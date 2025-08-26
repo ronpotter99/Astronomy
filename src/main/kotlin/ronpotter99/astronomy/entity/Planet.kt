@@ -1,9 +1,9 @@
 package ronpotter99.astronomy.entity
 
-import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
-import ronpotter99.astronomy.DTO.ScientificNumber
+import jakarta.persistence.*
+import ronpotter99.astronomy.dto.ScientificNumber
 
 @Entity
 @Table(name = "planet")
@@ -98,22 +98,22 @@ class Planet {
 
     override fun toString(): String {
         return (
-            "Planet("
-            + "id=$id, "
-            + "commonName=$commonName, "
-            + "classificationType=$classificationType, "
-            + "mass=$mass, "
-            + "radius=$radius, "
-            + "density=$density, "
-            + "orbitSemimajorAxis=$orbitSemimajorAxis, "
-            + "orbitEccentricity=$orbitEccentricity, "
-            + "orbitPeriod=$orbitPeriod, "
-            + "orbitInclination=$orbitInclination, "
-            + "rotationalPeriod=$rotationalPeriod, "
-            + "surfaceTemperature=$surfaceTemperature, "
-            + "source=$source, "
-            + "moons=$moons"
-            + ")"
-        )
+                "Planet("
+                        + "id=$id, "
+                        + "commonName=$commonName, "
+                        + "classificationType=$classificationType, "
+                        + "mass=$mass, "
+                        + "radius=$radius, "
+                        + "density=$density, "
+                        + "orbitSemimajorAxis=$orbitSemimajorAxis, "
+                        + "orbitEccentricity=$orbitEccentricity, "
+                        + "orbitPeriod=$orbitPeriod, "
+                        + "orbitInclination=$orbitInclination, "
+                        + "rotationalPeriod=$rotationalPeriod, "
+                        + "surfaceTemperature=$surfaceTemperature, "
+                        + "source=$source, "
+                        + "moons=$moons"
+                        + ")"
+                )
     }
 }

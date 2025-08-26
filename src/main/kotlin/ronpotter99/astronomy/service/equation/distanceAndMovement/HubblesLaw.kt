@@ -2,7 +2,7 @@ package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
-import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 import ronpotter99.astronomy.utils.EquationConstants as Constants
 
@@ -27,14 +27,14 @@ class HubblesLaw : IEquation {
         validateInputVariables(variables)
 
         val toReturn: ScientificNumber? =
-                if (!variables.containsKey("z")) {
-                    (Constants.HUBBLE_CONSTANT * variables.get("d")!! / Constants.SPEED_OF_LIGHT)
-                } else if (!variables.containsKey("d")) {
-                    (variables.get("z")!! * Constants.SPEED_OF_LIGHT / Constants.HUBBLE_CONSTANT)
-                } else {
-                    logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
-                    null
-                }
+            if (!variables.containsKey("z")) {
+                (Constants.HUBBLE_CONSTANT * variables.get("d")!! / Constants.SPEED_OF_LIGHT)
+            } else if (!variables.containsKey("d")) {
+                (variables.get("z")!! * Constants.SPEED_OF_LIGHT / Constants.HUBBLE_CONSTANT)
+            } else {
+                logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
+                null
+            }
 
         return toReturn
     }

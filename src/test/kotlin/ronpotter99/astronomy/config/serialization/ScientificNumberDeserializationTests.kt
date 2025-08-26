@@ -1,13 +1,12 @@
-package ronpotter99.astronomy
+package ronpotter99.astronomy.config.serialization
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
-import java.math.BigDecimal
-import kotlin.test.assertEquals
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.*
-import ronpotter99.astronomy.DTO.ScientificNumber
-import ronpotter99.astronomy.config.serialization.ScientificNumberDeserializer
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
+import ronpotter99.astronomy.dto.ScientificNumber
+import kotlin.test.assertEquals
 
 class ScientificNumberDeserializationTests {
 

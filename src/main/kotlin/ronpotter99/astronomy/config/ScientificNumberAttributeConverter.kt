@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.dto.ScientificNumber
 
 @Converter(autoApply = true)
 open class ScientificNumberAttributeConverter(private val objectMapper: ObjectMapper) :

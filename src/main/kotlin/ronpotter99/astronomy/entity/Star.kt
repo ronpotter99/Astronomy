@@ -1,8 +1,8 @@
 package ronpotter99.astronomy.entity
 
-import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonManagedReference
-import ronpotter99.astronomy.DTO.ScientificNumber
+import jakarta.persistence.*
+import ronpotter99.astronomy.dto.ScientificNumber
 
 @Entity
 @Table(name = "star")
@@ -35,15 +35,15 @@ class Star {
 
     override fun toString(): String {
         return (
-            "Star("
-            + "id=$id, "
-            + "designations=$designations, "
-            + "mass=$mass, "
-            + "radius=$radius, "
-            + "luminosity=$luminosity, "
-            + "effectiveTemperature=$effectiveTemperature, "
-            + "planets=$planets"
-            + ")"
-        )
+                "Star("
+                        + "id=$id, "
+                        + "designations=$designations, "
+                        + "mass=$mass, "
+                        + "radius=$radius, "
+                        + "luminosity=$luminosity, "
+                        + "effectiveTemperature=$effectiveTemperature, "
+                        + "planets=$planets"
+                        + ")"
+                )
     }
 }

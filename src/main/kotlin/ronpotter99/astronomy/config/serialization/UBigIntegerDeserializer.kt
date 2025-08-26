@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import java.math.BigDecimal
 import java.math.BigInteger
-import ronpotter99.astronomy.DTO.UBigInteger
+import ronpotter99.astronomy.dto.UBigInteger
 
 class UBigIntegerDeserializer : JsonDeserializer<UBigInteger>() {
 

@@ -3,7 +3,7 @@ package ronpotter99.astronomy.config.serialization
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import ronpotter99.astronomy.DTO.UBigInteger
+import ronpotter99.astronomy.dto.UBigInteger
 
 class UBigIntegerSerializer : JsonSerializer<UBigInteger>() {
 

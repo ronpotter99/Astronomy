@@ -1,4 +1,4 @@
-package ronpotter99.astronomy.DTO
+package ronpotter99.astronomy.dto
 
 import java.math.BigInteger
 

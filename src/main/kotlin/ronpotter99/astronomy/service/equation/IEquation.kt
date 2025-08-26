@@ -1,6 +1,6 @@
 package ronpotter99.astronomy.service.equation
 
-import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.dto.ScientificNumber
 
 interface IEquation {
 
@@ -18,7 +18,7 @@ interface IEquation {
             val missingVariableKeys = validationVariableKeys - intersectingVariableKeys
 
             throw IllegalArgumentException(
-                    "${ validationVariableKeys.size - 1 } variables required, but only ${ intersectingVariableKeys.size } variables recieved. Provide ${ missingVariableKeys.size - 1 } of the following variables: $missingVariableKeys."
+                "${validationVariableKeys.size - 1} variables required, but only ${intersectingVariableKeys.size} variables received. Provide ${missingVariableKeys.size - 1} of the following variables: $missingVariableKeys."
             )
         }
     }

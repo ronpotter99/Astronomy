@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class AstronomyApplication
 
 fun main(args: Array<String>) {
-	runApplication<AstronomyApplication>(*args)
+    runApplication<AstronomyApplication>(*args)
 }

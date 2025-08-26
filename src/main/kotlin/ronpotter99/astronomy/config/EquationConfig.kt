@@ -10,10 +10,10 @@ class EquationConfig(private val equations: List<IEquation>) {
 
     @Bean
     fun equationMap(): HashMap<String, IEquation> {
-        var equationMap = HashMap<String, IEquation>()
+        val equationMap = HashMap<String, IEquation>()
 
         for (equation in equations) {
-            equationMap.put(equation.getEquationReference().uppercase(), equation)
+            equationMap[equation.getEquationReference().uppercase()] = equation
         }
 
         return equationMap

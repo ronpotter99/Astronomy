@@ -1,7 +1,7 @@
 package ronpotter99.astronomy.entity
 
-import jakarta.persistence.*
 import com.fasterxml.jackson.annotation.JsonBackReference
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "star_designation")
@@ -25,11 +25,11 @@ class StarDesignation {
 
     override fun toString(): String {
         return (
-            "StarDesignation("
-            + "id=$id, "
-            + "designation=$designation, "
-            + "designationOrigin=$designationOrigin"
-            + ")"
-        )
+                "StarDesignation("
+                        + "id=$id, "
+                        + "designation=$designation, "
+                        + "designationOrigin=$designationOrigin"
+                        + ")"
+                )
     }
 }

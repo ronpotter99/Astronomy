@@ -1,12 +1,11 @@
-package ronpotter99.astronomy
+package ronpotter99.astronomy.config.serialization
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
-import java.math.BigDecimal
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.*
-import ronpotter99.astronomy.DTO.ScientificNumber
-import ronpotter99.astronomy.config.serialization.ScientificNumberSerializer
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import ronpotter99.astronomy.dto.ScientificNumber
 
 class ScientificNumberSerializationTests {
 

@@ -1,4 +1,4 @@
-package ronpotter99.astronomy.service
+package ronpotter99.astronomy.service.interfaces
 
 import ronpotter99.astronomy.entity.Star
 

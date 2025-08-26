@@ -2,6 +2,7 @@ package ronpotter99.astronomy.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.web.bind.annotation.RestController
+import ronpotter99.astronomy.controller.interfaces.IStarController
 import ronpotter99.astronomy.entity.Star
 import ronpotter99.astronomy.service.StarService
 

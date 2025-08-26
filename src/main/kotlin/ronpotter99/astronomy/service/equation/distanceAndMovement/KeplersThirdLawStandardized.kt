@@ -1,10 +1,10 @@
 package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import java.math.BigDecimal
 import org.springframework.stereotype.Component
-import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
+import java.math.BigDecimal
 
 @Component
 class KeplersThirdLawStandardized : IEquation {
@@ -21,9 +21,9 @@ class KeplersThirdLawStandardized : IEquation {
 
     override fun getVariableList(): Map<String, String> {
         return mapOf(
-                "P" to "orbital period (yr)",
-                "M" to "mass of object being orbited (M_sun)",
-                "a" to "orbital semi-major axis (AU)"
+            "P" to "orbital period (yr)",
+            "M" to "mass of object being orbited (M_sun)",
+            "a" to "orbital semi-major axis (AU)"
         )
     }
 
@@ -31,17 +31,17 @@ class KeplersThirdLawStandardized : IEquation {
         validateInputVariables(variables)
 
         val toReturn: ScientificNumber? =
-                if (!variables.containsKey("P")) {
-                    (variables.get("a")!!.pow(BigDecimal("3")) / variables.get("M")!!).sqrt()
-                } else if (!variables.containsKey("M")) {
-                    (variables.get("a")!!.pow(BigDecimal("3")) /
-                            variables.get("P")!!.pow(BigDecimal("2")))
-                } else if (!variables.containsKey("a")) {
-                    (variables.get("P")!!.pow(BigDecimal("2")) * variables.get("M")!!).cbrt()
-                } else {
-                    logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
-                    null
-                }
+            if (!variables.containsKey("P")) {
+                (variables.get("a")!!.pow(BigDecimal("3")) / variables.get("M")!!).sqrt()
+            } else if (!variables.containsKey("M")) {
+                (variables.get("a")!!.pow(BigDecimal("3")) /
+                        variables.get("P")!!.pow(BigDecimal("2")))
+            } else if (!variables.containsKey("a")) {
+                (variables.get("P")!!.pow(BigDecimal("2")) * variables.get("M")!!).cbrt()
+            } else {
+                logger.warn { "$EQUATION_REFERENCE: Unknown variable to calculate." }
+                null
+            }
 
         return toReturn
     }

@@ -1,4 +1,4 @@
-package ronpotter99.astronomy.DTO
+package ronpotter99.astronomy.dto
 
 import java.math.RoundingMode
 import kotlin.test.Test
@@ -877,6 +877,7 @@ abstract class ScientificNumberTests {
 
             assertEquals(ScientificNumber("141.92", "92.924"), toCheck)
         }
+
         /** This verifies a kotlin minus and the static subtract method have the same output. */
         @Test
         fun subtract_twoNumbers_defaultMinusEqualsSubtractStaticFunction() {
@@ -963,11 +964,11 @@ abstract class ScientificNumberTests {
             val baseNumber = ScientificNumber("287.19", "0.0")
             val subtractOne = ScientificNumber("145.285", "0.25")
             val toCheck =
-                    ScientificNumber.subtract(
-                            baseNumber,
-                            subtractOne,
-                            roundingMode = RoundingMode.HALF_UP
-                    )
+                ScientificNumber.subtract(
+                    baseNumber,
+                    subtractOne,
+                    roundingMode = RoundingMode.HALF_UP
+                )
 
             assertEquals(ScientificNumber("141.91", "0.3"), toCheck)
         }

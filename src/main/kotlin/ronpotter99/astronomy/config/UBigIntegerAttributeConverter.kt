@@ -4,7 +4,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import ronpotter99.astronomy.DTO.UBigInteger
+import ronpotter99.astronomy.dto.UBigInteger
 
 @Converter(autoApply = true)
 open class UBigIntegerAttributeConverter(private val objectMapper: ObjectMapper) :

@@ -1,12 +1,12 @@
-package ronpotter99.astronomy
+package ronpotter99.astronomy.config.serialization
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
-import java.math.BigInteger
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.*
-import ronpotter99.astronomy.DTO.UBigInteger
-import ronpotter99.astronomy.config.serialization.UBigIntegerSerializer
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import ronpotter99.astronomy.dto.UBigInteger
+import java.math.BigInteger
 
 class UBigIntegerSerializationTests {
 

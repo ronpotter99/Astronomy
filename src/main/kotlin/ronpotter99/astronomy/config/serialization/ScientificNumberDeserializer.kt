@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import java.math.BigDecimal
-import ronpotter99.astronomy.DTO.ScientificNumber
+import ronpotter99.astronomy.dto.ScientificNumber
 
 class ScientificNumberDeserializer : JsonDeserializer<ScientificNumber>() {
 

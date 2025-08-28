@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ronpotter99.astronomy.dto.ScientificNumber
 
-@RequestMapping("/calculate")
+@RequestMapping("/api/calculate")
 interface ICalculationController {
 
     @GetMapping("/{equationReference}/variables")

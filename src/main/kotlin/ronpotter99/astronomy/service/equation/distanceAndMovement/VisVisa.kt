@@ -16,6 +16,10 @@ class VisVisa : IEquation {
 
     private val logger = KotlinLogging.logger {}
 
+    override fun getCategory(): IEquation.EquationCategory {
+        return IEquation.EquationCategory.DISTANCE_AND_MOVEMENT
+    }
+
     override fun getEquationReference(): String {
         return EQUATION_REFERENCE
     }

@@ -16,6 +16,10 @@ class FluxDensityConversion : IEquation {
 
     private val logger = KotlinLogging.logger {}
 
+    override fun getCategory(): IEquation.EquationCategory {
+        return IEquation.EquationCategory.LIGHT
+    }
+
     override fun getEquationReference(): String {
         return EQUATION_REFERENCE
     }

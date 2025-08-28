@@ -14,6 +14,10 @@ class EllipticalBinaryMass : IEquation {
 
     private val logger = KotlinLogging.logger {}
 
+    override fun getCategory(): IEquation.EquationCategory {
+        return IEquation.EquationCategory.MASS_AND_GRAVITATION
+    }
+
     override fun getEquationReference(): String {
         return EQUATION_REFERENCE
     }

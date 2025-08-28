@@ -4,6 +4,14 @@ import ronpotter99.astronomy.dto.ScientificNumber
 
 interface IEquation {
 
+    enum class EquationCategory(val categoryName: String) {
+        DISTANCE_AND_MOVEMENT("Distance and Movement"),
+        LIGHT("Light"),
+        MASS_AND_GRAVITATION("Mass and Gravitation")
+    }
+
+    fun getCategory(): EquationCategory
+
     fun getEquationReference(): String
 
     fun getVariableList(): Map<String, String>

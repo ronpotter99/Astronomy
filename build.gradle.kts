@@ -23,6 +23,7 @@ repositories {
 val kotlinLoggingVersion = "7.0.7"
 val bigMathVersion = "2.3.2"
 val kotlinMockitoVersion = "5.4.0"
+val springBootThymeleafVersion = "4.0.0-M2"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -32,6 +33,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("io.github.oshai:kotlin-logging-jvm:$kotlinLoggingVersion")
     implementation("ch.obermuhlner:big-math:$bigMathVersion")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootThymeleafVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

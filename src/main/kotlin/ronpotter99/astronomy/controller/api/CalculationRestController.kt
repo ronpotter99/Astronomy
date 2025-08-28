@@ -1,16 +1,16 @@
-package ronpotter99.astronomy.controller
+package ronpotter99.astronomy.controller.api
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
+import ronpotter99.astronomy.controller.api.interfaces.ICalculationRestController
 import ronpotter99.astronomy.dto.ScientificNumber
-import ronpotter99.astronomy.controller.interfaces.ICalculationController
 import ronpotter99.astronomy.service.CalculationService
 
 @RestController
-class CalculationController(private val calculationService: CalculationService) :
-    ICalculationController {
+class CalculationRestController(private val calculationService: CalculationService) :
+    ICalculationRestController {
 
     private val logger = KotlinLogging.logger {}
 

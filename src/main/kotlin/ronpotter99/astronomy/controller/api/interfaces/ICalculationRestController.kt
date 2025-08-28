@@ -1,11 +1,11 @@
-package ronpotter99.astronomy.controller.interfaces
+package ronpotter99.astronomy.controller.api.interfaces
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ronpotter99.astronomy.dto.ScientificNumber
 
 @RequestMapping("/api/calculate")
-interface ICalculationController {
+interface ICalculationRestController {
 
     @GetMapping("/{equationReference}/variables")
     fun getVariables(@PathVariable equationReference: String): Map<String, String>?

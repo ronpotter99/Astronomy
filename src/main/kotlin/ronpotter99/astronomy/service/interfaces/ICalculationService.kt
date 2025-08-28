@@ -4,10 +4,11 @@ import ronpotter99.astronomy.dto.ScientificNumber
 
 interface ICalculationService {
 
+    fun getEquationCategoryMap(): Map<String, List<String>>
+
     fun getEquationVariables(equationReference: String): Map<String, String>?
 
     fun calculate(
-        equationReference: String,
-        equationVariables: Map<String, ScientificNumber>
+        equationReference: String, equationVariables: Map<String, ScientificNumber>
     ): ScientificNumber?
 }

@@ -11,13 +11,28 @@ class CalculationService(private val equations: HashMap<String, IEquation>) : IC
 
     private val logger = KotlinLogging.logger {}
 
+    override fun getEquationCategoryMap(): Map<String, List<String>> {
+        val toReturn = HashMap<String, MutableList<String>>()
+
+        for (equationKey in equations.keys) {
+            val categoryName = equations[equationKey]?.getCategory()!!.categoryName
+
+            if (!toReturn.containsKey(categoryName)) {
+                toReturn[categoryName] = mutableListOf()
+            }
+
+            toReturn[categoryName]?.add(equationKey)
+        }
+
+        return toReturn
+    }
+
     override fun getEquationVariables(equationReference: String): Map<String, String>? {
         return equations[equationReference.uppercase()]?.getVariableList()
     }
 
     override fun calculate(
-        equationReference: String,
-        equationVariables: Map<String, ScientificNumber>
+        equationReference: String, equationVariables: Map<String, ScientificNumber>
     ): ScientificNumber? {
         return equations[equationReference.uppercase()]?.calculate(equationVariables)
     }

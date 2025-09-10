@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 @RequestMapping("/calculate")
 interface ICalculationController {
 
-    @GetMapping("/")
+    @GetMapping("", "/")
     fun calculationSelection(
         model: Model
     ): String

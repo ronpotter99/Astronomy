@@ -17,11 +17,11 @@ class CalculationController(private val calculationService: CalculationService) 
         logger.warn { equationCategories }
 
         model.addAttribute("equationCategories", equationCategories)
-        return "calculationSelection"
+        return "calculate/calculationSelection"
     }
 
     override fun calculate(equationReference: String, model: Model): String {
         model.addAttribute("message", "testing model attributes for '$equationReference'")
-        return "calculateEquation"
+        return "calculate/calculateEquation"
     }
 }

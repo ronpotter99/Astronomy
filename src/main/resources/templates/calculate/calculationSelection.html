@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/imports :: imports(title=${'Calculation Selection'})}"><title></title></head>
+<body>
+<div>
+    <div th:replace="~{fragments/header :: header(module=${'calculate'})}"></div>
+    <div class="container">
+        <div th:if="${#maps.isEmpty(equationCategories)}">
+            <h3>No equations available for selection.</h3>
+        </div>
+        <div th:each="equationCategory : ${equationCategories.keySet()}">
+            <h3 th:text="${equationCategory}">category name</h3>
+            <div th:each="equationReference : ${equationCategories.get(equationCategory)}">
+                <div th:text="${equationReference}">equation reference</div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>

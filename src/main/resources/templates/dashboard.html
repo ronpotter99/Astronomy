@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/imports :: imports(title=${'Dashboard'})}"><title></title></head>
+<body>
+<div>
+    <div th:replace="~{fragments/header :: header(module=${'dashboard'})}"></div>
+    <div>Welcome to the Astronomy assistance application!</div>
+    <div>Please select the portion of the application you'd like to access.</div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>

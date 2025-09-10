@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+<body>
+<nav class="navbar bg-dark navbar-fixed-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark"
+     th:fragment="header">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Astronomy</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard" th:classappend="${module == 'dashboard' ? 'active' : ''}"
+                       th:attr="aria-current=${module == 'dashboard' ? 'page' : null}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${module == 'calculate' ? 'active' : ''}"
+                       th:attr="aria-current=${module == 'calculate' ? 'page' : null}"
+                       href="/calculate">Calculate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

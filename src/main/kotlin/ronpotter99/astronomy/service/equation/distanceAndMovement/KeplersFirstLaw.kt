@@ -15,8 +15,13 @@ class KeplersFirstLaw : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "KeplersFirstLaw",
-            "",
-            """""".trimIndent()
+            "Kepler's First Law",
+            """
+                Each planet's orbit around its star is an ellipse. The star's center 
+                is always located at one focus of the orbital ellipse. The planet 
+                follows the ellipse in its orbit, meaning that the planet-to-star 
+                distance is constantly changing as the planet goes around its orbit.
+            """.trimIndent()
         )
     }
 

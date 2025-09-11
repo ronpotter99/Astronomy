@@ -15,8 +15,13 @@ class KeplersThirdLaw : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "KeplersThirdLaw",
-            "",
-            """""".trimIndent()
+            "Kepler's Third Law",
+            """
+                The orbital period of a planet, squared, is directly proportional 
+                to the semi-major axes of its orbit, cubed. Kepler's third law 
+                implies that the period for a planet to orbit its star increases 
+                rapidly with the radius of its orbit.
+            """.trimIndent()
         )
     }
 

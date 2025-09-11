@@ -12,8 +12,17 @@ class KeplersSecondLaw : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "KeplersSecondLaw",
-            "",
-            """""".trimIndent()
+            "Kepler's Second Law",
+            """
+                The imaginary line joining a planet and its star sweeps out- or covers-
+                equal areas of space during equal time intervals as the planet orbits.
+                Simplified, planets do not move with constant speed along their orbits. 
+                Rather, their speed varies so that the line joining the centers of the 
+                star and planet star sweeps out equal parts of an area in equal times.
+                The point of nearest approach of the planet to its star is termed perihelion.
+                The point of greatest separation is aphelion, hence by Kepler's Second Law, 
+                a planet is moving fastest when it is at perihelion and slowest at aphelion.
+            """.trimIndent()
         )
     }
 

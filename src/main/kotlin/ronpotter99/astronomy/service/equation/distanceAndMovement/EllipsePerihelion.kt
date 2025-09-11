@@ -13,8 +13,11 @@ class EllipsePerihelion : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "EllipsePerihelion",
-            "",
-            """""".trimIndent()
+            "Elliptical Orbit - Perihelion",
+            """
+                Find the perihelion (closest point from primary focus) of an elliptical orbit
+                using the elliptical semi-major axis and eccentricity.
+            """.trimIndent()
         )
     }
 

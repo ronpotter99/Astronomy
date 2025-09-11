@@ -13,8 +13,11 @@ class EllipseSemiMinorAxis : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "EllipseSemiMinorAxis",
-            "",
-            """""".trimIndent()
+            "Elliptical Orbit - Semi-Minor Axis",
+            """
+                Find the semi-minor axis of an elliptical orbit 
+                using the elliptical semi-major axis and eccentricity.
+            """.trimIndent()
         )
     }
 

@@ -13,8 +13,11 @@ class EllipseAphelion : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "EllipseAphelion",
-            "",
-            """""".trimIndent()
+            "Elliptical Orbit - Aphelion",
+            """
+                Find the aphelion (farthest point from primary focus) of an elliptical orbit
+                using the elliptical semi-major axis and eccentricity.
+            """.trimIndent()
         )
     }
 

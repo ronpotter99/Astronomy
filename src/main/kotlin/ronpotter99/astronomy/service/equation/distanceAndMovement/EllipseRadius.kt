@@ -14,8 +14,11 @@ class EllipseRadius : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "EllipseRadius",
-            "",
-            """""".trimIndent()
+            "Elliptical Orbit - Radius",
+            """
+                Find the radius of an elliptical orbit using the elliptical semi-major axis, 
+                eccentricity, and the radian angle of the planet in its orbit.
+            """.trimIndent()
         )
     }
 

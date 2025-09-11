@@ -12,8 +12,12 @@ class AngularSeparation : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "AngularSeparation",
-            "",
-            """""".trimIndent()
+            "Angular Separation",
+            """
+                The radians of angular separation between two objects can be calculated 
+                using the distance between the two objects and the distance from the 
+                objects to the viewer.
+            """.trimIndent()
         )
     }
 

@@ -13,8 +13,12 @@ class TransitingExoplanetRadius : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "TransitingExoplanetRadius",
-            "",
-            """""".trimIndent()
+            "Transiting Exoplanet Radius",
+            """
+                Find the radius of a planet crossing its star using the radius 
+                of the star, its baseline flux, and the change in flux during
+                the planet's transit across the star's surface.
+            """.trimIndent()
         )
     }
 

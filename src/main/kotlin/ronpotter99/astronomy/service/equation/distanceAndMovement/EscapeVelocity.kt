@@ -14,8 +14,12 @@ class EscapeVelocity : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "EscapeVelocity",
-            "",
-            """""".trimIndent()
+            "Escape Velocity",
+            """
+                Find the escape velocity required to break out of the gravitational
+                orbit using the mass of the heavier object and the distance between 
+                the heavier and lighter objects.
+            """.trimIndent()
         )
     }
 

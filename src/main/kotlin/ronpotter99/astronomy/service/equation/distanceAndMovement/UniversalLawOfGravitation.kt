@@ -14,8 +14,11 @@ class UniversalLawOfGravitation : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "UniversalLawOfGravitation",
-            "",
-            """""".trimIndent()
+            "Universal Law of Gravitation",
+            """
+                Find the force applied by gravity between two objects using 
+                the mass of both objects and the radius between them.
+            """.trimIndent()
         )
     }
 

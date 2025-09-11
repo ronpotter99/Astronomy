@@ -13,8 +13,10 @@ class HubblesLaw : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "HubblesLaw",
-            "",
-            """""".trimIndent()
+            "Hubble's Law",
+            """
+                Find the distance of an object using the redshift of its light.
+            """.trimIndent()
         )
     }
 

@@ -14,8 +14,12 @@ class VisVisa : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "VisVisa",
-            "",
-            """""".trimIndent()
+            "Vis-Visa (Planetary Orbital Velocity)",
+            """
+                Find the velocity of a planet using the mass of its star, the 
+                distance between the planet and star, and the semi-major axis 
+                of the planet's orbit.
+            """.trimIndent()
         )
     }
 

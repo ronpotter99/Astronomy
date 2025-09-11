@@ -2,6 +2,7 @@ package ronpotter99.astronomy.service
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 import ronpotter99.astronomy.service.interfaces.ICalculationService
@@ -11,17 +12,18 @@ class CalculationService(private val equations: HashMap<String, IEquation>) : IC
 
     private val logger = KotlinLogging.logger {}
 
-    override fun getEquationCategoryMap(): Map<String, List<String>> {
-        val toReturn = HashMap<String, MutableList<String>>()
+    override fun getEquationCategoryMap(): Map<String, List<EquationReference>> {
+        val toReturn = HashMap<String, MutableList<EquationReference>>()
 
         for (equationKey in equations.keys) {
-            val categoryName = equations[equationKey]?.getCategory()!!.categoryName
+            val categoryName: String = equations[equationKey]?.getCategory()!!.categoryName
+            val equationReference: EquationReference = equations[equationKey]?.getEquationReference()!!
 
             if (!toReturn.containsKey(categoryName)) {
                 toReturn[categoryName] = mutableListOf()
             }
 
-            toReturn[categoryName]?.add(equationKey)
+            toReturn[categoryName]?.add(equationReference)
         }
 
         return toReturn

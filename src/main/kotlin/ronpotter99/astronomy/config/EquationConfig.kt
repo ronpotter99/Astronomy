@@ -13,7 +13,7 @@ class EquationConfig(private val equations: List<IEquation>) {
         val equationMap = HashMap<String, IEquation>()
 
         for (equation in equations) {
-            equationMap[equation.getEquationReference().uppercase()] = equation
+            equationMap[equation.getEquationReference().reference.uppercase()] = equation
         }
 
         return equationMap

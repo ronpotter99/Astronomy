@@ -2,6 +2,7 @@ package ronpotter99.astronomy.service.equation.light
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 import java.math.BigDecimal
@@ -11,7 +12,11 @@ import ronpotter99.astronomy.utils.EquationConstants as Constants
 class FluxDensityConversion : IEquation {
 
     companion object {
-        const val EQUATION_REFERENCE: String = "FluxDensityConversion"
+        val EQUATION_REFERENCE: EquationReference = EquationReference(
+            "FluxDensityConversion",
+            "",
+            """""".trimIndent()
+        )
     }
 
     private val logger = KotlinLogging.logger {}
@@ -20,7 +25,7 @@ class FluxDensityConversion : IEquation {
         return IEquation.EquationCategory.LIGHT
     }
 
-    override fun getEquationReference(): String {
+    override fun getEquationReference(): EquationReference {
         return EQUATION_REFERENCE
     }
 

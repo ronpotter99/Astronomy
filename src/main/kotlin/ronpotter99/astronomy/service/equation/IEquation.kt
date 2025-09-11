@@ -1,5 +1,6 @@
 package ronpotter99.astronomy.service.equation
 
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 
 interface IEquation {
@@ -12,7 +13,7 @@ interface IEquation {
 
     fun getCategory(): EquationCategory
 
-    fun getEquationReference(): String
+    fun getEquationReference(): EquationReference
 
     fun getVariableList(): Map<String, String>
 

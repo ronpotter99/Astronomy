@@ -2,6 +2,7 @@ package ronpotter99.astronomy.service.equation.massAndGravitation
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 import java.math.BigDecimal
@@ -10,7 +11,11 @@ import java.math.BigDecimal
 class KeplersThirdLawBinaryStarStandardized : IEquation {
 
     companion object {
-        const val EQUATION_REFERENCE: String = "KeplersThirdLawBinaryStarStandardized"
+        val EQUATION_REFERENCE: EquationReference = EquationReference(
+            "KeplersThirdLawBinaryStarStandardized",
+            "",
+            """""".trimIndent()
+        )
     }
 
     private val logger = KotlinLogging.logger {}
@@ -19,7 +24,7 @@ class KeplersThirdLawBinaryStarStandardized : IEquation {
         return IEquation.EquationCategory.MASS_AND_GRAVITATION
     }
 
-    override fun getEquationReference(): String {
+    override fun getEquationReference(): EquationReference {
         return EQUATION_REFERENCE
     }
 

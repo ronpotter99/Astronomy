@@ -2,6 +2,7 @@ package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 
@@ -9,7 +10,11 @@ import ronpotter99.astronomy.service.equation.IEquation
 class AngularSeparation : IEquation {
 
     companion object {
-        const val EQUATION_REFERENCE: String = "AngularSeparation"
+        val EQUATION_REFERENCE: EquationReference = EquationReference(
+            "AngularSeparation",
+            "",
+            """""".trimIndent()
+        )
     }
 
     private val logger = KotlinLogging.logger {}
@@ -18,7 +23,7 @@ class AngularSeparation : IEquation {
         return IEquation.EquationCategory.DISTANCE_AND_MOVEMENT
     }
 
-    override fun getEquationReference(): String {
+    override fun getEquationReference(): EquationReference {
         return EQUATION_REFERENCE
     }
 

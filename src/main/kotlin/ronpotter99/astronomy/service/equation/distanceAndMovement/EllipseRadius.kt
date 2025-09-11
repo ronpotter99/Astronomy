@@ -2,6 +2,7 @@ package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 import java.math.BigDecimal
@@ -11,7 +12,11 @@ import ch.obermuhlner.math.big.DefaultBigDecimalMath as BDMath
 class EllipseRadius : IEquation {
 
     companion object {
-        const val EQUATION_REFERENCE: String = "EllipseRadius"
+        val EQUATION_REFERENCE: EquationReference = EquationReference(
+            "EllipseRadius",
+            "",
+            """""".trimIndent()
+        )
     }
 
     private val logger = KotlinLogging.logger {}
@@ -20,7 +25,7 @@ class EllipseRadius : IEquation {
         return IEquation.EquationCategory.DISTANCE_AND_MOVEMENT
     }
 
-    override fun getEquationReference(): String {
+    override fun getEquationReference(): EquationReference {
         return EQUATION_REFERENCE
     }
 

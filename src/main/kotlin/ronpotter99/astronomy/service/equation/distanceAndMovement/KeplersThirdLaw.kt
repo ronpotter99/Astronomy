@@ -2,6 +2,7 @@ package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 import java.math.BigDecimal
@@ -12,7 +13,11 @@ import ronpotter99.astronomy.utils.EquationConstants as Constants
 class KeplersThirdLaw : IEquation {
 
     companion object {
-        const val EQUATION_REFERENCE: String = "KeplersThirdLaw"
+        val EQUATION_REFERENCE: EquationReference = EquationReference(
+            "KeplersThirdLaw",
+            "",
+            """""".trimIndent()
+        )
     }
 
     private val logger = KotlinLogging.logger {}
@@ -21,7 +26,7 @@ class KeplersThirdLaw : IEquation {
         return IEquation.EquationCategory.DISTANCE_AND_MOVEMENT
     }
 
-    override fun getEquationReference(): String {
+    override fun getEquationReference(): EquationReference {
         return EQUATION_REFERENCE
     }
 

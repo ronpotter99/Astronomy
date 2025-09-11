@@ -2,6 +2,7 @@ package ronpotter99.astronomy.service.equation.distanceAndMovement
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 import java.math.BigDecimal
@@ -10,7 +11,11 @@ import java.math.BigDecimal
 class TransitingExoplanetRadius : IEquation {
 
     companion object {
-        const val EQUATION_REFERENCE: String = "TransitingExoplanetRadius"
+        val EQUATION_REFERENCE: EquationReference = EquationReference(
+            "TransitingExoplanetRadius",
+            "",
+            """""".trimIndent()
+        )
     }
 
     private val logger = KotlinLogging.logger {}
@@ -19,7 +24,7 @@ class TransitingExoplanetRadius : IEquation {
         return IEquation.EquationCategory.DISTANCE_AND_MOVEMENT
     }
 
-    override fun getEquationReference(): String {
+    override fun getEquationReference(): EquationReference {
         return EQUATION_REFERENCE
     }
 

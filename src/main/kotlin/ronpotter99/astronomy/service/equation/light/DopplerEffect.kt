@@ -2,6 +2,7 @@ package ronpotter99.astronomy.service.equation.light
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
+import ronpotter99.astronomy.dto.EquationReference
 import ronpotter99.astronomy.dto.ScientificNumber
 import ronpotter99.astronomy.service.equation.IEquation
 import ronpotter99.astronomy.utils.EquationConstants as Constants
@@ -10,7 +11,11 @@ import ronpotter99.astronomy.utils.EquationConstants as Constants
 class DopplerEffect : IEquation {
 
     companion object {
-        const val EQUATION_REFERENCE: String = "DopplerEffect"
+        val EQUATION_REFERENCE: EquationReference = EquationReference(
+            "DopplerEffect",
+            "",
+            """""".trimIndent()
+        )
     }
 
     private val logger = KotlinLogging.logger {}
@@ -19,7 +24,7 @@ class DopplerEffect : IEquation {
         return IEquation.EquationCategory.LIGHT
     }
 
-    override fun getEquationReference(): String {
+    override fun getEquationReference(): EquationReference {
         return EQUATION_REFERENCE
     }
 

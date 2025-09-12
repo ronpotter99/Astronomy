@@ -15,14 +15,19 @@ class CalculationController(private val calculationService: CalculationService) 
     override fun calculationSelection(model: Model): String {
         val equationCategories: Map<String, List<EquationReference>> = calculationService.getEquationCategoryMap()
 
-        logger.warn { equationCategories }
-
         model.addAttribute("equationCategories", equationCategories)
+
         return "calculate/calculationSelection"
     }
 
-    override fun calculate(equationReference: String, model: Model): String {
-        model.addAttribute("message", "testing model attributes for '$equationReference'")
+    override fun calculate(equationReferenceString: String, model: Model): String {
+        val equationReference: EquationReference? = calculationService.getEquationReference(equationReferenceString)
+        val equationVariables: Map<String, String>? = calculationService.getEquationVariables(equationReferenceString)
+
+        model.addAttribute("errorMessage", "test error message")
+        model.addAttribute("equationReference", equationReference)
+        model.addAttribute("equationVariables", equationVariables)
+
         return "calculate/calculateEquation"
     }
 }

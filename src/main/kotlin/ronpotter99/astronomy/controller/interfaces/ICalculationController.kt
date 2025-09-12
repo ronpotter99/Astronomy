@@ -13,8 +13,8 @@ interface ICalculationController {
         model: Model
     ): String
 
-    @GetMapping("/{equationReference}")
+    @GetMapping("/{equationReferenceString}")
     fun calculate(
-        @PathVariable equationReference: String, model: Model
+        @PathVariable equationReferenceString: String, model: Model
     ): String
 }

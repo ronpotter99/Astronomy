@@ -7,6 +7,8 @@ interface ICalculationService {
 
     fun getEquationCategoryMap(): Map<String, List<EquationReference>>
 
+    fun getEquationReference(equationReference: String): EquationReference?
+
     fun getEquationVariables(equationReference: String): Map<String, String>?
 
     fun calculate(

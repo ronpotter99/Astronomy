@@ -29,6 +29,10 @@ class CalculationService(private val equations: HashMap<String, IEquation>) : IC
         return toReturn
     }
 
+    override fun getEquationReference(equationReference: String): EquationReference? {
+        return equations[equationReference.uppercase()]?.getEquationReference()
+    }
+
     override fun getEquationVariables(equationReference: String): Map<String, String>? {
         return equations[equationReference.uppercase()]?.getVariableList()
     }

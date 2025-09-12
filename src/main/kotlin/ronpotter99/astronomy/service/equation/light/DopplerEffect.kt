@@ -13,8 +13,11 @@ class DopplerEffect : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "DopplerEffect",
-            "",
-            """""".trimIndent()
+            "Doppler Effect",
+            """
+                Find the radial velocity of a wavelength's source using the change
+                in wavelength and the original wavelength.
+            """.trimIndent()
         )
     }
 

@@ -14,8 +14,11 @@ class FluxDensityConversion : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "FluxDensityConversion",
-            "",
-            """""".trimIndent()
+            "Flux-Density Conversion",
+            """
+                Convert between flux per unit of frequency and flux per 
+                unit of wavelength.
+            """.trimIndent()
         )
     }
 

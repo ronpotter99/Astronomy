@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/imports :: imports(title=${'Calculate Equation'})}"><title></title></head>
+<body>
+<div>
+    <div th:replace="~{fragments/header :: header(module=${'calculate'})}"></div>
+    <h3 class="text-center" th:if="${errorMessage != null}" th:text="${errorMessage}">error message</h3>
+    <div class="container" th:if="${equationReference != null}">
+        <h1 th:text="${equationReference.name}">equation name</h1>
+        <h4 th:text="${equationReference.description}">equation description</h4>
+        <div th:each="equationVariableName : ${equationVariables.keySet()}">
+            <div class="fw-bold" th:text="${equationVariableName}">variable name:</div>
+            <p th:text="${equationVariables.get(equationVariableName)}">variable description</p>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>

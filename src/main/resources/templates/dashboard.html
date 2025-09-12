@@ -4,8 +4,10 @@
 <body>
 <div>
     <div th:replace="~{fragments/header :: header(module=${'dashboard'})}"></div>
-    <div>Welcome to the Astronomy assistance application!</div>
-    <div>Please select the portion of the application you'd like to access.</div>
+    <div class="text-center">
+        <div>Welcome to the Astronomy assistance application!</div>
+        <div>Please select the portion of the application you'd like to access.</div>
+    </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
 </body>

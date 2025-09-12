@@ -11,7 +11,12 @@
         <div th:each="equationCategory : ${equationCategories.keySet()}">
             <h3 th:text="${equationCategory}">category name</h3>
             <div th:each="equationReference : ${equationCategories.get(equationCategory)}">
-                <div th:text="${equationReference}">equation reference</div>
+                <h4>
+                    <a th:text="${equationReference.name}" th:href="@{'/calculate/' + ${equationReference.reference}}">
+                        equation reference
+                    </a>
+                </h4>
+                <p th:text="${equationReference.description}">equation description</p>
             </div>
         </div>
     </div>

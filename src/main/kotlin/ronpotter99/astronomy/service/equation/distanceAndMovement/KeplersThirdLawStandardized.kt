@@ -13,7 +13,7 @@ class KeplersThirdLawStandardized : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "KeplersThirdLawStandardized",
-            "Kepler's Third Law - Standardized",
+            "Kepler's Third Law (Standardized)",
             """
                 Kepler's Third Law, standardized for units based around year,
                 solar mass, and AU.

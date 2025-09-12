@@ -15,8 +15,9 @@ class KeplersThirdLawBinaryStar : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "KeplersThirdLawBinaryStar",
-            "",
+            "Kepler's Third Law - Binary Star Systems",
             """
+                Kepler's Third Law, modified for binary star systems.
             """.trimIndent()
         )
     }

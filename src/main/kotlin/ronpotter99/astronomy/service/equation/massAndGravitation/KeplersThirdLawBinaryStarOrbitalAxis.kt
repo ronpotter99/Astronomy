@@ -15,8 +15,11 @@ class KeplersThirdLawBinaryStarOrbitalAxis : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "KeplersThirdLawBinaryStarOrbitalAxis",
-            "",
-            """""".trimIndent()
+            "Kepler's Third Law - Binary Star Systems (Orbital Axis)",
+            """
+                Kepler's Third Law, modified for binary star systems using the
+                semi-major axis and mass of each star and the orbital period.
+            """.trimIndent()
         )
     }
 

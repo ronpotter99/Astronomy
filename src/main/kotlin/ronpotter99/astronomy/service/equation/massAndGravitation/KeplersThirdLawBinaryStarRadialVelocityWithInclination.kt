@@ -15,8 +15,13 @@ class KeplersThirdLawBinaryStarRadialVelocityWithInclination : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "KeplersThirdLawBinaryStarRadialVelocityWithInclination",
-            "",
-            """""".trimIndent()
+            "Kepler's Third Law - Binary Star Systems (Radial Velocity with Inclination)",
+            """
+                Kepler's Third Law, modified for binary star systems using the
+                radial velocity and mass of each star, the orbital period, and
+                the angle of inclination between the orbital plane and the plane 
+                of the sky.
+            """.trimIndent()
         )
     }
 

@@ -15,8 +15,12 @@ class KeplersThirdLawBinaryStarAngularAxisWithInclination : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "KeplersThirdLawBinaryStarAngularAxisWithInclination",
-            "",
-            """""".trimIndent()
+            "Kepler's Third Law - Binary Star Systems (Angular Axis with Inclination)",
+            """
+                Kepler's Third Law, modified for binary star systems using 
+                semi-major angular axis and distance from observer. Adds angle 
+                of inclination between the orbital plane and the plane of the sky.
+            """.trimIndent()
         )
     }
 

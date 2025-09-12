@@ -14,6 +14,8 @@ class EllipticalBinaryMass : IEquation {
             "EllipticalBinaryMass",
             "Elliptical Binary Mass",
             """
+                The mass ratio of two orbital objects is related inversely to 
+                their orbital semi-major angular axis.
             """.trimIndent()
         )
     }

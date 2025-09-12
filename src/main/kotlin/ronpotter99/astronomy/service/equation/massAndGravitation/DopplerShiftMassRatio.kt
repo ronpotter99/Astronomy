@@ -12,8 +12,10 @@ class DopplerShiftMassRatio : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "DopplerShiftMassRatio",
-            "",
+            "Doppler Shift - Mass Ratio",
             """
+                The mass ratio of two orbiting objects is related inversely to 
+                their radial velocity.
             """.trimIndent()
         )
     }

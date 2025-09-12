@@ -15,8 +15,12 @@ class TransitingExoplanetMass : IEquation {
     companion object {
         val EQUATION_REFERENCE: EquationReference = EquationReference(
             "TransitingExoplanetMass",
-            "",
-            """""".trimIndent()
+            "Transiting Exoplanet Mass",
+            """
+                Find the mass of a planet crossing its star using the mass 
+                of the star, its orbital period, and the radial velocity 
+                measured in the stellar spectrum.
+            """.trimIndent()
         )
     }
 

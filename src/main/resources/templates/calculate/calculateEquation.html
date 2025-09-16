@@ -13,6 +13,23 @@
             <h1 th:text="${equationReference.name}">equation name</h1>
             <h4 th:text="${equationReference.description}">equation description</h4>
         </div>
+        <div>
+            <h5 class="fw-bold">Instructions:</h5>
+            <div>
+                <p>
+                    Input the values for each known variable in the text fields below. Leave the field for the
+                    unknown value empty. The calculator will dynamically find the value of the blank variable.
+                </p>
+
+                <div>Each text field supports numbers in the following format: '123u45'</div>
+                <div>'123' is the known number</div>
+                <p>'45' is the number's uncertainty</p>
+
+                <p>
+                    Numbers without uncertainty are also accepted in the standard format: '123'
+                </p>
+            </div>
+        </div>
 
         <div th:each="equationVariableName : ${equationVariables.keySet()}">
             <label>

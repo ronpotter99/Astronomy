@@ -5,14 +5,28 @@
 <div>
     <div th:replace="~{fragments/header :: header(module=${'calculate'})}"></div>
     <h3 class="text-center" th:if="${errorMessage != null}" th:text="${errorMessage}">error message</h3>
-    <div class="container" th:if="${equationReference != null}">
-        <h1 th:text="${equationReference.name}">equation name</h1>
-        <h4 th:text="${equationReference.description}">equation description</h4>
+    <form class="container" th:if="${equationReference != null}"
+          th:action="@{'/calculate/' + ${equationReference}}" action="#"
+          th:object="${equationCalculationForm}"
+          method="post">
+        <div>
+            <h1 th:text="${equationReference.name}">equation name</h1>
+            <h4 th:text="${equationReference.description}">equation description</h4>
+        </div>
+
         <div th:each="equationVariableName : ${equationVariables.keySet()}">
-            <div class="fw-bold" th:text="${equationVariableName}">variable name:</div>
+            <label>
+                <span class="fw-bold" th:text="${equationVariableName}">variable name:</span>
+                <input type="text" th:field="*{equationVariableValues['__${equationVariableName}__']}"/>
+            </label>
             <p th:text="${equationVariables.get(equationVariableName)}">variable description</p>
         </div>
-    </div>
+
+        <div>
+            <input type="submit" value="Submit"/>
+            <input type="reset" value="Reset"/>
+        </div>
+    </form>
     <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
 </body>

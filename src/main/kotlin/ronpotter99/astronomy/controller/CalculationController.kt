@@ -3,6 +3,7 @@ package ronpotter99.astronomy.controller
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import ronpotter99.astronomy.controller.interfaces.ICalculationController
 import ronpotter99.astronomy.dto.EquationCalculationForm
 import ronpotter99.astronomy.dto.EquationReference
@@ -25,10 +26,16 @@ class CalculationController(private val calculationService: CalculationService) 
         val equationReference: EquationReference? = calculationService.getEquationReference(equationReferenceString)
         val equationVariables: Map<String, String>? = calculationService.getEquationVariables(equationReferenceString)
 
-        model.addAttribute("errorMessage", "test error message")
-        model.addAttribute("equationReference", equationReference)
-        model.addAttribute("equationVariables", equationVariables)
-        model.addAttribute("equationCalculationForm", EquationCalculationForm())
+        if (equationReference == null || equationVariables == null) {
+            model.addAttribute("errorMessage", "No equation found")
+        } else {
+            model.addAttribute("equationReference", equationReference)
+            model.addAttribute("equationVariables", equationVariables)
+
+            if (!model.containsAttribute("equationCalculationForm")) {
+                model.addAttribute("equationCalculationForm", EquationCalculationForm())
+            }
+        }
 
         return "calculate/calculateEquation"
     }
@@ -40,10 +47,11 @@ class CalculationController(private val calculationService: CalculationService) 
     ): String {
         logger.warn { equationCalculationForm }
 
-        model.addAttribute("errorMessage", "submission successful")
-        model.addAttribute("equationCalculationForm", equationCalculationForm)
-        model.addAttribute("calculatedAnswer", Pair("test", "123u45"))
+        equationCalculationForm.calculatedAnswer = Pair("test", "123u45")
 
-        return "calculate/calculateEquation"
+        model.addAttribute("successMessage", "submission successful")
+        model.addAttribute("equationCalculationForm", equationCalculationForm)
+
+        return calculateEquation(equationReferenceString, model)
     }
 }

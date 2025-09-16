@@ -5,8 +5,9 @@
 <div>
     <div th:replace="~{fragments/header :: header(module=${'calculate'})}"></div>
     <h3 class="text-center" th:if="${errorMessage != null}" th:text="${errorMessage}">error message</h3>
+    <h3 class="text-center" th:if="${successMessage != null}" th:text="${successMessage}">success message</h3>
     <form class="container" th:if="${equationReference != null}"
-          th:action="@{'/calculate/' + ${equationReference}}" action="#"
+          th:action="@{'/calculate/' + ${equationReference.reference}}" action="#"
           th:object="${equationCalculationForm}"
           method="post">
         <div>
@@ -42,6 +43,11 @@
         <div>
             <input type="submit" value="Submit"/>
             <input type="reset" value="Reset"/>
+        </div>
+
+        <div class="text-center" th:if="${equationCalculationForm.calculatedAnswer != null}">
+            <span class="fw-bold">Answer:</span>
+            <p th:text="${equationCalculationForm.calculatedAnswer.first} + ': ' + ${equationCalculationForm.calculatedAnswer.second}">variable: value</p>
         </div>
     </form>
     <div th:replace="~{fragments/footer :: footer}"></div>

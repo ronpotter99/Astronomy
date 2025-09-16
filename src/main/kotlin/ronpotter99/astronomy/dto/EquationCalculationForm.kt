@@ -1,5 +1,6 @@
 package ronpotter99.astronomy.dto
 
 data class EquationCalculationForm(
-    var equationVariableValues: Map<String, String> = mutableMapOf()
+    var equationVariableValues: Map<String, String> = mutableMapOf(),
+    var calculatedAnswer: Pair<String, String>? = null
 )

@@ -1,9 +1,8 @@
 package ronpotter99.astronomy.controller.interfaces
 
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
+import ronpotter99.astronomy.dto.EquationCalculationForm
 
 @RequestMapping("/calculate")
 interface ICalculationController {
@@ -14,7 +13,7 @@ interface ICalculationController {
     ): String
 
     @GetMapping("/{equationReferenceString}")
-    fun calculate(
+    fun calculateEquation(
         @PathVariable equationReferenceString: String, model: Model
     ): String
 }

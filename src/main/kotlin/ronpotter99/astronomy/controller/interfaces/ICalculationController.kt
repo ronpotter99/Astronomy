@@ -16,4 +16,11 @@ interface ICalculationController {
     fun calculateEquation(
         @PathVariable equationReferenceString: String, model: Model
     ): String
+
+    @PostMapping("/{equationReferenceString}")
+    fun calculateEquationSubmission(
+        @PathVariable equationReferenceString: String,
+        @ModelAttribute equationCalculationForm: EquationCalculationForm,
+        model: Model
+    ): String
 }

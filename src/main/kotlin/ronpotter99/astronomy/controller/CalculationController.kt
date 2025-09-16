@@ -32,4 +32,18 @@ class CalculationController(private val calculationService: CalculationService) 
 
         return "calculate/calculateEquation"
     }
+
+    override fun calculateEquationSubmission(
+        equationReferenceString: String,
+        equationCalculationForm: EquationCalculationForm,
+        model: Model
+    ): String {
+        logger.warn { equationCalculationForm }
+
+        model.addAttribute("errorMessage", "submission successful")
+        model.addAttribute("equationCalculationForm", equationCalculationForm)
+        model.addAttribute("calculatedAnswer", Pair("test", "123u45"))
+
+        return "calculate/calculateEquation"
+    }
 }

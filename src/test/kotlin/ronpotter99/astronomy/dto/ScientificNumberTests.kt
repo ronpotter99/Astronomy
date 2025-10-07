@@ -1069,5 +1069,54 @@ abstract class ScientificNumberTests {
 
             assertEquals(toCheckTwo, toCheckOne)
         }
+
+        /** This verifies multiplying no numbers throws an exception. */
+        @Test
+        fun multiply_noNumbers_getException() {
+            assertFailsWith<IllegalArgumentException> { ScientificNumber.multiply() }
+        }
+
+        /** This verifies multiplying one number returns itself. */
+        @Test
+        fun multiply_oneNumber_wholeNumbers_withUncertainty() {
+            val timesOne = ScientificNumber("145", "3")
+            val toCheck = ScientificNumber.multiply(timesOne)
+
+            assertEquals(ScientificNumber("145", "3"), toCheck)
+        }
+
+        /** This verifies multiplying one number returns itself. */
+        @Test
+        fun multiply_oneNumber_decimalNumbers_withUncertainty() {
+            val timesOne = ScientificNumber("145.273", "3.1234")
+            val toCheck = ScientificNumber.multiply(timesOne)
+
+            assertEquals(ScientificNumber("145.273", "3.1234"), toCheck)
+        }
+
+        /** This verifies multiplying three numbers returns the intended result. */
+        @Test
+        fun multiply_threeNumbers_wholeNumbers_withUncertainty() {
+            val timesOne = ScientificNumber("145", "3")
+            val timesTwo = ScientificNumber("12", "2")
+            val timesThree = ScientificNumber("382", "4")
+            val toCheck = ScientificNumber.multiply(timesOne, timesTwo, timesThree)
+
+            assertEquals(ScientificNumber("660000", "100000"), toCheck)
+        }
+
+        /**
+         * This verifies multiplying three numbers returns the correct multiplication and rounds decimal places
+         * appropriately according to scientific uncertainty standards.
+         */
+        @Test
+        fun multiply_threeNumbers_decimalNumbers_withUncertainty() {
+            val timesOne = ScientificNumber("1.45273", "0.31234")
+            val timesTwo = ScientificNumber("12.3852", "2.36")
+            val timesThree = ScientificNumber("3.8214", "0.4836")
+            val toCheck = ScientificNumber.multiply(timesOne, timesTwo, timesThree)
+
+            assertEquals(ScientificNumber("68.756", "21.6"), toCheck)
+        }
     }
 }

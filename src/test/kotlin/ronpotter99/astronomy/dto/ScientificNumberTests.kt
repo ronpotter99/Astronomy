@@ -782,7 +782,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("432.46", "0.2"), toCheck)
         }
 
-        /** This verifies the default rounding mode is able to be overridden. */
+        /** This verifies the default rounding mode can be overridden. */
         @Test
         fun add_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
             val addOne = ScientificNumber("145.275", "0.0")
@@ -958,7 +958,7 @@ abstract class ScientificNumberTests {
             assertEquals(ScientificNumber("141.90", "0.2"), toCheck)
         }
 
-        /** This verifies the default rounding mode is able to be overridden. */
+        /** This verifies the default rounding mode can be overridden. */
         @Test
         fun subtract_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
             val baseNumber = ScientificNumber("287.19", "0.0")
@@ -1011,6 +1011,63 @@ abstract class ScientificNumberTests {
             assertEquals(3, uncertaintyFractionalLength)
             assertEquals(5, numberSigFig)
             assertEquals(5, uncertaintySigFig)
+        }
+    }
+
+    /**
+     * This is a class to encapsulate all kotlin times and multiply static method tests within the
+     * ScientificNumber class.
+     */
+    class SNMultiplication : ScientificNumberTests() {
+        /** This is a basic test of ScientificNumber number multiplication. */
+        @Test
+        fun multiply_twoNumbers_wholeNumbers_noUncertainty() {
+            val timesOne = ScientificNumber("1", null)
+            val timesTwo = ScientificNumber("3", null)
+            val toCheck = timesOne * timesTwo
+
+            assertEquals(ScientificNumber("3", null), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber number multiplication. */
+        @Test
+        fun multiply_twoNumbers_decimalNumbers_noUncertainty() {
+            val timesOne = ScientificNumber("1.123", null)
+            val timesTwo = ScientificNumber("3.23456", null)
+            val toCheck = timesOne * timesTwo
+
+            assertEquals(ScientificNumber("3.632", null), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber uncertainty multiplication. */
+        @Test
+        fun multiply_twoNumbers_wholeNumbers_withUncertainty() {
+            val timesOne = ScientificNumber("145", "3")
+            val timesTwo = ScientificNumber("287", "92")
+            val toCheck = timesOne * timesTwo
+
+            assertEquals(ScientificNumber("41600", "10000"), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber uncertainty multiplication. */
+        @Test
+        fun multiply_twoNumbers_decimalNumbers_withUncertainty() {
+            val timesOne = ScientificNumber("145.273", "3.1234")
+            val timesTwo = ScientificNumber("287.19", "92.871")
+            val toCheck = timesOne * timesTwo
+
+            assertEquals(ScientificNumber("41721", "13521"), toCheck)
+        }
+
+        /** This verifies a kotlin times and the static multiply method have the same output. */
+        @Test
+        fun multiply_twoNumbers_defaultTimesEqualsMultiplyStaticFunction() {
+            val timesOne = ScientificNumber("145.273", "3.1234")
+            val timesTwo = ScientificNumber("287.19", "92.871")
+            val toCheckOne = timesOne * timesTwo
+            val toCheckTwo = ScientificNumber.multiply(timesOne, timesTwo)
+
+            assertEquals(toCheckTwo, toCheckOne)
         }
     }
 }

@@ -1168,5 +1168,45 @@ abstract class ScientificNumberTests {
 
             assertEquals(ScientificNumber("145.29", "49"), toCheck)
         }
+
+        /**
+         * This verifies multiplication does not mess up results of fractional length and significant
+         * figure methods.
+         */
+        @Test
+        fun multiply_twoNumbers_wholeNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
+            val timesOne = ScientificNumber("145", "3")
+            val timesTwo = ScientificNumber("287", "92")
+            val toCheck = timesOne * timesTwo
+
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+            val (numberSigFig, uncertaintySigFig) = toCheck.significantFigures()
+
+            assertEquals(ScientificNumber("41600", "10000"), toCheck)
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+            assertEquals(3, numberSigFig)
+            assertEquals(1, uncertaintySigFig)
+        }
+
+        /**
+         * This verifies multiplication does not mess up results of fractional length and significant
+         * figure methods.
+         */
+        @Test
+        fun multiply_twoNumbers_decimalNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
+            val timesOne = ScientificNumber("145.273", "3.1234")
+            val timesTwo = ScientificNumber("2.8719", "0.9287")
+            val toCheck = timesOne * timesTwo
+
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+            val (numberSigFig, uncertaintySigFig) = toCheck.significantFigures()
+
+            assertEquals(ScientificNumber("417.21", "135.2"), toCheck)
+            assertEquals(2, numberFractionalLength)
+            assertEquals(1, uncertaintyFractionalLength)
+            assertEquals(5, numberSigFig)
+            assertEquals(4, uncertaintySigFig)
+        }
     }
 }

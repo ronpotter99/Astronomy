@@ -1118,5 +1118,55 @@ abstract class ScientificNumberTests {
 
             assertEquals(ScientificNumber("68.756", "21.6"), toCheck)
         }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun multiply_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_numberRoundUp() {
+            val timesOne = ScientificNumber("145.295", "1.00")
+            val timesTwo = ScientificNumber("1.0000", "0.34")
+            val toCheck = timesOne * timesTwo
+
+            assertEquals(ScientificNumber("145.30", "49"), toCheck)
+        }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun multiply_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_uncertaintyRoundUp() {
+            val timesOne = ScientificNumber("1", "0.75")
+            val timesTwo = ScientificNumber("1", "0")
+            val toCheck = timesOne * timesTwo
+
+            assertEquals(ScientificNumber("1", "0.8"), toCheck)
+        }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun multiply_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_numberRoundDown() {
+            val timesOne = ScientificNumber("145.285", "1.00")
+            val timesTwo = ScientificNumber("1.0000", "0.34")
+            val toCheck = timesOne * timesTwo
+
+            assertEquals(ScientificNumber("145.28", "49"), toCheck)
+        }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun multiply_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_uncertaintyRoundDown() {
+            val timesOne = ScientificNumber("1", "0.65")
+            val timesTwo = ScientificNumber("1", "0")
+            val toCheck = timesOne * timesTwo
+
+            assertEquals(ScientificNumber("1", "0.6"), toCheck)
+        }
+
+        /** This verifies the default rounding mode can be overridden. */
+        @Test
+        fun multiply_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
+            val timesOne = ScientificNumber("145.285", "1.00")
+            val timesTwo = ScientificNumber("1.0000", "0.34")
+            val toCheck = ScientificNumber.multiply(timesOne, timesTwo, roundingMode = RoundingMode.HALF_UP)
+
+            assertEquals(ScientificNumber("145.29", "49"), toCheck)
+        }
     }
 }

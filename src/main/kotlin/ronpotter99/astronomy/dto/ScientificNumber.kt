@@ -272,13 +272,26 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
                 }
             }
 
-            // TODO re-evaluate this rounding with uncertainty values
-            newNumber = newNumber.round(MathContext(numberSigFigs.min(), roundingMode))
+            if (newUncertainty != null) {
+                newUncertainty = BDMath.multiply(
+                    newNumber,
+                    BDMath.pow(newUncertainty, BigDecimal("0.5"))
+                )
+            }
+
+
+            // Round final answer based on significant figures
+            val finalNumberScale = numberSigFigs.min()
+            newNumber = newNumber.round(MathContext(finalNumberScale, roundingMode))
 
             if (newUncertainty != null) {
-                newUncertainty = BDMath.multiply(newNumber.abs(), BDMath.sqrt(newUncertainty))
-                // TODO re-evaluate this rounding with uncertainty values
-                // newUncertainty = newUncertainty!!.round(MathContext(uncertaintySigFigs.min(), roundingMode))
+                var finalUncertaintyScale = uncertaintySigFigs.min()
+                if (finalUncertaintyScale > finalNumberScale) {
+                    finalUncertaintyScale = finalNumberScale
+                }
+                newUncertainty = newUncertainty!!.round(
+                    MathContext(finalUncertaintyScale, roundingMode)
+                )
             }
 
             return ScientificNumber(newNumber, newUncertainty)

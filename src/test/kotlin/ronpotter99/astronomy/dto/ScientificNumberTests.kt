@@ -15,7 +15,7 @@ abstract class ScientificNumberTests {
      * This is a class to encapsulate all significantFigure method tests within the ScientificNumber
      * class.
      */
-    class SNSignificantFigures : ScientificNumberTests() {
+    class ScientificNumberSignificantFigures : ScientificNumberTests() {
         /** This test verifies a null uncertainty has 0 significant figures. */
         @Test
         fun significantFigures_ignoreNumber_noUncertainty() {
@@ -391,7 +391,7 @@ abstract class ScientificNumberTests {
      * This is a class to encapsulate all fractionalLength method tests within the ScientificNumber
      * class.
      */
-    class SNFractionalLength : ScientificNumberTests() {
+    class ScientificNumberFractionalLength : ScientificNumberTests() {
         /** This test verifies a null uncertainty has 0 decimals. */
         @Test
         fun fractionalLength_ignoreNumber_noUncertainty() {
@@ -661,7 +661,7 @@ abstract class ScientificNumberTests {
      * This is a class to encapsulate all kotlin plus and add static method tests within the
      * ScientificNumber class.
      */
-    class SNAddition : ScientificNumberTests() {
+    class ScientificNumberAddition : ScientificNumberTests() {
         /** This is a basic test of ScientificNumber number addition. */
         @Test
         fun add_twoNumbers_wholeNumbers_noUncertainty() {
@@ -837,7 +837,7 @@ abstract class ScientificNumberTests {
      * This is a class to encapsulate all kotlin minus and subtract static method tests within the
      * ScientificNumber class.
      */
-    class SNSubtraction : ScientificNumberTests() {
+    class ScientificNumberSubtraction : ScientificNumberTests() {
         /** This is a basic test of ScientificNumber number subtraction. */
         @Test
         fun subtract_twoNumbers_wholeNumbers_noUncertainty() {
@@ -1018,7 +1018,7 @@ abstract class ScientificNumberTests {
      * This is a class to encapsulate all kotlin times and multiply static method tests within the
      * ScientificNumber class.
      */
-    class SNMultiplication : ScientificNumberTests() {
+    class ScientificNumberMultiplication : ScientificNumberTests() {
         /** This is a basic test of ScientificNumber number multiplication. */
         @Test
         fun multiply_twoNumbers_wholeNumbers_noUncertainty() {
@@ -1207,6 +1207,63 @@ abstract class ScientificNumberTests {
             assertEquals(1, uncertaintyFractionalLength)
             assertEquals(5, numberSigFig)
             assertEquals(4, uncertaintySigFig)
+        }
+    }
+
+    /**
+     * This is a class to encapsulate all kotlin division and divide static method tests within the
+     * ScientificNumber class.
+     */
+    class ScientificNumberDivision : ScientificNumberTests() {
+        /** This is a basic test of ScientificNumber number division. */
+        @Test
+        fun divide_twoNumbers_wholeNumbers_noUncertainty() {
+            val dividend = ScientificNumber("6", null)
+            val divisor = ScientificNumber("2", null)
+            val toCheck = dividend / divisor
+
+            assertEquals(ScientificNumber("3", null), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber number division. */
+        @Test
+        fun divide_twoNumbers_decimalNumbers_noUncertainty() {
+            val dividend = ScientificNumber("3.23456", null)
+            val divisor = ScientificNumber("1.123", null)
+            val toCheck = dividend / divisor
+
+            assertEquals(ScientificNumber("2.880", null), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber uncertainty division. */
+        @Test
+        fun divide_twoNumbers_wholeNumbers_withUncertainty() {
+            val dividend = ScientificNumber("287", "92")
+            val divisor = ScientificNumber("18", "3")
+            val toCheck = dividend / divisor
+
+            assertEquals(ScientificNumber("16", "6"), toCheck)
+        }
+
+        /** This is a basic test of ScientificNumber uncertainty division. */
+        @Test
+        fun divide_twoNumbers_decimalNumbers_withUncertainty() {
+            val dividend = ScientificNumber("287.19", "92.871")
+            val divisor = ScientificNumber("18.5273", "3.1234")
+            val toCheck = dividend / divisor
+
+            assertEquals(ScientificNumber("15.501", "5.6529"), toCheck)
+        }
+
+        /** This verifies a kotlin division and the static divide method have the same output. */
+        @Test
+        fun divide_twoNumbers_defaultDivisionEqualsDivideStaticFunction() {
+            val dividend = ScientificNumber("287.19", "92.871")
+            val divisor = ScientificNumber("145.273", "3.1234")
+            val toCheckOne = dividend / divisor
+            val toCheckTwo = ScientificNumber.divide(dividend, divisor)
+
+            assertEquals(toCheckTwo, toCheckOne)
         }
     }
 }

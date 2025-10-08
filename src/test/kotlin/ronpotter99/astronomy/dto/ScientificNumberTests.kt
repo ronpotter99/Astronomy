@@ -1283,5 +1283,55 @@ abstract class ScientificNumberTests {
 
             assertEquals(ScientificNumber("145", "3"), toCheck)
         }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun divide_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_numberRoundUp() {
+            val dividend = ScientificNumber("145.295", "1.00")
+            val divisor = ScientificNumber("1.0000", "0.34")
+            val toCheck = dividend / divisor
+
+            assertEquals(ScientificNumber("145.30", "49"), toCheck)
+        }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun divide_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_uncertaintyRoundUp() {
+            val dividend = ScientificNumber("1", "0.75")
+            val divisor = ScientificNumber("1", "0")
+            val toCheck = dividend / divisor
+
+            assertEquals(ScientificNumber("1", "0.8"), toCheck)
+        }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun divide_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_numberRoundDown() {
+            val dividend = ScientificNumber("145.285", "1.00")
+            val divisor = ScientificNumber("1.0000", "0.34")
+            val toCheck = dividend / divisor
+
+            assertEquals(ScientificNumber("145.28", "49"), toCheck)
+        }
+
+        /** This verifies the default rounding mode rounds up and down appropriately. */
+        @Test
+        fun divide_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_uncertaintyRoundDown() {
+            val dividend = ScientificNumber("1", "0.65")
+            val divisor = ScientificNumber("1", "0")
+            val toCheck = dividend / divisor
+
+            assertEquals(ScientificNumber("1", "0.6"), toCheck)
+        }
+
+        /** This verifies the default rounding mode can be overridden. */
+        @Test
+        fun divide_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
+            val dividend = ScientificNumber("145.285", "1.00")
+            val divisor = ScientificNumber("1.0000", "0.34")
+            val toCheck = ScientificNumber.divide(dividend, divisor, roundingMode = RoundingMode.HALF_UP)
+
+            assertEquals(ScientificNumber("145.29", "49"), toCheck)
+        }
     }
 }

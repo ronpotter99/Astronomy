@@ -217,18 +217,18 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
 
             require(!scientificNumbers.isEmpty()) { "Must pass in a non-empty list of numbers to subtract." }
 
-            scientificNumbers.forEach {
-                val (numberFractionalLength: Int, uncertaintyFractionalLength: Int) = it.fractionalLength()
+            scientificNumbers.forEach { scientificNumber ->
+                val (numberFractionalLength: Int, uncertaintyFractionalLength: Int) = scientificNumber.fractionalLength()
 
                 newNumber = if (newNumber == null) {
-                    it.number
+                    scientificNumber.number
                 } else {
-                    BDMath.subtract(newNumber, it.number)
+                    BDMath.subtract(newNumber, scientificNumber.number)
                 }
 
                 numberFractionalLengths.add(numberFractionalLength)
 
-                it.uncertainty?.let {
+                scientificNumber.uncertainty?.let {
                     newUncertainty = BDMath.add(newUncertainty ?: BigDecimal("0"), BDMath.pow(it, 2))
                     uncertaintyFractionalLengths.add(uncertaintyFractionalLength)
                 }
@@ -284,12 +284,12 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
             val finalNumberScale = numberSigFigs.min()
             newNumber = newNumber.round(MathContext(finalNumberScale, roundingMode))
 
-            if (newUncertainty != null) {
+            newUncertainty?.let {
                 var finalUncertaintyScale = uncertaintySigFigs.min()
                 if (finalUncertaintyScale > finalNumberScale) {
                     finalUncertaintyScale = finalNumberScale
                 }
-                newUncertainty = newUncertainty!!.round(
+                newUncertainty = it.round(
                     MathContext(finalUncertaintyScale, roundingMode)
                 )
             }

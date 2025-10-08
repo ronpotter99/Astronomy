@@ -3,6 +3,7 @@ package ronpotter99.astronomy.dto
 import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode
+import kotlin.math.min
 import ch.obermuhlner.math.big.DefaultBigDecimalMath as BDMath
 
 data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal? = null) {
@@ -33,21 +34,7 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
     }
 
     operator fun div(toDivide: ScientificNumber): ScientificNumber {
-        val newNumber = BDMath.divide(number, toDivide.number)
-
-        val newUncertainty =
-            if (uncertainty != null || toDivide.uncertainty != null) {
-                val baseUncertainty =
-                    uncertainty?.let { BDMath.pow(BDMath.divide(it, number), 2) } ?: BigDecimal("0")
-                val inputUncertainty =
-                    toDivide.uncertainty?.let { BDMath.pow(BDMath.divide(it, toDivide.number), 2) }
-                        ?: BigDecimal("0")
-                BDMath.multiply(newNumber.abs(), BDMath.sqrt(BDMath.add(baseUncertainty, inputUncertainty)))
-            } else {
-                null
-            }
-
-        return ScientificNumber(newNumber, newUncertainty)
+        return divide(this, toDivide)
     }
 
     operator fun rem(divisor: BigDecimal): BigDecimal {
@@ -286,6 +273,51 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
 
             newUncertainty?.let {
                 var finalUncertaintyScale = uncertaintySigFigs.min()
+                if (finalUncertaintyScale > finalNumberScale) {
+                    finalUncertaintyScale = finalNumberScale
+                }
+                newUncertainty = it.round(
+                    MathContext(finalUncertaintyScale, roundingMode)
+                )
+            }
+
+            return ScientificNumber(newNumber, newUncertainty)
+        }
+
+        fun divide(
+            dividend: ScientificNumber,
+            divisor: ScientificNumber,
+            roundingMode: RoundingMode = RoundingMode.HALF_EVEN
+        ): ScientificNumber {
+
+            val (dividendNumberSigFig: Int, dividendUncertaintySigFig: Int) = dividend.significantFigures()
+            val (divisorNumberSigFig: Int, divisorUncertaintySigFig: Int) = divisor.significantFigures()
+
+            var newNumber = BDMath.divide(dividend.number, divisor.number)
+
+            var newUncertainty =
+                if (dividend.uncertainty != null || divisor.uncertainty != null) {
+                    val baseUncertainty =
+                        dividend.uncertainty?.let { BDMath.pow(dividend.fractionalUncertainty(), 2) }
+                            ?: BigDecimal("0")
+                    val inputUncertainty =
+                        divisor.uncertainty?.let { BDMath.pow(divisor.fractionalUncertainty(), 2) }
+                            ?: BigDecimal("0")
+                    BDMath.multiply(
+                        newNumber.abs(),
+                        BDMath.pow(BDMath.add(baseUncertainty, inputUncertainty), BigDecimal("0.5"))
+                    )
+                } else {
+                    null
+                }
+
+
+            // Round final answer based on significant figures
+            val finalNumberScale = min(dividendNumberSigFig, divisorNumberSigFig)
+            newNumber = newNumber.round(MathContext(finalNumberScale, roundingMode))
+
+            newUncertainty?.let {
+                var finalUncertaintyScale = min(dividendUncertaintySigFig, divisorUncertaintySigFig)
                 if (finalUncertaintyScale > finalNumberScale) {
                     finalUncertaintyScale = finalNumberScale
                 }

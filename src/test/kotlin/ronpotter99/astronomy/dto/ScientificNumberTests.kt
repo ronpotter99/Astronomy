@@ -1333,5 +1333,45 @@ abstract class ScientificNumberTests {
 
             assertEquals(ScientificNumber("145.29", "49"), toCheck)
         }
+
+        /**
+         * This verifies division does not mess up results of fractional length and significant
+         * figure methods.
+         */
+        @Test
+        fun divide_twoNumbers_wholeNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
+            val dividend = ScientificNumber("287", "92")
+            val divisor = ScientificNumber("18", "3")
+            val toCheck = dividend / divisor
+
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+            val (numberSigFig, uncertaintySigFig) = toCheck.significantFigures()
+
+            assertEquals(ScientificNumber("16", "6"), toCheck)
+            assertEquals(0, numberFractionalLength)
+            assertEquals(0, uncertaintyFractionalLength)
+            assertEquals(2, numberSigFig)
+            assertEquals(1, uncertaintySigFig)
+        }
+
+        /**
+         * This verifies division does not mess up results of fractional length and significant
+         * figure methods.
+         */
+        @Test
+        fun divide_twoNumbers_decimalNumbers_withUncertainty_verifyFractionalLengthAndSigFigs() {
+            val dividend = ScientificNumber("287.19", "92.87")
+            val divisor = ScientificNumber("18.5273", "3.1234")
+            val toCheck = dividend / divisor
+
+            val (numberFractionalLength, uncertaintyFractionalLength) = toCheck.fractionalLength()
+            val (numberSigFig, uncertaintySigFig) = toCheck.significantFigures()
+
+            assertEquals(ScientificNumber("15.501", "5.653"), toCheck)
+            assertEquals(3, numberFractionalLength)
+            assertEquals(3, uncertaintyFractionalLength)
+            assertEquals(5, numberSigFig)
+            assertEquals(4, uncertaintySigFig)
+        }
     }
 }

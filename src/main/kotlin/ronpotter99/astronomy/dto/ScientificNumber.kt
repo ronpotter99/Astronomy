@@ -297,4 +297,26 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
             return ScientificNumber(newNumber, newUncertainty)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ScientificNumber
+
+        if (number.compareTo(other.number) != 0) return false
+        if (
+            (uncertainty == null && other.uncertainty != null)
+            || (uncertainty != null && other.uncertainty == null)
+            || (!listOf(0, null).contains(uncertainty?.compareTo(other.uncertainty)))
+        ) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = number.stripTrailingZeros().hashCode()
+        result = 31 * result + (uncertainty?.stripTrailingZeros()?.hashCode() ?: 0)
+        return result
+    }
 }

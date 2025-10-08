@@ -1265,5 +1265,23 @@ abstract class ScientificNumberTests {
 
             assertEquals(toCheckTwo, toCheckOne)
         }
+
+        /** This verifies dividing by zero throws an exception. */
+        @Test
+        fun divide_byZero_getException() {
+            assertFailsWith<ArithmeticException> {
+                ScientificNumber.divide(ScientificNumber("123"), ScientificNumber("0"))
+            }
+        }
+
+        /** This verifies dividing by one returns the dividend. */
+        @Test
+        fun divide_oneNumber_wholeNumbers_withUncertainty() {
+            val dividend = ScientificNumber("145", "3")
+            val divisor = ScientificNumber("1.00", "0")
+            val toCheck = ScientificNumber.divide(dividend, divisor)
+
+            assertEquals(ScientificNumber("145", "3"), toCheck)
+        }
     }
 }

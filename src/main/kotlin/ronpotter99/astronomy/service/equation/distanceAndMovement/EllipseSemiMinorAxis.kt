@@ -37,9 +37,8 @@ class EllipseSemiMinorAxis : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "b^2 = a^2 (1 - e^2)"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

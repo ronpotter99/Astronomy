@@ -37,9 +37,8 @@ class EllipseAphelion : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "r_a = a (1 + e)"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

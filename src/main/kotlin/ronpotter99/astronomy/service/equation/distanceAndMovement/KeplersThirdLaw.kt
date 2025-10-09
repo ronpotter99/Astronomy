@@ -43,9 +43,8 @@ class KeplersThirdLaw : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "P^2 = \\frac{4 \\pi^2}{G M} a^3"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

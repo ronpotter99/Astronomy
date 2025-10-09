@@ -39,9 +39,8 @@ class AngularSeparation : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "\\alpha = \\frac{a}{d}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

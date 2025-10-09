@@ -41,9 +41,8 @@ class TransitingExoplanetRadius : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "R_P = R_* \\sqrt{\\frac{\\Delta F}{F}}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

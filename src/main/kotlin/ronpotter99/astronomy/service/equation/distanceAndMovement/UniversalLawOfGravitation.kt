@@ -41,9 +41,8 @@ class UniversalLawOfGravitation : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "F = G \\frac{M m}{r^2}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

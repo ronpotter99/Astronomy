@@ -41,9 +41,8 @@ class EllipseRadius : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "r = \\frac{a (1 - e^2)}{1 + e \\cdot cos(\\theta)}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

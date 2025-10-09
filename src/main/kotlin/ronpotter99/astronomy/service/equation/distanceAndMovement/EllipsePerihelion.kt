@@ -37,9 +37,8 @@ class EllipsePerihelion : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "r_p = a (1 - e)"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

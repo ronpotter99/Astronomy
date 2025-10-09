@@ -45,9 +45,8 @@ class KeplersSecondLaw : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "r v_t = \\frac{L}{m}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

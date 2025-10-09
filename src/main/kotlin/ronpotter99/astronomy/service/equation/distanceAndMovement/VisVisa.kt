@@ -18,7 +18,7 @@ class VisVisa : IEquation {
             """
                 Find the velocity of a planet using the mass of its star, the 
                 distance between the planet and star, and the semi-major axis 
-                of the planet's orbit.
+                of the planet's orbit.v
             """.trimIndent()
         )
     }
@@ -42,9 +42,8 @@ class VisVisa : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "v^2 = G M (\\frac{2}{r} - \\frac{1}{a})"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

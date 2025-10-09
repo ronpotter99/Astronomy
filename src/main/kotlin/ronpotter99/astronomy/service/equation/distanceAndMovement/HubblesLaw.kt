@@ -34,9 +34,8 @@ class HubblesLaw : IEquation {
         return mapOf("z" to "interstellar redshift", "d" to "distance of observed object (m)")
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "c z = H_0 d"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

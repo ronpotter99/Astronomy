@@ -46,9 +46,8 @@ class KeplersFirstLaw : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "r = \\frac{L^2}{G M m^2 (1 + e \\cdot cos(\\theta))}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

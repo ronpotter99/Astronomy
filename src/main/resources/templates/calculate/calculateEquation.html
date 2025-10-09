@@ -32,6 +32,10 @@
             </div>
         </div>
 
+        <div>
+            <p th:text="${'$$ ' + equationLatex + ' $$'}">visual equation representation</p>
+        </div>
+
         <div th:each="equationVariableName : ${equationVariables.keySet()}">
             <label>
                 <span class="fw-bold" th:text="${equationVariableName}">variable name:</span>

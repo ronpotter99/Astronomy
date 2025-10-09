@@ -25,12 +25,14 @@ class CalculationController(private val calculationService: CalculationService) 
     override fun calculateEquation(equationReferenceString: String, model: Model): String {
         val equationReference: EquationReference? = calculationService.getEquationReference(equationReferenceString)
         val equationVariables: Map<String, String>? = calculationService.getEquationVariables(equationReferenceString)
+        val equationLatex: String? = calculationService.getLaTeXString(equationReferenceString)
 
-        if (equationReference == null || equationVariables == null) {
+        if (equationReference == null || equationVariables == null || equationLatex == null) {
             model.addAttribute("errorMessage", "No equation found")
         } else {
             model.addAttribute("equationReference", equationReference)
             model.addAttribute("equationVariables", equationVariables)
+            model.addAttribute("equationLatex", equationLatex)
 
             if (!model.containsAttribute("equationCalculationForm")) {
                 model.addAttribute("equationCalculationForm", EquationCalculationForm())

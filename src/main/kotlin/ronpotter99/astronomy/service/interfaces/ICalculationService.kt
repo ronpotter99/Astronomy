@@ -11,6 +11,8 @@ interface ICalculationService {
 
     fun getEquationVariables(equationReference: String): Map<String, String>?
 
+    fun getLaTeXString(equationReference: String): String?
+
     fun calculate(
         equationReference: String, equationVariables: Map<String, ScientificNumber>
     ): ScientificNumber?

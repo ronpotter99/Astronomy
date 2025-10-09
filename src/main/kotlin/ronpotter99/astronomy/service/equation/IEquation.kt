@@ -17,6 +17,8 @@ interface IEquation {
 
     fun getVariableList(): Map<String, String>
 
+    fun getLaTeXString(): String
+
     fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber?
 
     fun validateInputVariables(variables: Map<String, ScientificNumber>) {

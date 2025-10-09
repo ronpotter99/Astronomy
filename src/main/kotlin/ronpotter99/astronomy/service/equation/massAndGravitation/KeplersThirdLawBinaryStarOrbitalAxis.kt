@@ -43,6 +43,11 @@ class KeplersThirdLawBinaryStarOrbitalAxis : IEquation {
         )
     }
 
+    // TODO Finish string
+    override fun getLaTeXString(): String {
+        return ""
+    }
+
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {
         validateInputVariables(variables)
 

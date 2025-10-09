@@ -37,6 +37,10 @@ class CalculationService(private val equations: HashMap<String, IEquation>) : IC
         return equations[equationReference.uppercase()]?.getVariableList()
     }
 
+    override fun getLaTeXString(equationReference: String): String? {
+        return equations[equationReference.uppercase()]?.getLaTeXString()
+    }
+
     override fun calculate(
         equationReference: String, equationVariables: Map<String, ScientificNumber>
     ): ScientificNumber? {

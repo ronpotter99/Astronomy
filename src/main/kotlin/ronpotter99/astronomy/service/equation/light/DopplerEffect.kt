@@ -39,9 +39,8 @@ class DopplerEffect : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "\\frac{\\Delta \\lambda}{\\lambda} = \\frac{v_r}{c}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

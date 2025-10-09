@@ -39,9 +39,8 @@ class DopplerShiftMassRatio : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "\\frac{m_1}{m_2} = \\frac{v_{2r}}{v_{1r}}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

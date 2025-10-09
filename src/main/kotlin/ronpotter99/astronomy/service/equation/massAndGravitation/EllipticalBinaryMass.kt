@@ -39,9 +39,8 @@ class EllipticalBinaryMass : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "\\frac{m_1}{m_2} = \\frac{\\alpha_2}{\\alpha_1}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

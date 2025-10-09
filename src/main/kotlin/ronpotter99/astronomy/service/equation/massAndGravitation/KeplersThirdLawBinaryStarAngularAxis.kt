@@ -43,9 +43,8 @@ class KeplersThirdLawBinaryStarAngularAxis : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "M_1 + M_2 = \\frac{4 \\pi^2 d^3}{G} \\frac{\\alpha^3}{P^2}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

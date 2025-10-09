@@ -46,9 +46,8 @@ class KeplersThirdLawBinaryStarRadialVelocityWithInclination : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "M_1 + M_2 = \\frac{P}{2 \\pi G} \\frac{(v_{1r} + v_{2r})^3}{sin^3(i)}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

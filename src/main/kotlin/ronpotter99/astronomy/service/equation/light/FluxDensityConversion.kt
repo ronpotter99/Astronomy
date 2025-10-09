@@ -40,9 +40,8 @@ class FluxDensityConversion : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "F_v = F_\\lambda \\cdot \\frac{\\lambda^2}{c}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

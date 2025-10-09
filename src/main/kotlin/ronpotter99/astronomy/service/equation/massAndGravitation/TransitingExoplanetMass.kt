@@ -43,9 +43,8 @@ class TransitingExoplanetMass : IEquation {
         )
     }
 
-    // TODO Finish string
     override fun getLaTeXString(): String {
-        return ""
+        return "M_P = [\\frac{M_*^2 \\cdot P \\cdot v_{1r}^3}{2 \\pi G}]^{1 / 3}"
     }
 
     override fun calculate(variables: Map<String, ScientificNumber>): ScientificNumber? {

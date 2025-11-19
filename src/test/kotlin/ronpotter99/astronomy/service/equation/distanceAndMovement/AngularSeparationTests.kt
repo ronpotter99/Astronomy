@@ -12,41 +12,41 @@ class AngularSeparationTests {
 
     @Test
     fun getCategory() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
         val distanceAndMovementCategory = IEquation.EquationCategory.DISTANCE_AND_MOVEMENT
 
-        val toCheck = angularSeparation.getCategory()
+        val toCheck = equation.getCategory()
         assertEquals(distanceAndMovementCategory, toCheck)
     }
 
     @Test
     fun getEquationReference_referenceCorrect() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
         val referenceString = "AngularSeparation"
 
-        val toCheck: String = angularSeparation.getEquationReference().reference
+        val toCheck: String = equation.getEquationReference().reference
         assertEquals(referenceString, toCheck)
     }
 
     @Test
     fun getVariableList() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
 
-        val toCheck: Map<String, String> = angularSeparation.getVariableList()
+        val toCheck: Map<String, String> = equation.getVariableList()
         assertFalse(toCheck.isEmpty())
     }
 
     @Test
     fun getLaTeXString() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
 
-        val toCheck: String = angularSeparation.getLaTeXString()
+        val toCheck: String = equation.getLaTeXString()
         assertFalse(toCheck.isEmpty())
     }
 
     @Test
     fun calculate_allVariablesPresent() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
         val variables = mapOf(
             "alpha" to ScientificNumber("0.050", "0.005"),
             "a" to ScientificNumber("100", "10"),
@@ -54,7 +54,7 @@ class AngularSeparationTests {
         )
 
         val thrownException = assertThrows(IllegalArgumentException::class.java) {
-            angularSeparation.calculate(variables)
+            equation.calculate(variables)
         }
         assertNotNull(thrownException.message)
         assertFalse(thrownException.message!!.isEmpty())
@@ -62,11 +62,11 @@ class AngularSeparationTests {
 
     @Test
     fun calculate_missingTwoOrMoreVariables() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
         val variables: Map<String, ScientificNumber> = mapOf()
 
         val thrownException = assertThrows(IllegalArgumentException::class.java) {
-            angularSeparation.calculate(variables)
+            equation.calculate(variables)
         }
         assertNotNull(thrownException.message)
         assertFalse(thrownException.message!!.isEmpty())
@@ -74,42 +74,42 @@ class AngularSeparationTests {
 
     @Test
     fun calculate_alpha() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
         val variables = mapOf(
             "a" to ScientificNumber("100", "10"),
             "d" to ScientificNumber("2000", "20")
         )
         val answer = ScientificNumber("0.050", "0.005")
 
-        val toCheck = angularSeparation.calculate(variables)
+        val toCheck = equation.calculate(variables)
 
         assertEquals(answer, toCheck)
     }
 
     @Test
     fun calculate_a() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
         val variables = mapOf(
             "alpha" to ScientificNumber("0.050", "0.005"),
             "d" to ScientificNumber("2000", "20")
         )
         val answer = ScientificNumber("100", "10")
 
-        val toCheck = angularSeparation.calculate(variables)
+        val toCheck = equation.calculate(variables)
 
         assertEquals(answer, toCheck)
     }
 
     @Test
     fun calculate_d() {
-        val angularSeparation = AngularSeparation()
+        val equation = AngularSeparation()
         val variables = mapOf(
             "a" to ScientificNumber("100", "10"),
             "alpha" to ScientificNumber("0.050", "0.005")
         )
         val answer = ScientificNumber("2000", "300")
 
-        val toCheck = angularSeparation.calculate(variables)
+        val toCheck = equation.calculate(variables)
 
         assertEquals(answer, toCheck)
     }

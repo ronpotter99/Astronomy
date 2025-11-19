@@ -46,15 +46,15 @@ class EllipseAphelion : IEquation {
 
         val toReturn: ScientificNumber? = when {
             !variables.containsKey("r_a") -> {
-                (variables.getValue("a") * (ScientificNumber("1") + variables.getValue("e")))
+                (variables.getValue("a") * (ScientificNumber("1", "0") + variables.getValue("e")))
             }
 
             !variables.containsKey("a") -> {
-                (variables.getValue("r_a") / (ScientificNumber("1") + variables.getValue("e")))
+                (variables.getValue("r_a") / (ScientificNumber("1", "0") + variables.getValue("e")))
             }
 
             !variables.containsKey("e") -> {
-                ((variables.getValue("r_a") / variables.getValue("a")) - ScientificNumber("1"))
+                ((variables.getValue("r_a") / variables.getValue("a")) - ScientificNumber("1", "0"))
             }
 
             else -> {

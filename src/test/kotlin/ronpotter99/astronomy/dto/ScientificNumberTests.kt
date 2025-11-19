@@ -964,29 +964,29 @@ abstract class ScientificNumberTests {
 
         /** This verifies the default rounding mode rounds up and down appropriately. */
         @Test
-        fun subtract_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundUp() {
-            val baseNumber = ScientificNumber("287.195", "0.0")
-            val subtractOne = ScientificNumber("145.28", "0.35")
+        fun subtract_twoNumbers_withUncertainty_roundEvenDefault_roundUp() {
+            val baseNumber = ScientificNumber("287.195", "0.45")
+            val subtractOne = ScientificNumber("145.28", "0.6")
             val toCheck = baseNumber - subtractOne
 
-            assertEquals(ScientificNumber("141.92", "0.4"), toCheck)
+            assertEquals(ScientificNumber("141.92", "0.8"), toCheck)
         }
 
         /** This verifies the default rounding mode rounds up and down appropriately. */
         @Test
-        fun subtract_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundDown() {
-            val baseNumber = ScientificNumber("287.19", "0.0")
-            val subtractOne = ScientificNumber("145.285", "0.25")
+        fun subtract_twoNumbers_withUncertainty_roundEvenDefault_roundDown() {
+            val baseNumber = ScientificNumber("287.19", "0.75")
+            val subtractOne = ScientificNumber("145.285", "1.0")
             val toCheck = baseNumber - subtractOne
 
-            assertEquals(ScientificNumber("141.90", "0.2"), toCheck)
+            assertEquals(ScientificNumber("141.90", "1.2"), toCheck)
         }
 
         /** This verifies the default rounding mode can be overridden. */
         @Test
-        fun subtract_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
-            val baseNumber = ScientificNumber("287.19", "0.0")
-            val subtractOne = ScientificNumber("145.285", "0.25")
+        fun subtract_twoNumbers_withUncertainty_setRoundingMode() {
+            val baseNumber = ScientificNumber("287.19", "0.75")
+            val subtractOne = ScientificNumber("145.285", "1.0")
             val toCheck =
                 ScientificNumber.subtract(
                     baseNumber,
@@ -994,7 +994,7 @@ abstract class ScientificNumberTests {
                     roundingMode = RoundingMode.HALF_UP
                 )
 
-            assertEquals(ScientificNumber("141.91", "0.3"), toCheck)
+            assertEquals(ScientificNumber("141.91", "1.3"), toCheck)
         }
 
         /**
@@ -1035,6 +1035,30 @@ abstract class ScientificNumberTests {
             assertEquals(3, uncertaintyFractionalLength)
             assertEquals(5, numberSigFig)
             assertEquals(5, uncertaintySigFig)
+        }
+
+        /**
+         * This verifies subtraction of numbers with one having 0 uncertainty is handled correctly.
+         */
+        @Test
+        fun subtract_twoNumbers_zeroUncertaintyAndUncertainty() {
+            val baseNumber = ScientificNumber("1", "0")
+            val subtractOne = ScientificNumber("0.15457819", "0.0871382")
+            val toCheck = baseNumber - subtractOne
+
+            assertEquals(ScientificNumber("0.84542181", "0.0871382"), toCheck)
+        }
+
+        /**
+         * This verifies subtraction of numbers with one having null uncertainty is handled correctly.
+         */
+        @Test
+        fun subtract_twoNumbers_nullUncertaintyAndUncertainty() {
+            val baseNumber = ScientificNumber("145.273", null)
+            val subtractOne = ScientificNumber("287.19", "92.871")
+            val toCheck = baseNumber - subtractOne
+
+            assertEquals(ScientificNumber("-141.92", "92.871"), toCheck)
         }
     }
 

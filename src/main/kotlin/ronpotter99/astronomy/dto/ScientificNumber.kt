@@ -95,14 +95,17 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
      *      3500 has FOUR significant digits, but 3.5e3 has TWO significant digits.
      * 7. Exactly defined values with explicitly defined 0 uncertainty have an
      *      infinite number of significant figures. 0 uncertainty and null uncertainty
-     *      are NOT the same thing. Exactly defined values are either numbers defined
-     *      by their definitions (1 AU = 149,597,870,700 m) or by counting objects
-     *      where the process contains no inherent uncertainty (3 telescopes).
+     *      are NOT the same thing. Null uncertainty represents an unknown uncertainty,
+     *      whereas 0 uncertainty represents an exactly defined value. Exactly defined
+     *      values are either numbers defined by their definitions
+     *      (1 AU = 149,597,870,700 m) or by counting objects where the process
+     *      contains no inherent uncertainty (3 telescopes).
      *      Note: counting in Astronomy often contains inherent uncertainty.
      *
      * Warning: Running the 'stripTrailingZeros()' function on BigDecimal will ruin
      *      significant figure calculation.
      */
+    // TODO: Differentiate between null and 0 uncertainty; calculate uncertainty for unknown values?
     fun significantFigures(): Pair<Int, Int> {
 
         val numberSigFigs =
@@ -130,8 +133,11 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
      * The ScientificNumber is used for exact calculations.
      *
      * This method is used for counting the number of decimal places a number and uncertainty
-     * have. A null uncertainty has 0 decimal places.
+     * have.
+     *
+     * A null uncertainty has 0 decimal places.
      */
+    // TODO: Differentiate between null and 0 uncertainty; calculate uncertainty for unknown values?
     fun fractionalLength(): Pair<Int, Int> {
 
         val plainNumber: BigDecimal = BigDecimal(number.toPlainString())

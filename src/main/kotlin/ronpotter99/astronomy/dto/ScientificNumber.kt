@@ -172,11 +172,15 @@ data class ScientificNumber(var number: BigDecimal, var uncertainty: BigDecimal?
                 val (numberFractionalLength: Int, uncertaintyFractionalLength: Int) = scientificNumber.fractionalLength()
 
                 newNumber = BDMath.add(newNumber, scientificNumber.number)
-                numberFractionalLengths.add(numberFractionalLength)
+                if (!(scientificNumber.uncertainty != null && scientificNumber.uncertainty?.compareTo(BigDecimal("0")) == 0)) {
+                    numberFractionalLengths.add(numberFractionalLength)
+                }
 
                 scientificNumber.uncertainty?.let {
-                    newUncertainty = BDMath.add(newUncertainty ?: BigDecimal("0"), BDMath.pow(it, 2))
-                    uncertaintyFractionalLengths.add(uncertaintyFractionalLength)
+                    if (it.compareTo(BigDecimal("0")) != 0) {
+                        newUncertainty = BDMath.add(newUncertainty ?: BigDecimal("0"), BDMath.pow(it, 2))
+                        uncertaintyFractionalLengths.add(uncertaintyFractionalLength)
+                    }
                 }
             }
 

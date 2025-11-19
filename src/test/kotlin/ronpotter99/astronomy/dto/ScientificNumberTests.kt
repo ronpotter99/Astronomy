@@ -764,32 +764,32 @@ abstract class ScientificNumberTests {
 
         /** This verifies the default rounding mode rounds up and down appropriately. */
         @Test
-        fun add_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundUp() {
-            val addOne = ScientificNumber("145.285", "0.0")
-            val addTwo = ScientificNumber("287.19", "0.35")
+        fun add_twoNumbers_withUncertainty_roundEvenDefault_roundUp() {
+            val addOne = ScientificNumber("145.285", "0.45")
+            val addTwo = ScientificNumber("287.19", "0.6")
             val toCheck = addOne + addTwo
 
-            assertEquals(ScientificNumber("432.48", "0.4"), toCheck)
+            assertEquals(ScientificNumber("432.48", "0.8"), toCheck)
         }
 
         /** This verifies the default rounding mode rounds up and down appropriately. */
         @Test
-        fun add_twoNumbers_decimalNumbers_withUncertainty_roundEvenDefault_roundDown() {
-            val addOne = ScientificNumber("145.275", "0.0")
-            val addTwo = ScientificNumber("287.19", "0.25")
+        fun add_twoNumbers_withUncertainty_roundEvenDefault_roundDown() {
+            val addOne = ScientificNumber("145.275", "0.75")
+            val addTwo = ScientificNumber("287.19", "1.0")
             val toCheck = addOne + addTwo
 
-            assertEquals(ScientificNumber("432.46", "0.2"), toCheck)
+            assertEquals(ScientificNumber("432.46", "1.2"), toCheck)
         }
 
         /** This verifies the default rounding mode can be overridden. */
         @Test
-        fun add_twoNumbers_decimalNumbers_withUncertainty_setRoundingMode() {
-            val addOne = ScientificNumber("145.275", "0.0")
-            val addTwo = ScientificNumber("287.19", "0.25")
+        fun add_twoNumbers_withUncertainty_setRoundingMode() {
+            val addOne = ScientificNumber("145.275", "0.75")
+            val addTwo = ScientificNumber("287.19", "1.0")
             val toCheck = ScientificNumber.add(addOne, addTwo, roundingMode = RoundingMode.HALF_UP)
 
-            assertEquals(ScientificNumber("432.47", "0.3"), toCheck)
+            assertEquals(ScientificNumber("432.47", "1.3"), toCheck)
         }
 
         /**
@@ -830,6 +830,30 @@ abstract class ScientificNumberTests {
             assertEquals(3, uncertaintyFractionalLength)
             assertEquals(5, numberSigFig)
             assertEquals(5, uncertaintySigFig)
+        }
+
+        /**
+         * This verifies addition of numbers with one having 0 uncertainty is handled correctly.
+         */
+        @Test
+        fun add_twoNumbers_zeroUncertaintyAndUncertainty() {
+            val addOne = ScientificNumber("1", "0")
+            val addTwo = ScientificNumber("0.15457819", "0.0871382")
+            val toCheck = addOne + addTwo
+
+            assertEquals(ScientificNumber("1.15457819", "0.0871382"), toCheck)
+        }
+
+        /**
+         * This verifies addition of numbers with one having null uncertainty is handled correctly.
+         */
+        @Test
+        fun add_twoNumbers_nullUncertaintyAndUncertainty() {
+            val addOne = ScientificNumber("145.273", null)
+            val addTwo = ScientificNumber("287.19", "92.871")
+            val toCheck = addOne + addTwo
+
+            assertEquals(ScientificNumber("432.46", "92.871"), toCheck)
         }
     }
 
